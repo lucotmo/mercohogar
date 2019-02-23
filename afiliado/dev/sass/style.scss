@@ -1,0 +1,47 @@
+
+/*=====  Helpers  ======*/
+
+@import './helpers/variables';
+@import './helpers/mixins';
+@import './helpers/reset';
+
+/*=====  Components  ======*/
+
+@import './components/header';
+@import './components/logo';
+@import './components/menu';
+@import './components/footer';
+@import './components/main';
+@import './components/formulario';
+@import './components/cartProducto';
+@import './components/formSesion';
+@import './components/admin';
+@import './components/mainContentPedidos';
+@import './components/mainContentProductos';
+@import './components/mainContentPedir';
+@import './components/mainContentClientes';
+@import './components/mainContentAfiliate';
+@import './components/mainPerfil';
+@import './components/table';
+
+
+
+
+/* .formularioCompra{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.6) !important;
+  display: none;
+}
+
+.form{
+  color: yellow;
+} */
+
+/* body{
+  background: yellow;
+} */

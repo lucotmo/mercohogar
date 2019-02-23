@@ -1,0 +1,140 @@
+:root{
+  --imagen:  4;
+  --imagen-time: 6s;
+}
+
+
+.banner__promos{
+  padding: .5em .5 0 .5;
+  margin: 0;
+  border: 2px solid var(--alternate-color);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.banner__promos__img{
+  max-height: 500px;
+  //width: 100%;
+  width: calc(100% * var(--imagen));
+  animation: slider var(--imagen-time) linear infinite;
+  display: block;
+  opacity: .7;
+}
+
+
+
+.banner__promos__img-content{
+  display:flex;
+  width: calc(100% * var(--imagen));
+  animation: slider var(--imagen-time) linear infinite;
+  position: relative;
+  left: 0;
+  transition: all .5s;
+}
+@keyframes slider {
+  0%, 30%{
+    left: 0;
+  }
+  33%, 63%{
+    left: -100%;
+  }
+  66%, 97%{
+    left: -200%;
+  }
+}
+
+.banner{
+  display: none;
+}
+
+
+@include mq(m){
+  .banner__promos__img{
+    max-height: 640px;
+    width: 100%;
+    display: block;
+  }
+
+  .banner{
+    display: block;
+    border: 2px solid var(--alternate-modal-color);
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+  }
+
+  .banner__img-content{
+    display: flex;
+  }
+
+  .banner__img-content{
+    display:flex;
+    width: calc(100% * var(--imagen));
+    animation: slider var(--imagen-time) linear infinite;
+    position: relative;
+    left: 0;
+    transition: all .5s;
+  }
+  @keyframes slider {
+    0%, 30%{
+      left: 0;
+    }
+    33%, 63%{
+      left: -100%;
+    }
+    66%, 97%{
+      left: -200%;
+    }
+  }
+
+
+  .banner__img-item{
+    position: relative;
+  }
+
+
+  .banner__img{
+    width: 100%;
+    display: block;
+    opacity: .7;
+  }
+}
+
+@include mq(xl){
+
+  margin: 0;
+  padding: 0;
+  max-height: 640px;
+}
+
+
+/* .banner{
+  display: block;
+  border: 2px solid var(--alternate-modal-color);
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+.banner__img-content{
+  display:flex;
+  width: 600%;
+  animation: slider var(--imagen-time) linear infinite;
+  position: relative;
+  left: 10%;
+  transition: all .5s;
+}
+.banner__img-item{
+
+}
+.banner__img{
+  width: 100%;
+  display: block;
+  opacity: .7;
+} */
+
+
+
+
+

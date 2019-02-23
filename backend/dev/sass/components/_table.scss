@@ -1,0 +1,202 @@
+.datosCliente-container{
+  margin: .5em 0;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: .5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.datosCliente-content{
+  padding: 0;
+  top: 0;
+  flex-basis: 49%;
+}
+.datosComisionCliente{
+  flex-basis: 49%;
+}
+
+
+
+/*=============================================
+=            table Responsive            =
+=============================================*/
+
+.table-responsive{
+  width: 100%;
+  padding: .5em;
+  box-shadow: 2px 5px 15px #ccc;
+  border-radius: 5px;
+  thead{
+    th{
+      background: #aaa;
+      color: white;
+      border-radius: 5px  5px 0 0;
+    }
+  }
+  tbody{
+    td{
+      border: 1px solid #ccc;
+      padding: .1em;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1em;
+      font-weight: 600;
+      color: #aaa;
+    }
+  }
+}
+
+.table-responsive-precio{
+  width: 100%;
+  padding: .5em;
+  box-shadow: 2px 5px 15px #ccc;
+  border-radius: 5px;
+  thead{
+    th{
+      background: #aaa;
+      color: white;
+      border-radius: 5px  5px 0 0;
+    }
+  }
+  tbody{
+    td{
+      border: 1px solid #ccc;
+      padding: .1em;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1em;
+      font-weight: 600;
+      color: #aaa;
+      &:last-child{
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: right;
+        padding-right: .5em;
+        &::before{
+          content: '$';
+        }
+      }
+    }
+    tr{
+      &:last-child{
+        td{
+          &:last-child{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+            padding-right: .5em;
+            color: green;
+            font-size: 1.1em;
+            letter-spacing: .05em;
+            font-weight: 900;
+          }
+          text-align: right;
+          padding-right: .5em;
+          border:none;
+
+        }
+      }
+    }
+  }
+}
+.comision{
+  &::after{
+    content: '%'
+  }
+
+}
+
+.celdaUltimaPrice{
+  border: none;
+  &:last-child{
+    border: 1px solid #ccc;
+  }
+}
+
+.price{
+  &::before{
+    content: '$';
+  }
+}
+.priceTotal{
+  font-size: 1.2em;
+  font-weight: 900;
+  letter-spacing: .05em;
+  color: green;
+  &::before{
+    content: '$';
+  }
+
+}
+
+@media screen and (max-width: 767px){
+  .ocultar{
+    display: none;
+  }
+}
+
+/*=====  End of table Responsive  ======*/
+
+
+
+
+/*=============================================
+=            Datos del afiliado            =
+=============================================*/
+
+.formInicial{
+  display: flex;
+  justify-content: space-between;
+}
+.inpPadre{
+  flex-basis: 49%;
+}
+.inpText-container{
+  display: flex;
+  align-items: flex-end;
+}
+
+/*=====  End of Datos del afiliado  ======*/
+
+
+
+
+/*=============================================
+=            datos Comision Cliente            =
+=============================================*/
+
+.datosComisionCliente-container{
+  padding: .5em;
+  display: flex;
+}
+
+/*=====  End of datos Comision Cliente  ======*/
+
+
+
+/*=============================================
+=            bienvenida afiliado            =
+=============================================*/
+
+.bienvenidaAfiliado-container{
+  background: var(--alternate-modal-color);
+  border-radius:5px;
+  padding:.5em;
+  margin: .5em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .holaBienvenida{
+    padding-left:.5em;
+    color: white;
+    font-weight: 900;
+    font-size: 1.1em;
+    letter-spacing: .05em;
+  }
+  .icon-admin{
+    color: white;
+  }
+}
+
+/*=====  End of bienvenida afiliado  ======*/

@@ -1,0 +1,184 @@
+.Footer{
+  display: flex;
+  flex-direction: column;
+  margin:.5em;
+  padding:.5em;
+  border-radius: 5px;
+  border: 2px solid var(--alternate-modal-color);
+}
+.footer-redes{
+  display: flex;
+  justify-content: center;
+  padding: .5em;
+  border-bottom: 2px solid var(--alternate-modal-color);
+}
+.footer-content{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 1em;
+}
+.links{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.footer__title{
+  border-bottom: 2px solid var(--alternate-modal-color);
+  color: var(--alternate-modal-color);
+
+}
+
+.links__content{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: green;
+}
+
+.link_item__item{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+
+  .link__link{
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: yellow;
+    text-align: center;
+    color: var(--alternate-modal-color);
+  }
+  &:hover{
+    .link__link{
+      text-decoration: underline;
+    }
+  }
+}
+
+.contactanos__info{
+  display: flex;
+  flex-direction: column;
+}
+
+.horario__info{
+  display: flex;
+  flex-direction: column;
+}
+
+.termin__link{
+  font-size: .8em;
+  padding:0 .5em;
+  color: var(--alternate-modal-color);
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+@include mq(m){
+  .footer-content{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 1em;
+  }
+}
+
+
+
+
+/*=============================================
+=            copia footer            =
+=============================================*/
+
+/* .Footer{
+  display: flex;
+  flex-direction: column;
+  margin:1em;
+  padding:1em;
+  border-radius: 5px;
+  border: 2px solid var(--alternate-modal-color);
+}
+.footer-redes{
+  display: flex;
+  justify-content: center;
+  padding: .5em;
+  border-bottom: 2px solid var(--alternate-modal-color);
+}
+.footer-content{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+.links{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.footer__title{
+  border-bottom: 2px solid var(--alternate-modal-color);
+  color: var(--alternate-modal-color);
+
+}
+
+.links__content{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: green;
+}
+
+.link_item__item{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  background: red;
+  width: 100%;
+
+
+  .link__link{
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: yellow;
+    text-align: center;
+    color: var(--alternate-modal-color);
+  }
+  &:hover{
+    .link__link{
+      text-decoration: underline;
+    }
+  }
+}
+
+.contactanos__info{
+  display: flex;
+  flex-direction: column;
+}
+
+.horario__info{
+  display: flex;
+  flex-direction: column;
+}
+
+.termin__link{
+  font-size: .8em;
+  padding:0 .5em;
+  color: var(--alternate-modal-color);
+  &:hover{
+    text-decoration: underline;
+  }
+} */
+
+/*=====  End of copia footer  ======*/
+

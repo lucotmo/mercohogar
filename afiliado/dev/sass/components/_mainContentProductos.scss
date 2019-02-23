@@ -1,0 +1,235 @@
+.main-admin{
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.forms{
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+
+}
+
+.productos-para{
+  flex-basis: 100%;
+}
+
+.mainContent-productos{
+  display: flex;
+  flex-direction: column;
+}
+.btnAgregarProducto{
+  margin-left: .5em;
+  border-radius: 5px;
+  background: var(--color--adicional);
+  border: none;
+  width: 20%;
+  color: white;
+  padding: .5em;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: all .3s;
+  cursor: pointer;
+  &:hover{
+    background: var(--alternate-modal-color);
+  }
+}
+
+.agregarProducto, .editarProducto{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: .5em 0;
+  padding: .5em;
+  border-radius: 5px;
+  border: 2px solid #aaa;
+  .imagenProducto{
+    width: 48px;
+    height: 48px;
+    border: 3px solid #aaa;
+    border-radius: 5px;
+  }
+
+  .title{
+    font-size: 1em;
+    text-align: center;
+    padding-bottom: .5em;
+    color: #aaa;
+  }
+  .formTitle,.formMedida ,.formPrecioViejo ,.formPrecioActual{
+    height: 2.5em;
+    border-radius: 5px;
+    padding-left: .5em;
+    font-size: 1em;
+    font-weight: 600;
+  }
+  .formMedida,.formPrecioViejo ,.formPrecioActual {
+    width: 8em;
+  }
+  .formPrecioViejo{
+
+  }
+  .formPrecioActual{
+
+  }
+  .selectProducto{
+    height:3em;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    padding: 0 .5em;
+  }
+
+
+}
+
+.btnGuardarProducto{
+  width: 8em;
+  background: var(--color--adicional);
+  padding: .5em;
+  border: none;
+  font-size: 1em;
+  font-weight: 600;
+  color: white;
+  border-radius: 5px;
+  transition: all .3s;
+  &:hover{
+    background: var(--alternate-modal-color);
+  }
+}
+
+.list-product-exits{
+  border-bottom: 2px solid #aaa;
+  padding: 1em;
+  h6{
+    font-size: 3em;
+    font-weight: 900;
+    color: var(--alternate-modal-color);
+  }
+}
+
+.title-prod{
+  color: var(--alternate-modal-color);
+}
+
+
+.mostrarProducto-container{
+  display: flex;
+  list-style: none;
+}
+
+.probando{
+
+}
+
+
+
+.container-productos{
+
+  //background: var(--alternate-modal-color);
+  flex-basis: 75%;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  h6{
+    font-size: 1em;
+    font-weight: 600;
+  }
+}
+.seccion-categoria{
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  margin: .5em;
+  .titulo{
+    padding-left: .5em;
+    color: var(--alternate-modal-color);
+  }
+}
+.form{
+  margin: 1em;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+  padding: 1em;
+  display: none;
+  flex-direction: column;
+  transition: all 2s;
+  .title{
+    font-size: 1em;
+    text-align: center;
+    padding-bottom: .5em;
+    color: #aaa;
+    width: 100%;
+  }
+  form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .imagenProducto{
+      width: 48px;
+      height: 48px;
+    }
+    .formTitle,.formMedida ,.formPrecioViejo ,.formPrecioActual{
+      height: 2.5em;
+      border-radius: 5px;
+      padding-left: .5em;
+      font-size: 1em;
+      font-weight: 600;
+    }
+    .formPrecioViejo ,.formPrecioActual {
+      width: 4em;
+    }
+    .formMedida{
+      width: 7em;
+    }
+    .formPrecioViejo{
+
+    }
+    .formPrecioActual{
+
+    }
+    .selectProducto{
+      height:3em;
+      border-radius: 5px;
+      border: 2px solid #aaa;
+      padding: 0 .5em;
+    }
+  }
+}
+
+.content-subirFoto{
+  //position: absolute;
+  position: relative;
+}
+
+input[type="file"]#subirFoto, input[type="file"]#cambiarFoto {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+label[for="subirFoto"] img, label[for="cambiarFoto"] img{
+	display: block;
+	max-width: 40px;
+	width: 100%;
+	border: 2px solid rgb(170, 170, 170);
+ 	border-radius: 5px;
+}
+
+.icon-camera{
+	bottom: 5px;
+	right: 5px;
+	position: absolute;
+	color: rgba(134, 134, 134, 0.7);
+	font-size: 1em;
+}
+
+.viewFormNuevoProducto{
+  display: flex;
+}

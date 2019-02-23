@@ -1,0 +1,43 @@
+/* ********** Custom Properties ********** */
+:root {
+  --main-font: 'Montserrat', sans-serif;
+  --alternate-font: 'Russo One', sans-serif;
+  --font-size: 16px;
+  --line-height: 1.6;
+
+  --main-color: #FFF;
+  --main-modal-color: rgb(255, 255, 255, .75);
+  --second-color: #828282;
+  --second-modal-color: #C8C8C8;
+  --alternate-color: #D02013;
+  --alternate-modal-color: #005B30;
+  --color--adicional: rgb(219, 30, 30);
+
+  --bg-color: var(--main-color);
+  --bg-modal-color: var(--main-modal-color);
+  --bg-alternate-color: #999;
+  --bg-alternate-modal-color: rgba(153, 153, 153, .75);
+  --border-color: #DDD;
+
+  --text-color: #242424;
+  --title-color: #333;
+
+  --link-color: var(--alternate-color);
+  --link-hover-color: var(--alternate-modal-color);
+
+  --max-width: 1200px;
+  --header-height: 5rem;
+
+  --logo-width: 4rem;
+  --logo-height: 4rem;
+  --logo-spacing: .5rem;
+}
+
+/* ********** Variables ********** */
+$breakpoints: (
+  xs: 30em, /* 480 / 16  */
+  s: 37.5em, /* 600 / 16  */
+  m: 45em, /* 720 / 16 */
+  l: 64em, /* 1024 / 16 */
+  xl: 75em /* 1200/ 16 */
+);

@@ -1,0 +1,304 @@
+.main-afiliate{
+  padding: 2em 0 1em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.afiliate-presentacion{
+  position: relative;
+}
+
+.presentacion-content{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(8, 117, 8, .3);
+}
+
+.afilitate__img{
+  //width: 100%;
+  width: auto;
+  height: 300px;
+  display: block;
+}
+.presentacion__title{
+  font-size: 2em;
+  line-height: 1em;
+  color: white;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
+.presentacion__subtitle{
+  font-size: 1.7em;
+  color: white;
+  font-weight: 600;
+}
+
+.afilitate-title{
+  width: 100%;
+  font-size: 2.5em;
+  color: var(--alternate-modal-color);
+  font-weight: 900;
+}
+
+.afilitate-info{
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em;
+}
+.afilitate-info__content{
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  padding: 0 1.5em;
+}
+.afilitate-info__parrafo{
+  right: 2em;
+  width: 75%;
+  font-size: 1.2em;
+  color: #aaaaaa;
+  font-weight: 600;
+
+}
+.afiliate-info__coment{
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  right: 2em;
+  color: var(--alternate-modal-color);
+  font-weight: 900;
+}
+.afilitate-info__parrafo{
+  text-align: end;
+}
+.afiliate__info-video{
+  flex-basis: 50%;
+  position: relative;
+  border-radius: 5px;
+  border: 2px solid #aaaaaa;
+  img{
+    display: block;
+    width: 100%;
+  }
+  i{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6em;
+    color: rgba(255,255,255,.7);
+    &:hover{
+      color: rgba(255,255,255,1);
+    }
+  }
+}
+
+.benefPreguntas{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.beneficios, .preguntas{
+  padding: 1em;
+  margin: 1em;
+  flex-basis: 45%;
+  h5{
+    font-size: 2em;
+    color: var(--alternate-modal-color);
+    font-weight: 900;
+  }
+  h6{
+    font-size: 1.2em;
+    letter-spacing: .05em;
+    font-weight: 900;
+    color: var(--alternate-modal-color);
+  }
+  p{
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #aaaaaa;
+  }
+}
+
+.preguntas{
+  border-radius: 5px;
+  border: 2px solid #aaaaaa;
+}
+
+@include mq(m){
+  .afilitate-info{
+    flex-direction: row;
+  }
+  .benefPreguntas{
+    flex-direction: row;
+  }
+}
+
+@include mq(xl){
+  .afilitate__img{
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+
+/*=============================================
+=            copia            =
+=============================================*/
+
+/* .main-afiliate{
+  padding: 4em 0 1em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.afiliate-presentacion{
+  position: relative;
+}
+
+.presentacion-content{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(8, 117, 8, .3);
+}
+
+.afilitate__img{
+  width: 100%;
+  display: block;
+}
+.presentacion__title{
+  font-size: 3em;
+  line-height: 1em;
+  color: white;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
+.presentacion__subtitle{
+  font-size: 2em;
+  color: white;
+  font-weight: 600;
+}
+
+.afilitate-title{
+  width: 100%;
+  font-size: 2.5em;
+  color: var(--alternate-modal-color);
+  font-weight: 900;
+}
+
+.afilitate-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em;
+}
+.afilitate-info__content{
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  padding: 0 1.5em;
+}
+.afilitate-info__parrafo{
+  right: 2em;
+  width: 75%;
+  font-size: 1.2em;
+  color: #aaaaaa;
+  font-weight: 600;
+
+}
+.afiliate-info__coment{
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  right: 2em;
+  color: var(--alternate-modal-color);
+  font-weight: 900;
+}
+.afilitate-info__parrafo{
+  text-align: end;
+}
+.afiliate__info-video{
+  flex-basis: 50%;
+  position: relative;
+  border-radius: 5px;
+  border: 2px solid #aaaaaa;
+  img{
+    display: block;
+    width: 100%;
+  }
+  i{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6em;
+    color: rgba(255,255,255,.7);
+    &:hover{
+      color: rgba(255,255,255,1);
+    }
+  }
+}
+
+.benefPreguntas{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.beneficios, .preguntas{
+  padding: 1em;
+  margin: 1em;
+  flex-basis: 45%;
+  h5{
+    font-size: 2em;
+    color: var(--alternate-modal-color);
+    font-weight: 900;
+  }
+  h6{
+    font-size: 1.2em;
+    letter-spacing: .05em;
+    font-weight: 900;
+    color: var(--alternate-modal-color);
+  }
+  p{
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #aaaaaa;
+  }
+}
+
+.preguntas{
+  border-radius: 5px;
+  border: 2px solid #aaaaaa;
+} */
+
+/*=====  End of copia  ======*/
+

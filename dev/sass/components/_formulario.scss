@@ -1,0 +1,285 @@
+.close-envio{
+  position: absolute;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.5em;
+  color: white;
+  top: -1.5em;
+  left: 0;
+  text-align: end;
+  padding-right: .5em;
+}
+
+.formularioPedido{
+  position: fixed;
+  font-family: var(--main-font);
+  //height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 91, 48,.5);
+  z-index: 100;
+}
+
+.formulario{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 500px;
+  background-color: white;
+  padding: 3em;
+  border-radius: 5px;
+  color: var(--alternate-modal-color);
+}
+
+.h1{
+  width: 100%;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+.celCod, .nomApell, .ciuBarr,.direccion{
+  flex-basis: 100%;
+  display: flex;
+  justify-content: space-between;
+  justify-items: flex-end;
+  margin-bottom: .5em;
+}
+
+.cel-title, .codRef-title, .nom-title, .ape-title, .ciu-title, .bar-title, .dir-title{
+  display: block;
+  font-size: .7em;
+  font-weight: 600;
+}
+
+
+.cel-inp, .codRef-inp, .nom-inp, .ape-inp, .bar-inp, .dir-inp, .ciu-inp{
+  height: 2.5em;
+  border-radius: 5px;
+  //border: 2px solid var(--alternate-modal-color);
+  border: 2px solid rgb(179, 170, 170);
+  padding-left: .5em;
+}
+
+.envDif{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: yellow;
+}
+.ciudad{
+  display: flex;
+  flex-direction: column;
+}
+
+.direccion{
+  display: flex;
+  flex-direction: column;
+}
+
+.direccionDiferente__content{
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.opcionDif, .acepTerm{
+  padding: 0 .5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+.entrega-info{
+  text-align: center;
+  font-weight: 900;
+  color: rgb(155, 144, 144);
+}
+
+.info-pe{
+  font-size: .8em;
+  width: 100%;
+  text-align: center;
+  color: rgb(149, 141, 141);
+}
+
+.pago-info{
+  text-align: center;
+  font-size: .9em;
+  color: gray;
+}
+
+.precio-final-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .precioPedido-container{
+    color: var(--alternate-modal-color);
+    font-weight: 900;
+    .prec-text{
+      color: gray;
+    }
+    .prec-valor{
+      font-size: 1.2em;
+    }
+
+  }
+  .precioDomicilio-container{
+    color: var(--alternate-modal-color);
+    font-weight: 900;
+    .domi-text{
+      color: gray;
+    }
+    .domi-valor{
+      font-size: 1.2em
+    }
+  }
+
+
+}
+
+.check{
+  margin: 0 .2em;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--alternate-modal-color);
+}
+
+.link__acepto{
+  color: var(--alternate-modal-color);
+  &:hover{
+    text-decoration: underline;
+  }
+
+}
+
+
+.precioTotal-container{
+  width: 100%;
+  text-align: end;
+  color: var(--alternate-modal-color);
+  font-weight: 900;
+  .total-text{
+    color: gray;
+  }
+  .total-valor{
+    font-size: 1.2em
+  }
+}
+
+.btn-envio-content{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  .btn-envio-pedido{
+    width: 50%;
+    border: none;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: .5em;
+    background: var(--alternate-color);
+    color: white;
+    text-align: center;
+    height: 2em;
+    border-radius: 5px;
+    right: 0;
+  }
+}
+
+.total-valor, .prec-valor,
+.domi-valor{
+  color: green;
+  font-weight: 900;
+  margin: .5em 0;
+  border-radius: 5px;
+  height: 1.5em;
+  //border: 2px solid var(--alternate-modal-color);
+  border: 2px solid rgb(179, 170, 170);
+  text-align: end;
+  padding-right: .5em;
+}
+
+.total-valor{
+  width: 25%;
+}
+.prec-valor{
+  width: 45%;
+}
+.domi-valor{
+  width: 40%;
+}
+
+.respuestaEnvio{
+  position: fixed;
+  font-family: var(--main-font);
+  //height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 91, 48,.5);
+  z-index: 100;
+}
+
+.respuestaEnvio-content{
+  position: relative;
+  max-width: 30em;
+  background: white;
+  border-radius: 5px;
+  padding: 2em;
+}
+.respuestaEnvio__title,.respuestaEnvio__saludo ,.respuestaEnvio__contact ,.respuestaEnvio__info{
+  text-align: center;
+  color: #aaa;
+  span{
+    color: green;
+    font-size: 1.2em;
+    font-weight: 900;
+    letter-spacing: .05em;
+  }
+}
+.respuestaEnvio__title{
+  line-height: 1.2em;
+  padding: .5em;
+}
+
+.respuestaEnvio__saludo{
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: .5em;
+}
+.respuestaEnvio__contact{
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: .5em;
+}
+.respuestaEnvio__info{
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: .5em;
+}
+
+.closeRespuestaEnvio{
+  top: -1.5em;
+  text-align: end;
+  right: .5em;
+  position: absolute;
+  width: 100%;
+  max-width: 30em;
+  font-size: 1.5em;
+  color: white;
+}

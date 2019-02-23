@@ -1,0 +1,89 @@
+.btnAgregarClientes-content{
+  width: 100%;
+  display: flex;
+}
+.btnAgregarClientes{
+  background: var(--color--adicional);
+  padding: .5em 1em;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: all .5s;
+  cursor: pointer;
+  &:hover{
+    background: var(--alternate-modal-color);
+  }
+}
+.formsClientes{
+  padding: .5em;
+}
+.formClienteNuevo, .formClienteEditar{
+  margin-top: .5em;
+  border: 2px solid #aaaaaa;
+  border-radius: 5px;
+  padding: .5em;
+}
+
+.title-form{
+  color: green;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+
+}
+
+.contentTitleContCliente{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.inpClienteTitleNuevo-content, .inpClienteContenidoNuevo-content, .inpClienteTitleEditar-content, .inpClienteContenidoEditar-content{
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  label{
+    color: var(--alternate-modal-color);
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+}
+
+.inpClienteTitleNuevo, .inpClienteTitleEditar{
+  padding: .5em;
+  border: 2px solid #aaaaaa;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #aaaaaa;
+}
+.inpGuardarCliente-content{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.inpGuardarCliente{
+  padding: .5em;
+  background: var(--color--adicional);
+  color: white;
+  border:none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .5s;
+  &:hover{
+    background: var(--alternate-modal-color);
+  }
+}
+
+
+
+
+
+
+

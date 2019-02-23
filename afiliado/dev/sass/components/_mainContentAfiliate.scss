@@ -1,0 +1,85 @@
+.mainAfiliate-content{
+  border: 2px solid #aaaaaa;
+  border-radius: 5px;
+  width: 75%;
+  padding: 1em;
+}
+
+.btnAgregarAfiliateBeneficio{
+  background: var(--color--adicional);
+  padding: .5em 1em;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: all .5s;
+  cursor: pointer;
+  &:hover{
+    background: var(--alternate-modal-color);
+  }
+}
+.formsAfiliados{
+  padding: .5em;
+}
+.formAfiliateBeneficioNuevo, .formAfiliateBeneficioEditar{
+  margin-top: .5em;
+  border: 2px solid #aaaaaa;
+  border-radius: 5px;
+  padding: .5em;
+}
+
+.title-form{
+  color: green;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+
+}
+
+.contentTitleContAfiliateBeneficio{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.inpAfiliateBeneficioTitleNuevo-content, .inpAfiliateBeneficioContenidoNuevo-content, .inpAfiliateBeneficioTitleEditar-content, .inpAfiliateBeneficioContenidoEditar-content{
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  label{
+    color: var(--alternate-modal-color);
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+}
+
+.inpAfiliateBeneficioTitleNuevo, .inpAfiliateBeneficioTitleEditar{
+  padding: .5em;
+  border: 2px solid #aaaaaa;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #aaaaaa;
+}
+.inpGuardarAfiliateBeneficio-content{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.inpGuardarAfiliateBeneficio{
+  padding: .5em;
+  background: var(--color--adicional);
+  color: white;
+  border:none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .5s;
+  &:hover{
+    background: var(--alternate-modal-color);
+  }
+}

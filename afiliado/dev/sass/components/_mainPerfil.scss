@@ -1,0 +1,100 @@
+.mainPerfil-content{
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  padding: .5em;
+  margin: 0 .5em;
+  border: 2px solid #aaa;
+  border-radius: 5px;
+}
+.perfil-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.perfil-content{
+  box-shadow: 2px 4px 15px #ccc;
+  padding: .5em;
+  border-radius: 5px;
+  width: 40%;
+}
+.bienvenidaPerfil-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn__perfilDatos{
+  padding: .3em;
+  background: var(--color--adicional);
+  border-radius: 5px;
+  color: white;
+  &:hover{
+    background: var(--alternate-modal-color);
+    color: white;
+  }
+}
+
+.holaPerfil{
+  font-size: 1.2em;
+  font-weight: 900;
+  color: var(--alternate-modal-color);
+  letter-spacing: .05em;
+}
+.perfilDatos-content{
+  position: relative;
+  padding-top: 1em;
+  &::before{
+    margin-top: -.5em;
+    position: absolute;
+    content: '';
+    height: 2px;
+    background: #aaa;
+    width: 100%;
+  }
+}
+
+.perfilDatos__perfil,.perfilDatos__Email ,.perfilDatos__Contraseña{
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  font-size: 1em;
+  letter-spacing: .05em;
+  font-weight: 700;
+  color: var(--alternate-modal-color);
+  p{
+    font-weight: 600;
+    color: #aaa;
+  }
+}
+
+.perfilDatos__perfil{
+
+}
+.perfilDatos__Email{
+
+}
+.perfilDatos__Contraseña{
+
+}
+.perfiles-container{
+  width: 58%;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+.btnRegistrarMiembros{
+  margin: .5em;
+  padding: .5em;
+  background: var(--color--adicional);
+  border-radius: 5px;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  font-weight: 600;
+  &:hover{
+    background: var(--alternate-modal-color);
+    color: white;
+  }
+}
+.perfiles-content{
+  padding: .5em;
+}
