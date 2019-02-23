@@ -284,6 +284,7 @@ function obtener_clientes_referido($idPedido) {
 	if (count($result) === 0) {
 		return 'No existen registros';
 	} else {
+		$totalGeneral = 0;
 		foreach ($result as $row){
 			
 			$sql2 = "SELECT p.id, p.celular_cliente,
@@ -340,11 +341,13 @@ function obtener_clientes_referido($idPedido) {
                 <td class="comision">'.$row2['comision'].'</td>
                 <td class="price">'.($row2['total']*$row2['comision']/100).'</td>';
 				echo '</tr>';
+				
+				$totalGeneral+=($row2['total']*$row2['comision']/100);
 			}
 			echo '<tr>
               <td></td>
               <td><strong>Total</strong></td>';
-			echo '<td>'.$row['pedidoTotal'].'</td>';
+			echo '<td>'.$totalGeneral.'</td>'; //. $row['pedidoTotal']
 			echo '</tr>
           </tbody>
         </table>
