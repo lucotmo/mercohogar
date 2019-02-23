@@ -150,7 +150,7 @@ function obtener_perfil ($idPerfil){
     echo "No existen pedidos para $idPerfil";
   }else{
     foreach ($result as $row) {
-      echo '
+      $html= '
       <div class="formModal-container" id="formModalEditarMiembros">
         <form class="formModal-content" method="post" enctype="multipart/form-data">
           <a class="btnCerrarFormModal" href="" id="intento45">X</a>
@@ -172,15 +172,15 @@ function obtener_perfil ($idPerfil){
           <div class="inpSelect-content">
             <select type="text" class="inpSelect" name="editarPerfil">
               <option value="">Perfil</option>
-              <option value="0">Administrador</option>
-              <option value="1">Editor</option>
+              <option '. ($row['rol'] == '0' ? 'selected' : '')  .' value="0">Administrador</option>
+              <option '. ($row['rol'] == '1' ? 'selected' : '' ) .' value="1">Editor</option>
             </select>
           </div>
           <div class="inpSelect-content">
             <select type="text" class="inpSelect" name="editarCiudad">
               <option value="">Ciudad</option>
-              <option value="1">Bucaramanga</option>
-              <option value="2">Bogota</option>
+              <option '. ($row['id_ciudad'] == '1' ? 'selected' : '')  .' value="1">Bucaramanga</option>
+              <option '. ($row['id_ciudad'] == '2' ? 'selected' : '')  .' value="2">Bogota</option>
             </select>
           </div>
           <div class="inpText-content">
@@ -192,6 +192,8 @@ function obtener_perfil ($idPerfil){
           </div>
         </form>
       </div>';
+      
+      echo $html;
     }
   }
 }
