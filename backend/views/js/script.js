@@ -193,9 +193,9 @@ if ( btnContentEditarProducto ){
             </div>
             <form method="post" enctype="multipart/form-data">
               <div class="content-subirFoto">
-                <input type="file" class="imagenProducto" id="cambiarFoto">
+                <input type="file" name class="imagenProducto" id="cambiarFoto">
                 <label for="cambiarFoto" class="input" id="cambiarImagenProducto">
-                  <img src="${rutaImagen}" alt="">
+                  <img src="views${rutaImagen.split("views")[1]}" alt="">
                   <i class="fa fa-camera icon-camera"></i>
                 </label>
               </div>
@@ -208,6 +208,7 @@ if ( btnContentEditarProducto ){
                   <option value="${promocionProducto}" >promo...</option>
                   <option value="oferta">Oferta</option>
                   <option value="nuevo">Nuevo</option>
+                  <option value="" >Ninguno</option>
                 </select>
               </div>
               <div>
@@ -228,7 +229,7 @@ if ( btnContentEditarProducto ){
                 </select>
               </div>
               <input name="editarproducto_id" type="hidden" value="${idProducto}">
-              <input name="fotoAntigua" type="hidden" value="${rutaImagen.slice(28)}">
+              <input name="fotoAntigua" type="hidden" value="views${rutaImagen.split("views")[1]}">
               <div class="content-btnGuardarProduct">
                 <input class="btnGuardarProducto" type="submit" id="updateProducto" value="Guardar" >
               </div>
@@ -299,5 +300,4 @@ if ( btnContentEditarProducto ){
     })
   })
 }
-
 //console.log('lucho')

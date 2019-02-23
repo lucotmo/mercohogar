@@ -173,7 +173,7 @@ class GestorProductos{
 					unlink($file);
 				}
       }
-      if ( $ruta == "views/imagenes/producto.jpg" ){
+      if ( $ruta == "views/imagenes/producto.jpg" || $ruta == $_POST["fotoAntigua"] ){
         $ruta = $_POST["fotoAntigua"];
       }else{
 				unlink($_POST["fotoAntigua"]);
