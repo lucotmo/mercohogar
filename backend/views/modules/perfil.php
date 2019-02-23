@@ -13,7 +13,7 @@ if(!$_SESSION["validar"]){
 require "views/modules/header.php";
 require "views/modules/navegacionStart.php";
 require "views/modules/navegacionEnd.php";
-
+//echo "<pre>". print_r($_SESSION,1),"</pre>";
 ?>
 
 <div class="mainPerfil-content">
@@ -60,6 +60,7 @@ require "views/modules/navegacionEnd.php";
         </div>
       </form>
     </div>
+    
     <div class="formModal-container" style="display:none;" id="formModalEditarMiembro">
       <form class="formModal-content" method="post" enctype="multipart/form-data">
         <a class="btnCerrarFormModal" href="#" id="btnCerrarFormModalEditarMiembro">X</a>
@@ -82,26 +83,27 @@ require "views/modules/navegacionEnd.php";
         <div class="inpSelect-content">
           <select type="text" class="inpSelect" name="editarPerfil">
             <option value="">Perfil</option>
-            <option value="0">Administrador</option>
-            <option value="1">Editor</option>
+            <option <?php echo ($_SESSION['rol'] == '0' ? 'selected' : '') ?> value="0">Administrador</option>
+            <option <?php echo ($_SESSION['rol'] == '1' ? 'selected' : '') ?> value="1">Editor</option>
           </select>
         </div>
         <div class="inpSelect-content">
           <select type="text" class="inpSelect" name="editarCiudad">
             <option value="">Ciudad</option>
-            <option value="1">Bucaramanga</option>
-            <option value="2">Bogota</option>
+            <option <?php echo ($_SESSION['id_ciudad'] == '1' ? 'selected' : '') ?>  value="1">Bucaramanga</option>
+            <option <?php echo ($_SESSION['id_ciudad'] == '2' ? 'selected' : '') ?> value="2">Bogota</option>
           </select>
         </div>
         <div class="inpText-content">
           <label for="editarEmailNuevo" class="labelText">Email</label>
-          <input type="email" class="inpText" name="editarEmailNuevo" id="editarEmailNuevo" placeholder="Email">
+          <input type="email" value="<?php echo $_SESSION['email'] ?>" class="inpText" name="editarEmailNuevo" id="editarEmailNuevo" placeholder="Email">
         </div>
         <div class="inpSubmit-content">
           <input type="submit" class="inpSubmit" value="Guardar">
         </div>
       </form>
     </div>
+    
     <div class="formModal-container" style="display:none;" id="formModalNuevoAfiliado">
       <form class="formModal-content" method="post">
         <a class="btnCerrarFormModal" href="#" id="btnCerrarFormModalNuevoAfiliado">X</a>
