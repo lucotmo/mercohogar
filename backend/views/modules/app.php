@@ -198,13 +198,14 @@ function cambiar_estado_pedido($idPedido) {
   $data = array($idPedido);
 
   $result = db_query($sql, $data);
-
-  if ( count($result) == 0 ){
-    echo "No existen pedidos para $idPerfil";
+  
+  if( empty($result) ) {
+  	$result[]= "No existen pedidos para $idPerfil";
   }else{
     return $result;
   }
-
+  
+  echo json_decode($result);
 }
 
 if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
