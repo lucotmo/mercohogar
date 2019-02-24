@@ -9,7 +9,7 @@ class GestorPerfiles{
 		        preg_match('/^[a-zA-Z0-9]+$/', $_POST["pass"]) &&
 		        preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["emailNuevo"])
 			){
-				
+
 				if( !empty ($_FILES["nuevaImagen"]["tmp_name"]) ) {
 					$imagen = $_FILES["nuevaImagen"]["tmp_name"];
 					$imagedetails = getimagesize($_FILES['nuevaImagen']['tmp_name']);
@@ -26,8 +26,8 @@ class GestorPerfiles{
 					//}
 				} else {
 					$ruta = "views/imagenes/photo.jpg";
-				} 
-				
+				}
+
 				$encriptar = crypt($_POST["pass"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 				$datosController = array(
 						"usuario"=>$_POST["usuario"],
@@ -100,7 +100,7 @@ class GestorPerfiles{
 			   //preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"]) &&
 			   preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["editarEmailNuevo"])
 			){
-				
+
 				if ( !empty($_FILES["updateImagen"]["tmp_name"]) ){
 					$imagen = $_FILES["updateImagen"]["tmp_name"];
 					$aleatorio = mt_rand(100, 999);
@@ -113,13 +113,13 @@ class GestorPerfiles{
 					$origen = imagecreatefromjpeg($imagen);
 					$destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
 					imagejpeg($destino, $ruta);
-					
+
 					if(isset($_POST["actualizarSesion"])) {
 						$_SESSION["photo"] = $ruta;
 					}
 				}
-				
-				
+
+
 				$encriptar =  (!empty($_POST["editarPassword"])) ? crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$') : null;
         		$datosController = array(
         			"perfil_id"=>$_POST["idPerfil"],
@@ -140,7 +140,7 @@ class GestorPerfiles{
 						//$_SESSION["photo"] = $ruta;
 						$_SESSION["rol"] = $_POST["editarPerfil"];
 						$_SESSION["id_ciudad"] = $_POST["editarCiudad"];
-						
+
 						if( !is_null($encriptar) ) {
 							$_SESSION["password"] = $encriptar;
 						}

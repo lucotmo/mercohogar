@@ -164,3 +164,62 @@ if ( tableClientes ){
 
 
 /*=====  End of mostrar Cliente  ======*/
+
+const respuestaEnvio = document.querySelector('.respuestaEnvioForm')
+
+const mensaje_error = msg => `
+    <p class="section center  red  darken-1  white-text  Messages" >
+      ${msg}
+      <br>
+      <i class="material-icons">no hecho</i>
+    </p>
+  `
+
+const mensaje_ok = msg => `
+    <p class="section center  green  darken-1  white-text  Messages" >
+      ${msg}
+      <br>
+      <i class="material-icons">hecho</i>
+    </p>
+  `
+
+document.addEventListener('submit', e => {
+  if (e.target.matches('form')) {
+    e.preventDefault()
+    alert('Guardando Cambios...')
+
+    let data = new FormData(e.target)
+
+    fetch('views/modules/app.php', {
+      body: data,
+      method: 'post'
+    })
+      .then(res => {
+        //c(res)
+        return (res.ok)
+          ? res.json()
+          : Promise.reject({ status: res.status, statusText: res.statusText })
+      })
+      .then(res => {
+        //console.log(res)
+        //let mensaje
+
+        if (res.err) {
+          //mensaje_error(res.msg)
+        } else {
+          mensaje = console.log(res)
+          mensaje_ok(res.msg)
+          location.reload()
+        }
+
+        //respuestaEnvio.innerHTML = mensaje
+      })
+      .catch(err => {
+        let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+        //console.log(mensaje)
+        //respuesta.innerHTML = mensaje
+      })
+  }
+})
+
+//console.log('lucho')
