@@ -60,7 +60,7 @@ require "views/modules/navegacionEnd.php";
         </div>
       </form>
     </div>
-    
+
     <div class="formModal-container" style="display:none;" id="formModalEditarMiembro">
       <form class="formModal-content" method="post" enctype="multipart/form-data">
         <a class="btnCerrarFormModal" href="#" id="btnCerrarFormModalEditarMiembro">X</a>
@@ -103,7 +103,7 @@ require "views/modules/navegacionEnd.php";
         </div>
       </form>
     </div>
-    
+
     <div class="formModal-container" style="display:none;" id="formModalNuevoAfiliado">
       <form class="formModal-content" method="post">
         <a class="btnCerrarFormModal" href="#" id="btnCerrarFormModalNuevoAfiliado">X</a>
@@ -208,7 +208,7 @@ require "views/modules/navegacionEnd.php";
           $verAfiliados = new GestorAfiliados();
           $verAfiliados -> verAfiliadoController();
           $verAfiliados -> borrarAfiliadoController();
-        ?>
+          ?>
       </table>
     </div>
   </div>
@@ -217,8 +217,8 @@ require "views/modules/navegacionEnd.php";
     <h1 class="title__titulo">Clientes</h1>
   </div>
   <div class="afiliados-container">
-  <div class="afiliados-container">
-      <div class="afiliados-content">
+    <div class="afiliados-container" >
+      <div class="afiliados-content" id="clientes-content">
         <table class="responsive-table">
           <tr>
             <th>Cliente</th>
@@ -230,10 +230,13 @@ require "views/modules/navegacionEnd.php";
           <?php
             $verClientes = new GestorClientes();
             $verClientes -> verClientesController();
-          ?>
+            ?>
         </table>
 
       </div>
     </div>
   </div>
 </div>
+
+<div class="respuestaAfiliados"></div>
+<div class="respuestaClientes"></div>
