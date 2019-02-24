@@ -17,8 +17,10 @@ class PedidosModels{
       $estado = 2;
     }else if ( $_GET["action"] === "enviados" ){
       $estado = 3;
-    }else if ( $_GET["action"] === "ventas" ){
+    }else if ( $_GET["action"] === "finalizados" ){
       $estado = 4;
+    }else if ( $_GET["action"] === "ventas" ){
+      $estado = 5;
     }
 
     $sql .= " WHERE estado_pedido = $estado ORDER BY fecha ASC";

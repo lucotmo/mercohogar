@@ -9,7 +9,8 @@
         <a class="categorias__items-admin " href="pendientes" >Pendientes</a>
         <a class="categorias__items-admin"  href="realizados" >Realizados</a>
         <a class="categorias__items-admin" href="enviados" >Enviados</a>
-        <a class="categorias__items-admin"  href="ventas" >Venta</a>
+        <a class="categorias__items-admin"  href="finalizados" >Realizados</a>
+        <a class="categorias__items-admin"  href="ventas" >Ventas</a>
       </nav>
     </section>
     <section class="pedidos-container">
