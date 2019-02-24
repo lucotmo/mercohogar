@@ -198,7 +198,7 @@ function cambiar_estado_pedido($idPedido) {
   $data = array($idPedido);
 
   $result = db_query($sql, $data);
-  print_r($result);
+  
   if( empty($result) ) {
   	$result[]= "No existen pedidos para $idPerfil";
   }else{
