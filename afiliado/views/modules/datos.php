@@ -5,16 +5,40 @@ if(!$_SESSION["validar"]){
 	header("location:ingreso");
 	exit();
 }
+
+require "views/modules/app.php";
+
 require "views/modules/header.php";
 require "views/modules/navegacionStart.php";
 require "views/modules/navegacionEnd.php";
+
+//echo "<pre>". print_r($_SESSION,1)."</pre>";
 ?>
 
 <div class="mainReset-content">
   <div class="title-content">
     <h1 class="title__titulo"><?php echo $_GET["action"]; ?></h1>
   </div>
-  <form action="" class="formInicial">
+  <?php 
+    if($_POST) {
+    	//echo "<pre>". print_r($_POST,1)."</pre>";
+    	if( ( !empty($_POST['password']) &&  !empty($_POST['password2']) )
+    	||
+    	( !empty($_POST['password']) &&  empty($_POST['password2']) )
+    	||
+    	( empty($_POST['password']) &&  !empty($_POST['password2']) )
+    	) {
+    		if( $_POST['password'] !=  $_POST['password2'] ) {
+    			echo "<h3>* Las contraseñas no son identicas</h3>";
+    		} else {
+    			echo "update";
+    		}
+    	} else {
+    		echo "update";
+    	}
+    }
+    ?>
+  <form action="" class="formInicial" method="post">
     <div class="inpPadre">
       <div class="inpText-container">
         <div class="inpText-content">
@@ -35,12 +59,14 @@ require "views/modules/navegacionEnd.php";
       <div class="inpText-container">
         <div class="inpSelect-content">
           <label class="labelText" for="ciudad">Ciudad</label>
-          <select type="text" value="<?php echo $_SESSION["ciudad"]; ?>" class="inpSelect" name="ciudad" id="ciudad" placeholder="Ciudad">
+          <select type="text" class="inpSelect" name="ciudad" id="ciudad" placeholder="Ciudad">
             <option value="">Seleciona una ciudad</option>
-            <option value="">Bucaramanga</option>
-            <option value="">Giron</option>
-            <option value="">Piedecuesta</option>
-            <option value="">Floridablanca</option>
+            <?php 
+            $c = select_ciudades();
+            foreach ($c as  $ciudad){
+			?>
+            <option <?php echo ($_SESSION["ciudad"] == $ciudad['ciudad_id']) ? 'selected' : '' ?>  value="<?php echo $ciudad['ciudad_id']?>"><?php echo ucwords(strtolower($ciudad['nombre']))?></option>
+            <?php } ?>
           </select>
         </div>
         <div class="inpText-content">
@@ -57,11 +83,14 @@ require "views/modules/navegacionEnd.php";
       <div class="inpText-container">
         <div class="inpSelect-content">
           <label class="labelText" for="tipo_doc">Tipo documento</label>
-          <select class="inpSelect" value="<?php echo $_SESSION["tipo_doc"]; ?>"
-            name="tipoDoc" >
+          <select class="inpSelect" name="tipoDoc">
             <option value="">Seleccion</option>
-            <option value="">C.C</option>
-            <option value="">T.I</option>
+            <?php 
+			$doc = select_tdoc();
+			foreach ($doc as $do){
+			?>
+            <option <?php echo ($_SESSION["tipo_doc"] == $do['tipo_doc_id']) ? 'selected' : '' ?> value="<?php echo $do['tipo_doc_id'] ?>"><?php echo $do['nombre_tipo'] ?></option>
+            <?php } ?>
           </select>
         </div>
         <div class="inpText-content">
@@ -76,20 +105,26 @@ require "views/modules/navegacionEnd.php";
       <div class="inpText-container">
         <div class="inpText-content">
           <label class="labelText" for="celular">Banco</label>
-          <select class="inpSelect" value="<?php echo $_SESSION["banco"]; ?>" name="Banco">
+          <select class="inpSelect" name="Banco">
             <option value="">Selecciona un banco</option>
-            <option value="">Bancolombia</option>
-            <option value="">Bogota</option>
-            <option value="">AV villas</option>
-            <option value="">Caja Social</option>
+            <?php
+			$bancos = select_banco();
+			foreach ($bancos as $banco) {
+			?>
+            <option <?php echo ($_SESSION["banco"] == $banco['banco_id']) ? 'selected' : '' ?> value="<?php echo $banco['banco_id'] ?>"><?php echo $banco['nombre_banco'] ?></option>
+            <?php }?>
           </select>
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Tipo de cuenta</label>
-          <select class="inpSelect" value="<?php echo $_SESSION["tipo_cuenta"]; ?>" name="Tipo de cuenta" value="2">
-            <option value="0">Selecciona el tipo</option>
-            <option value="1">Ahorro</option>
-            <option value="2">Corriente</option>
+          <select class="inpSelect" name="Tipo de cuenta" value="2">
+            <option value="">Selecciona el tipo</option>
+            <?php
+			$tcuentas = select_tcuenta();
+			foreach ($tcuentas as $tcuenta) {
+			?>
+            <option <?php echo ($_SESSION["tipo_cuenta"] == $tcuenta['tipo_id']) ? 'selected' : '' ?> value="<?php echo $tcuenta['tipo_id'] ?>"><?php echo ucwords(strtolower($tcuenta['nombre_tipo_cuenta'])) ?></option>
+            <?php }?>
           </select>
         </div>
       </div>
@@ -101,11 +136,11 @@ require "views/modules/navegacionEnd.php";
       </div>
       <div class="inpText-content">
         <label class="labelText" for="password">Contraseña</label>
-        <input type="password" class="inpText" value="" name="password" id="password" placeholder="contraseña">
+        <input type="password" class="inpText" name="password" id="password" placeholder="contraseña">
       </div>
       <div class="inpText-content">
         <label class="labelText" for="password2">Confirmar Contraseña</label>
-        <input type="password" class="inpText" value="" name="password2" id="password2" placeholder="Confirmar contraseña">
+        <input type="password" class="inpText" name="password2" id="password2" placeholder="Confirmar contraseña">
       </div>
       <div class="inpSubmit-content">
         <input type="submit" class="inpSubmit" value="Guardar">
@@ -117,7 +152,7 @@ require "views/modules/navegacionEnd.php";
 
 </div>
 
-<!-- $_SESSION["id"] = $respuesta["id"];
+<!-- /*$_SESSION["id"] = $respuesta["id"];
             $_SESSION["celular"] = $respuesta["celular"];
             $_SESSION["nombre"] = $respuesta["nombre"];
             $_SESSION["apellidos"] = $respuesta["apellidos"];
@@ -131,4 +166,4 @@ require "views/modules/navegacionEnd.php";
             $_SESSION["tipo_cuenta"] = $respuesta["tipo_cuenta"];
             $_SESSION["correo"] = $respuesta["correo"];
             $_SESSION["password"] = $respuesta["password"];
-            $_SESSION["intentos"] = $respuesta["intentos"]; -->
+            $_SESSION["intentos"] = $respuesta["intentos"];*/ -->

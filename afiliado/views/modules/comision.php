@@ -4,6 +4,8 @@ if(!$_SESSION["validar"]){
 	header("location:ingreso");
 	exit();
 }
+
+require "views/modules/app.php";
 require "views/modules/header.php";
 require "views/modules/navegacionStart.php";
 require "views/modules/navegacionEnd.php";
@@ -16,34 +18,59 @@ require "views/modules/navegacionEnd.php";
   <div class="datosComisionCliente-container">
     <div class="datosComisionCliente">
       <table class="table-responsive-precio">
+      	<caption>No pagada</caption>
         <thead>
           <tr>
             <th>Categoria</th>
             <th>Comision</th>
             <th>Valor Total</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>fruta</td>
-            <td class="comision">5</td>
-            <td>25000</td>
-          </tr>
-          <tr>
-            <td>verdura</td>
-            <td class="comision">10</td>
-            <td>2000</td>
-          </tr>
-          <tr>
-            <td>hortalizas</td>
-            <td class="comision">15</td>
-            <td>23000</td>
-          </tr>
-          <tr>
+        <?php 
+        $result_np = comision_no_pagada($_SESSION["celular"]); 
+        $tt_no = 0;
+        foreach ($result_np as  $r) { ?>
+        	<tr>
+	            <td><?php echo $r['nombre_categoria'] ?></td>
+	            <td class="comision"><?php echo $r['comision'] ?></td>
+	            <td><?php echo $r['_real'] ?></td>
+          	</tr>
+        <?php  $tt_no+= $r['_real']; } ?>
+        <tr>
             <td></td>
             <td><strong>Total</strong></td>
-            <td>60000</td>
+            <td><?php echo $tt_no ?></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="datosComisionCliente">
+      <table class="table-responsive-precio">
+      	<caption>Pagada</caption>
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Comision</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php 
+          $result_p = comision_pagada($_SESSION["celular"]); 
+          $tt_p = 0;
+          foreach ($result_p as  $r) { ?>
+        	<tr>
+	            <td><?php echo $r['nombre_categoria'] ?></td>
+	            <td class="comision"><?php echo $r['comision'] ?></td>
+	            <td><?php echo $r['_real'] ?></td>
+          	</tr>
+        <?php $tt_p+= $r['_real']; } ?>
+        <tr>
+            <td></td>
+            <td><strong>Total</strong></td>
+            <td><?php echo $tt_p?></td>
           </tr>
         </tbody>
       </table>
