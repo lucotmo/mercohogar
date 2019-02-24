@@ -197,17 +197,15 @@ var_dump(registrar_cliente('3163800888', 'luis manuel', 'otero diaz', '31688', 1
 echo '</pre>'; */
 
 if ( isset($_POST["celular"]) ){
+	
+	//echo "<pre>".print_r($_POST,1)."</pre>";
+	//exit;
+	
   $celular = $_POST["celular"];
   $nombre = $_POST["nombre"];
   $apellidos = $_POST["apellidos"];
   $referido = $_POST["referido"];
-  $ciudad = $_POST["ciudad"];
-  //$ciudad2 = $_POST["ciudad2"];
-  $barrio = $_POST["barrio"];
-  //$barrio2 = $_POST["barrio2"];
-  $direccion = $_POST["direccion"];
-  //$direccion2 = $_POST["direccion2"];
-
+  
   $valorPedido = $_POST["valorPedido"];
   $domicilio = $_POST["domicilio"];
   $valorTotal = $_POST["valorTotal"];
@@ -216,6 +214,24 @@ if ( isset($_POST["celular"]) ){
   $valor_product = $_POST["valor_product"];
   $cantidad_product = $_POST["cantidad_product"];
   $precio_total = $_POST["precio_total"];
+  
+  if( !empty( $_POST['checkedOtro']) ) {
+  	$ciudad = $_POST["ciudad2"];
+  	$barrio = $_POST["barrio2"];
+  	$direccion = $_POST["direccion2"];
+  } else {
+  	$ciudad = $_POST["ciudad"];
+  	$barrio = $_POST["barrio"];
+  	$direccion = $_POST["direccion"];
+  }
+  
+  /*secho $ciudad;
+  echo "<br>";
+  echo $barrio;
+  echo "<br>";
+  echo $direccion;
+  echo "<br>";
+  exit;*/
   
   $json = registrar_cliente(
   		$celular,
