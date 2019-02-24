@@ -207,7 +207,7 @@ document.addEventListener('submit', e => {
         if (res.err) {
           //mensaje_error(res.msg)
         } else {
-          //mensaje = console.log(res)
+          mensaje = console.log(res)
           mensaje_ok(res.msg)
           location.reload()
         }
@@ -216,10 +216,10 @@ document.addEventListener('submit', e => {
       })
       .catch(err => {
         let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
-        console.log(mensaje)
+        //console.log(mensaje)
         //respuesta.innerHTML = mensaje
       })
   }
 })
 
-console.log('luchohfoifsdiof')
+//console.log('lucho')
