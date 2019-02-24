@@ -10,6 +10,7 @@ if(!$_SESSION["validar"]){
 
 }
 
+require "views/modules/app.php";
 require "views/modules/header.php";
 require "views/modules/navegacionStart.php";
 
@@ -49,6 +50,7 @@ require "views/modules/navegacionEnd.php";
         <div><input name="precioProductoViejo price" type="text" placeholder="Precio Viejo..." class="formPrecioViejo"></div>
         <div><input name="precioProductoActual price" type="text" placeholder="Precio..." class="formPrecioActual" required></div>
         <div>
+          <label class="labelText" for="">Promocion</label>
           <select class="selectProducto" type="text" name="promocion">
             <option value="">promo...</option>
             <option value="oferta">Oferta</option>
