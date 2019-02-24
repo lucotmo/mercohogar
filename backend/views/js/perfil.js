@@ -164,3 +164,47 @@ if ( tableClientes ){
 
 
 /*=====  End of mostrar Cliente  ======*/
+
+
+
+
+
+/* document.addEventListener('submit', e => {
+  if (e.target.matches('form')) {
+    e.preventDefault()
+    alert('Guardando Cambios...')
+
+    let data = new FormData(e.target)
+
+    fetch('views/modules/app.php', {
+      body: data,
+      method: 'post'
+    })
+      .then(res => {
+        //c(res)
+        return (res.ok)
+          ? res.json()
+          : Promise.reject({ status: res.status, statusText: res.statusText })
+      })
+      .then(res => {
+        //c(res)
+        let mensaje
+
+        if (res.err) {
+          mensaje = console.log(res)
+          //mensaje_error(res.msg)
+        } else {
+          mensaje = console.log(res)
+          //mensaje_ok(res.msg)
+          //form.reset()
+        }
+
+        //respuesta.innerHTML = mensaje
+      })
+      .catch(err => {
+        let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+        console.log(mensaje)
+        //respuesta.innerHTML = mensaje
+      })
+  }
+}) */

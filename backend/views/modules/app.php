@@ -503,3 +503,47 @@ function form_cliente ($idCliente) {
 if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
 
 
+
+//Celular	Nombre	Ciudad	Barrio	Direccion
+
+/* function update_form_clientes($id, $celular, $nombre, $apellidos, $ciudad, $barrio, $direccion) {
+
+  $sql = '';
+  $data = array(
+    $email,
+    $nombre,
+    $apellidos,
+    $nacimiento,
+    $actividad
+  );
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito. En breve recibirás un email con la agenda del bloque que elegiste.'
+    );
+
+    $registro = existe_registro($email);
+    enviar_email($registro);
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['email']) )
+  crear_registro(
+    $_POST['nombre'],
+    $_POST['apellidos'],
+    $_POST['email'],
+    $_POST['nacimiento'],
+    $_POST['horario']
+  ); */
+
+
