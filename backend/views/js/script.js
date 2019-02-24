@@ -303,8 +303,6 @@ if ( btnContentEditarProducto ){
 //console.log('lucho')
 
 
-console.log(document.querySelector('.product-container'))
-
 const productContainer = document.querySelector('.product-container')
 if ( productContainer ){
   btnEliminarProducto = productContainer.querySelectorAll('#btnEliminarProducto')
