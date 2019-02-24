@@ -1,5 +1,6 @@
 <?php
-require_once "../../models/conexion.php";
+//require_once "../../models/conexion.php";
+require_once (dirname(__FILE__) ."/../../../backend/models/conexion.php");
 
 
 

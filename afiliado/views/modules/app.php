@@ -1,6 +1,7 @@
 <?php
 //require_once "../../../backend/models/conexion.php";
-require_once "../backend/models/conexion.php";
+//require_once "../backend/models/conexion.php";
+require_once (dirname(__FILE__) ."/../../../backend/models/conexion.php");
 
 function db_query ( $sql, $data = array(), $is_search = false, $search_one = false ) {
 	$db = Conexion::conectar();
