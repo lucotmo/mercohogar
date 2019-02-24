@@ -165,11 +165,25 @@ if ( tableClientes ){
 
 /*=====  End of mostrar Cliente  ======*/
 
+const respuestaEnvio = document.querySelector('.respuestaEnvioForm')
 
+const mensaje_error = msg => `
+    <p class="section center  red  darken-1  white-text  Messages" >
+      ${msg}
+      <br>
+      <i class="material-icons">no hecho</i>
+    </p>
+  `
 
+const mensaje_ok = msg => `
+    <p class="section center  green  darken-1  white-text  Messages" >
+      ${msg}
+      <br>
+      <i class="material-icons">hecho</i>
+    </p>
+  `
 
-
-/* document.addEventListener('submit', e => {
+document.addEventListener('submit', e => {
   if (e.target.matches('form')) {
     e.preventDefault()
     alert('Guardando Cambios...')
@@ -187,19 +201,18 @@ if ( tableClientes ){
           : Promise.reject({ status: res.status, statusText: res.statusText })
       })
       .then(res => {
-        //c(res)
-        let mensaje
+        //console.log(res)
+        //let mensaje
 
         if (res.err) {
-          mensaje = console.log(res)
           //mensaje_error(res.msg)
         } else {
-          mensaje = console.log(res)
-          //mensaje_ok(res.msg)
-          //form.reset()
+          //mensaje = console.log(res)
+          mensaje_ok(res.msg)
+          location.reload()
         }
 
-        //respuesta.innerHTML = mensaje
+        //respuestaEnvio.innerHTML = mensaje
       })
       .catch(err => {
         let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
@@ -207,4 +220,6 @@ if ( tableClientes ){
         //respuesta.innerHTML = mensaje
       })
   }
-}) */
+})
+
+console.log('luchohfoifsdiof')

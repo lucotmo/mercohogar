@@ -198,13 +198,13 @@ function cambiar_estado_pedido($idPedido) {
   $data = array($idPedido);
 
   $result = db_query($sql, $data);
-  
+
   if( empty($result) ) {
   	$result[]= "No existen pedidos para $idPerfil";
   }else{
     return $result;
   }
-  
+
   echo json_decode($result);
 }
 
@@ -424,8 +424,10 @@ function form_afiliado ($idAfiliado) {
               <select class="inpSelect" name="Tipo de cuenta" >
                 <option value="">Seleccion</option>
                 <option value="1">Ahorro</option>
-                <option value="2">Corriente</option>
-              </select>
+                <option value="2">Corriente</option>';
+
+
+          echo '</select>
           </div>
           <div class="inpText-content">
             <label class="labelText" for="correo">Correo</label>
@@ -442,6 +444,18 @@ function form_afiliado ($idAfiliado) {
     }
   }
 }
+
+
+/* if ( $row['tipo_cuenta'] == 1 ){
+  echo '<option selected value="1">Ahorro</option>';
+}else{
+  echo '<option value="1">Ahorro</option>';
+}
+if ( $row['tipo_cuenta'] == 2 ){
+  echo '<option selected value="2">Corriente</option>';
+}else{
+  echo '<option value="2">Corriente</option>';
+} */
 
 if ( isset($_POST['id_editAfiliado']) )  form_afiliado($_POST['id_editAfiliado']);
 
@@ -465,6 +479,7 @@ function form_cliente ($idCliente) {
         <h3 class="form-titulo">Editar Cliente</h3>
         <div class="inpText-content">
           <label for="celularCliente" class="labelText">Celular</label>
+          <input type="hidden" class="inpText" name="idCliente" value="'.$row['id_cliente'].'" id="id_cliente">
           <input type="text" class="inpText" name="celularCliente" value="'.$row['celular'].'" id="celularCliente" placeholder="Celular">
         </div>
         <div class="inputText-container">
@@ -507,15 +522,17 @@ if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
 
 //Celular	Nombre	Ciudad	Barrio	Direccion
 
-/* function update_form_clientes($id, $celular, $nombre, $apellidos, $ciudad, $barrio, $direccion) {
-
-  $sql = '';
+function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $id) {
+  $sql = "UPDATE cliente
+  SET celular = ?, nombre = ?, apellidos = ?, id_ciudad = ?, barrio = ?, direccion = ?
+  WHERE id_cliente = $id";
   $data = array(
-    $email,
+    $celular,
     $nombre,
     $apellidos,
-    $nacimiento,
-    $actividad
+    $ciudad,
+    $barrio,
+    $direccion
   );
 
   $result = db_query($sql, $data);
@@ -526,8 +543,8 @@ if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
       'msg' => 'Tu registro se efectuó con éxito. En breve recibirás un email con la agenda del bloque que elegiste.'
     );
 
-    $registro = existe_registro($email);
-    enviar_email($registro);
+    //$registro = existe_registro($email);
+    //enviar_email($registro);
   } else {
     $res = array(
       'err' => true,
@@ -538,13 +555,14 @@ if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
   echo json_encode($res);
 }
 
-if ( isset($_POST['email']) )
-  crear_registro(
-    $_POST['nombre'],
-    $_POST['apellidos'],
-    $_POST['email'],
-    $_POST['nacimiento'],
-    $_POST['horario']
-  ); */
-
+if ( isset($_POST['idCliente']) )
+  update_form_clientes(
+    $_POST['celularCliente'],
+    $_POST['nombreCliente'],
+    $_POST['apellidosCliente'],
+    $_POST['ciudadCliente'],
+    $_POST['barrioCliente'],
+    $_POST['direccionCliente'],
+    $_POST['idCliente']
+  );
 

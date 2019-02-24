@@ -240,3 +240,4 @@ require "views/modules/navegacionEnd.php";
 
 <div class="respuestaAfiliados"></div>
 <div class="respuestaClientes"></div>
+<div class="respuestaEnvioForm"></div>
