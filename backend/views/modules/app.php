@@ -359,87 +359,83 @@ function form_afiliado ($idAfiliado) {
           <a class="btnCerrarFormModal" href="" >X</a>
           <h3 class="form-titulo">Editar Cliente</h3>
           <div class="inpText-container">
-              <div class="inpText-content">
-                <label class="labelText" for="celular">Celular</label>
-                <input type="text" class="inpText" name="celular" value="'.$row['celular'].'" id="celular" placeholder="Celular">
-              </div>
-              <div class="inpText-content">
-                <label class="labelText" for="nombre">Nombre</label>
-                <input type="text" class="inpText" name="nombre" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
-              </div>
+            <div class="inpText-content">
+              <label class="labelText" for="celular">Celular</label>
+              <input type="text" class="inpText" name="celular" value="'.$row['celular'].'" id="celular" placeholder="Celular">
             </div>
-            <div class="inpText-container">
-              <div class="inpSelect-content">
-                <select type="text" class="inpSelect" name="ciudad" value="'.$row['ciudad'].'" id="ciudad" placeholder="Ciudad">
-                  <option value="">Seleciona una ciudad</option>
-                  <option value="1">Bucaramanga</option>
-                  <option value="2">Giron</option>
-                  <option  value="3">Floridablanca</option>
-                  <option value="4">Piedecuesta</option>
-                </select>
-              </div>
-              <div class="inpText-content">
-                <label class="labelText" for="barrio">Barrio</label>
-                <input type="text" class="inpText" name="barrio" value="'.$row['barrio'].'" id="barrio" placeholder="Barrio">
-              </div>
-            </div>
-            <div class="inpText-container">
-              <div class="inpText-content">
-                <label class="labelText" for="direccion">Direccion</label>
-                <input type="text" class="inpText" name="direccion" value="'.$row['direccion'].'" id="direccion" placeholder="Direccion">
-              </div>
-            </div>
-            <div class="inpText-container">
-              <div class="inpSelect-content">
-                <select class="inpSelect" name="tipoDoc">
-                  <option value="">Seleccion</option>
-                  <option  value="1">C.C</option>
-                  <option  value="2">T.I</option>
-                </select>
-              </div>
-              <div class="inpText-content">
-                <label class="labelText" for="documento">Documento</label>
-                <input type="text" class="inpText" name="documento" value="'.$row['documento'].'" id="documento" placeholder="Documento">
-              </div>
-              <div class="inpText-content">
-                <label class="labelText" for="cuenta_bancaria">Cuenta Bancaria</label>
-                <input type="text" class="inpText" name="cuenta_bancaria" value="'.$row['cuenta_bancaria'].'" id="cuenta_bancaria" placeholder="Cuenta Bancaria">
-              </div>
-            </div>
-            <div class="inpText-container">
-              <div class="inpText-content">
-                <label class="labelText" >Banco</label>
-                <select class="inpSelect" name="Banco" >
-                  <option value="">Seleccion</option>
-                  <option  value="1">Bancolombia</option>
-                  <option value="2">BBVA</option>
-                  <option value="3">Caja Social</option>
-                  <option value="4">Davivienda</option>
-                  <option value="5">AV villas</option>
-                </select>
-              </div>
-              <div class="inpText-content">
-                <label class="labelText" >Tipo de cuenta</label>
-                <select class="inpSelect" name="Tipo de cuenta" >
-                  <option value="">Seleccion</option>
-                  <option value="1">Ahorro</option>
-                  <option value="2">Corriente</option>
-                </select>
-              </div>
+            <div class="inpText-content">
+              <label class="labelText" for="nombre">Nombre</label>
+              <input type="text" class="inpText" name="nombre" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
             </div>
           </div>
-          <div class="inpPadre">
-            <div class="inpText-content">
-              <label class="labelText" for="correo">Correo</label>
-              <input type="text" class="inpText" name="correo" value="'.$row['correo'].'" id="correo" placeholder="Correo">
+          <div class="inpText-container">
+            <div class="inpSelect-content">
+              <select type="text" class="inpSelect" name="ciudad" value="'.$row['ciudad'].'" id="ciudad" placeholder="Ciudad">
+                <option value="">Seleciona una ciudad</option>
+                <option value="1">Bucaramanga</option>
+                <option value="2">Giron</option>
+                <option  value="3">Floridablanca</option>
+                <option value="4">Piedecuesta</option>
+              </select>
             </div>
+            <div class="inpText-content">
+              <label class="labelText" for="barrio">Barrio</label>
+              <input type="text" class="inpText" name="barrio" value="'.$row['barrio'].'" id="barrio" placeholder="Barrio">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpText-content">
+              <label class="labelText" for="direccion">Direccion</label>
+              <input type="text" class="inpText" name="direccion" value="'.$row['direccion'].'" id="direccion" placeholder="Direccion">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpSelect-content">
+              <select class="inpSelect" name="tipoDoc">
+                <option value="">Seleccion</option>
+                <option  value="1">C.C</option>
+                <option  value="2">T.I</option>
+              </select>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="documento">Documento</label>
+              <input type="text" class="inpText" name="documento" value="'.$row['documento'].'" id="documento" placeholder="Documento">
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="cuenta_bancaria">Cuenta Bancaria</label>
+              <input type="text" class="inpText" name="cuenta_bancaria" value="'.$row['cuenta_bancaria'].'" id="cuenta_bancaria" placeholder="Cuenta Bancaria">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpText-content">
+              <label class="labelText" >Banco</label>
+              <select class="inpSelect" name="Banco" >
+                <option value="">Seleccion</option>
+                <option  value="1">Bancolombia</option>
+                <option value="2">BBVA</option>
+                <option value="3">Caja Social</option>
+                <option value="4">Davivienda</option>
+                <option value="5">AV villas</option>
+              </select>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" >Tipo de cuenta</label>
+              <select class="inpSelect" name="Tipo de cuenta" >
+                <option value="">Seleccion</option>
+                <option value="1">Ahorro</option>
+                <option value="2">Corriente</option>
+              </select>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="correo">Correo</label>
+            <input type="text" class="inpText" name="correo" value="'.$row['correo'].'" id="correo" placeholder="Correo">
+          </div>
+          <div class="inpText-container">
             <div class="inpSubmit-content">
               <input type="submit" class="inpSubmit" value="Guardar">
             </div>
           </div>
-          <div class="inpSubmit-content">
-            <input type="submit" class="inpSubmit" value="Guardar">
-          </div>
+
         </form>
       </div>';
     }
