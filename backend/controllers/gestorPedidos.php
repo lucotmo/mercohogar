@@ -10,8 +10,10 @@ class Pedidos{
       $btn = "Realizado";
     }else if ( $_GET['action'] === "enviados" ){
       $btn = "Enviado";
-    }else if ( $_GET['action'] === "ventas" ){
-      $btn = "Venta";
+    }else if ( $_GET['action'] === "finalizados" ){
+      $btn = "Finalizado";
+    }else{
+      $btn = "";
     }
 
     echo '<tr>
@@ -26,21 +28,51 @@ class Pedidos{
     </tr>';
 
     foreach ($respuesta as $row => $item){
-      echo '
-      <tr>
-        <td id="pedidoId">'.$item["id"].'</td>
-        <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
-        <td>'.$item["celular_cliente"].'</td>
-        <td>'.$item["fecha"].'</td>
-        <td>'.$item["ciudad"].'</td>
-        <td>$'.$item["total_valor_pedido"].'</td>
-        <td>
-          <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
-          <a href="#" class="btnRealizadoPedido">'.$btn.'</a>
-          <a href="#" class="fa fa-trash btn__perfilDatos"></a>
-        </td>
-      </tr>';
+      if ( $item["estado_pedido"] == 1 || $item["estado_pedido"] == 2 || $item["estado_pedido"] == 3 || $item["estado_pedido"] == 4 ){
+        echo '
+        <tr>
+          <td id="pedidoId">'.$item["id"].'</td>
+          <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
+          <td>'.$item["celular_cliente"].'</td>
+          <td>'.$item["fecha"].'</td>
+          <td>'.$item["ciudad"].'</td>
+          <td>$'.$item["total_valor_pedido"].'</td>
+          <td>
+            <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
+            <a href="#" class="btnRealizadoPedido" data-id="'.$item["id"].'">'.$btn.'</a>
+          </td>
+        </tr>';
+      }else{
+        echo '
+        <tr>
+          <td id="pedidoId">'.$item["id"].'</td>
+          <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
+          <td>'.$item["celular_cliente"].'</td>
+          <td>'.$item["fecha"].'</td>
+          <td>'.$item["ciudad"].'</td>
+          <td>$'.$item["total_valor_pedido"].'</td>
+          <td>
+            <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
+          </td>
+        </tr>';
+      }
+
     }
 
   }
 }
+
+
+/* <tr>
+  <td id="pedidoId">'.$item["id"].'</td>
+  <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
+  <td>'.$item["celular_cliente"].'</td>
+  <td>'.$item["fecha"].'</td>
+  <td>'.$item["ciudad"].'</td>
+  <td>$'.$item["total_valor_pedido"].'</td>
+  <td>
+    <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
+    <a href="#" class="btnRealizadoPedido" data-id="'.$item["id"].'">'.$btn.'</a>
+    <a href="#" class="fa fa-trash btn__perfilDatos"></a>
+  </td>
+</tr> */

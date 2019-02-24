@@ -111,11 +111,13 @@ class GestorProductos{
            echo '
             <div>
               <a class="fa fa-edit btnEditarProducto" id="btnEditarProducto"></a>
-              <a href="index.php?action=productos&idBorrar='.$item["producto_id"].'&rutaImagen='.$item["imagen"].'" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
+              <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
             </div>
 
           </div>
         </div>';
+
+        /* <a href="index.php?action=productos&idBorrar='.$item["producto_id"].'&rutaImagen='.$item["imagen"].'" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a> */
 
 
 		}
@@ -173,7 +175,7 @@ class GestorProductos{
 					unlink($file);
 				}
       }
-      if ( $ruta == "views/imagenes/producto.jpg" ){
+      if ( $ruta == "views/imagenes/producto.jpg" || $ruta == $_POST["fotoAntigua"] ){
         $ruta = $_POST["fotoAntigua"];
       }else{
 				unlink($_POST["fotoAntigua"]);

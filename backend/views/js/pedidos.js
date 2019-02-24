@@ -1,18 +1,6 @@
 
 const table = document.querySelector('.responsivePedido-table')
 
-/* if ( table ){
-  let btnVerPedido = table.querySelectorAll("#verPedido")
-  btnVerPedido.forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      let base = e.target.parentElement.parentElement,
-        idPedido = base.querySelector("#pedidoId").textContent
-      console.log(idPedido)
-    })
-  })
-} */
-//console.log(document.querySelector('.responsivePedido-table'))
-
 const respondiendo = document.querySelector('.respuestaPedido')
 
 if ( table ){
@@ -47,9 +35,6 @@ if ( table ){
   })
 }
 
-//console.log('probando')
-
-//console.log(document.querySelector('.vistaRespuesta'))
 
 const btnCerrarVistaPedido = document.querySelector('.btnCerrarVistaPedido')
 
@@ -66,4 +51,46 @@ if ( btnCerrarVistaPedido ){
 }
 
 
+
+
+/*=============================================
+=            Aprobar pedido            =
+=============================================*/
+
+//console.log(document.querySelector('.btnRealizadoPedido'))
+//console.log(document.querySelector('.responsivePedido-table'))
+const tablePedido = document.querySelector('.responsivePedido-table')
+
+if ( tablePedido ){
+  let btnAprobarPedido = tablePedido.querySelectorAll(".btnRealizadoPedido")
+  btnAprobarPedido.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      let data = new FormData(),
+        idPedido = e.target.dataset.id
+      data.append('id_cambio', idPedido)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res =>{
+          return(res.ok)
+            ? res.text()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          confirm("¿El pedido ha sido aprobado?")
+          location.reload()
+        })
+        .catch(err =>{
+          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+          console.log(mensaje)
+        })
+    })
+  })
+}
+
+
+/*=====  End of Aprobar pedido  ======*/
 

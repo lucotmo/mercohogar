@@ -42,13 +42,42 @@ class GestorPerfilesModel{
 	#ACTUALIZAR PERFIL
 	#---------------------------------------------------
 	public function editarPerfilModel($datosModel, $tabla){
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET usuario = :usuario, photo = :photo, rol = :rol, id_ciudad = :id_ciudad, password = :password, email = :email WHERE perfil_id = :perfil_id");
-
+		$query = "UPDATE $tabla SET usuario = :usuario,
+				rol = :rol, id_ciudad = :id_ciudad, 
+				email = :email 
+				WHERE perfil_id = :perfil_id";
+		
+		if( !is_null($datosModel["password"]) && !is_null($datosModel["photo"]) ) {
+			$query="UPDATE $tabla SET usuario = :usuario,
+			photo = :photo, rol = :rol, id_ciudad = :id_ciudad,
+			password = :password, email = :email
+			WHERE perfil_id = :perfil_id";
+		} else if( !is_null($datosModel["password"])  ) {
+			$query="UPDATE $tabla SET usuario = :usuario,
+			rol = :rol, id_ciudad = :id_ciudad,
+			password = :password, email = :email
+			WHERE perfil_id = :perfil_id";
+		} else if( !is_null($datosModel["photo"])  ) {
+			$query="UPDATE $tabla SET usuario = :usuario,
+			photo = :photo, rol = :rol, id_ciudad = :id_ciudad,
+			email = :email
+			WHERE perfil_id = :perfil_id";
+		}
+		
+		$stmt = Conexion::conectar()->prepare($query);
 		$stmt -> bindParam(":usuario", $datosModel["usuario"], PDO::PARAM_STR);
-		$stmt -> bindParam(":photo", $datosModel["photo"], PDO::PARAM_STR);
 		$stmt -> bindParam(":rol", $datosModel["rol"], PDO::PARAM_INT);
 		$stmt -> bindParam(":id_ciudad", $datosModel["id_ciudad"], PDO::PARAM_INT);
-		$stmt -> bindParam(":password", $datosModel["password"], PDO::PARAM_STR);
+		
+		if( !is_null($datosModel["password"]) && !is_null($datosModel["photo"])  ) {
+			$stmt -> bindParam(":photo", $datosModel["photo"], PDO::PARAM_STR);
+			$stmt -> bindParam(":password", $datosModel["password"], PDO::PARAM_STR);
+		} else if ( !is_null($datosModel["password"])  ) {
+			$stmt -> bindParam(":password", $datosModel["password"], PDO::PARAM_STR);
+		} else if ( !is_null($datosModel["photo"])  ) {
+			$stmt -> bindParam(":photo", $datosModel["photo"], PDO::PARAM_STR);
+		}
+		
 		$stmt -> bindParam(":email", $datosModel["correo"], PDO::PARAM_STR);
 		$stmt -> bindParam(":perfil_id", $datosModel["perfil_id"], PDO::PARAM_INT);
 

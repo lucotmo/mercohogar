@@ -13,7 +13,7 @@ HEADER
       <a href="#" class="btn__perfil">
         <i class="fa fa-caret-down icon-admin"></i>
         <ol class="perfil-options">
-          <li><a href="perfil"><span class="fa fa-user perfil__btn"></span>Editar Perfil</a></li>
+          <li><a href="perfil"><span class="fa fa-cog perfil__btn"></span>Configuraciones</a></li>
           <li><a href="terminos.pdf"><span class="fa fa-file-text perfil__btn__terminos"></span>Términos y Condiciones</a></li>
           <li><a href="salir"><span class="fa fa-times perfil__btn__salir"></span>Salir</a></li>
         </ol>

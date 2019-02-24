@@ -19,7 +19,7 @@ require "views/modules/navegacionEnd.php";
       <div class="inpText-container">
         <div class="inpText-content">
           <label class="labelText" for="celular">Celular</label>
-          <input type="text" class="inpText" value="<?php echo $_SESSION["celular"]; ?>" name="celular" id="celular" placeholder="Celular">
+          <input type="text" class="inpText" value="<?php echo $_SESSION["celular"]; ?>" name="celular" placeholder="Celular">
         </div>
       </div>
       <div class="inpText-container">
@@ -58,7 +58,7 @@ require "views/modules/navegacionEnd.php";
         <div class="inpSelect-content">
           <label class="labelText" for="tipo_doc">Tipo documento</label>
           <select class="inpSelect" value="<?php echo $_SESSION["tipo_doc"]; ?>"
-            name="tipoDoc" id="">
+            name="tipoDoc" >
             <option value="">Seleccion</option>
             <option value="">C.C</option>
             <option value="">T.I</option>
@@ -66,17 +66,17 @@ require "views/modules/navegacionEnd.php";
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Documento</label>
-          <input type="text" class="inpText" value="<?php echo $_SESSION["documento"]; ?>" name="celular" id="celular" placeholder="Documento">
+          <input type="text" class="inpText" value="<?php echo $_SESSION["documento"]; ?>" name="celular"  placeholder="Documento">
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Cuenta Bancaria</label>
-          <input type="text" class="inpText" value="<?php echo $_SESSION["cuenta_bancaria"]; ?>" name="celular" id="celular" placeholder="Cuenta Bancaria">
+          <input type="text" class="inpText" value="<?php echo $_SESSION["cuenta_bancaria"]; ?>" name="celular" placeholder="Cuenta Bancaria">
         </div>
       </div>
       <div class="inpText-container">
         <div class="inpText-content">
           <label class="labelText" for="celular">Banco</label>
-          <select class="inpSelect" value="<?php echo $_SESSION["banco"]; ?>" name="Banco" id="">
+          <select class="inpSelect" value="<?php echo $_SESSION["banco"]; ?>" name="Banco">
             <option value="">Selecciona un banco</option>
             <option value="">Bancolombia</option>
             <option value="">Bogota</option>
@@ -86,7 +86,7 @@ require "views/modules/navegacionEnd.php";
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Tipo de cuenta</label>
-          <select class="inpSelect" value="<?php echo $_SESSION["tipo_cuenta"]; ?>" name="Tipo de cuenta" id="" value="2">
+          <select class="inpSelect" value="<?php echo $_SESSION["tipo_cuenta"]; ?>" name="Tipo de cuenta" value="2">
             <option value="0">Selecciona el tipo</option>
             <option value="1">Ahorro</option>
             <option value="2">Corriente</option>

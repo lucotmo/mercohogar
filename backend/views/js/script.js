@@ -193,9 +193,9 @@ if ( btnContentEditarProducto ){
             </div>
             <form method="post" enctype="multipart/form-data">
               <div class="content-subirFoto">
-                <input type="file" class="imagenProducto" id="cambiarFoto">
+                <input type="file" name class="imagenProducto" id="cambiarFoto">
                 <label for="cambiarFoto" class="input" id="cambiarImagenProducto">
-                  <img src="${rutaImagen}" alt="">
+                  <img src="views${rutaImagen.split("views")[1]}" alt="">
                   <i class="fa fa-camera icon-camera"></i>
                 </label>
               </div>
@@ -205,30 +205,30 @@ if ( btnContentEditarProducto ){
               <div><input name="editarprecioProductoActual" type="text" placeholder="Precio..." class="formPrecioActual" value="${precioActualProducto}" required></div>
               <div>
                 <select class="selectProducto" type="text" name="editarpromocion">
-                  <option value="${promocionProducto}" >promo...</option>
-                  <option value="oferta">Oferta</option>
-                  <option value="nuevo">Nuevo</option>
+                  <option value="">promo...</option>
+                  <option ${promocionProducto == "oferta" ? 'selected' : ''} value="oferta">Oferta</option>
+                  <option ${promocionProducto == "nuevo" ? 'selected' : ''} value="nuevo">Nuevo</option>
                 </select>
               </div>
               <div>
                 <select class="selectProducto" type="text"  required name="editarciudad">
-                  <option value="${ciudadProducto}" >Ciudad...</option>
-                  <option value="1">Bucaramanga</option>
-                  <option value="2">Bogota</option>
+                  <option >Ciudad...</option>
+                  <option ${ciudadProducto == "1" ? 'selected' : ''} value="1">Bucaramanga</option>
+                  <option ${ciudadProducto == "2" ? 'selected' : ''} value="2">Bogota</option>
                 </select>
               </div>
               <div>
                 <select class="selectProducto" type="text" required name="editarcategoria">
                   <option value="${categoriaProducto}" >categoria</option>
-                  <option value="1">fruta</option>
-                  <option value="2">verduras</option>
-                  <option value="3">hortalizas</option>
-                  <option value="4">pulpas</option>
-                  <option value="5">emprendedores</option>
+                  <option ${categoriaProducto == "1" ? 'selected' : ''} value="1">fruta</option>
+                  <option ${categoriaProducto == "2" ? 'selected' : ''} value="2">verduras</option>
+                  <option ${categoriaProducto == "3" ? 'selected' : ''} value="3">hortalizas</option>
+                  <option ${categoriaProducto == "4" ? 'selected' : ''} value="4">pulpas</option>
+                  <option ${categoriaProducto == "5" ? 'selected' : ''} value="5">emprendedores</option>
                 </select>
               </div>
               <input name="editarproducto_id" type="hidden" value="${idProducto}">
-              <input name="fotoAntigua" type="hidden" value="${rutaImagen.slice(28)}">
+              <input name="fotoAntigua" type="hidden" value="views${rutaImagen.split("views")[1]}">
               <div class="content-btnGuardarProduct">
                 <input class="btnGuardarProducto" type="submit" id="updateProducto" value="Guardar" >
               </div>
@@ -299,5 +299,18 @@ if ( btnContentEditarProducto ){
     })
   })
 }
-
 //console.log('lucho')
+
+
+const productContainer = document.querySelector('.product-container')
+if ( productContainer ){
+  btnEliminarProducto = productContainer.querySelectorAll('#btnEliminarProducto')
+  btnEliminarProducto.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      confirm("deseas eliminar este producto")
+      console.log(e.target)
+    })
+  })
+
+}

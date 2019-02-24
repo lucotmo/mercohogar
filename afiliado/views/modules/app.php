@@ -43,12 +43,12 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
  INNER JOIN cliente as cl ON p.celular_cliente = cl.celular
  INNER JOIN ciudades as c ON p.id_ciudad = c.ciudad_id
  WHERE id = ?";
- 
+
  $data = array($idPedido);
- 
+
  $result = db_query($sql, $data, true);
  $result2 = db_query($sql2, $data, true);
- 
+
  echo '<div class="vistaRespuesta">
  <div class="vistaDelPedido">
  <a class="btnCerrarVistaPedido" href="">X</a>
@@ -123,15 +123,15 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
  INNER JOIN participantes AS p
  ON p.email = r.email
  ORDER BY r.fecha, a.bloque, a.disciplina, a.horario";
- 
+
  $result = db_query($sql, null, true);
- 
+
  if (count($result) === 0) {
  return 'No existen registros';
  } else {
  //return $result;
  $html = '';
- 
+
  foreach ( $result as $row ) {
  $html .= '
  <tr>
@@ -151,7 +151,7 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
  </tr>
  ';
  }
- 
+
  return $html;
  }
  } */
@@ -197,21 +197,21 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
  INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
  WHERE celular_referido = ? && pr.id_categoria
  GROUP BY pr.id_categoria";
- 
- 
+
+
  $data = array($idPedido);
  $result = db_query($sql, $data, true);
  $result2 = db_query($sql2, $data, true);
  $result3 = db_query($sql3, $data, true);
- 
- 
- 
- 
+
+
+
+
  if (count($result) === 0) {
  return 'No existen registros';
  } else {
  foreach ($result as $row){
- 
+
  echo '<div class="datosCliente-container">
  <div class="datosCliente-content">
  <table class="table-responsive">
@@ -263,7 +263,7 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
  </tbody>
  </table>
  </div>';
- 
+
  echo '</div>';
  }
  }
@@ -275,17 +275,18 @@ function obtener_clientes_referido($idPedido) {
     cl.nombre as nombreCliente
     FROM pedido as p
     INNER JOIN cliente as cl ON p.celular_cliente = cl.celular
-    WHERE celular_referido = ?
+    WHERE celular_referido = ? AND p.estado_pedido = 5
     GROUP BY celular_cliente";
 	$data = array($idPedido);
 	$result = db_query($sql, $data, true);
 	//$result3 = db_query($sql3, $data, true);
-	
+
 	if (count($result) === 0) {
 		return 'No existen registros';
 	} else {
 		foreach ($result as $row){
-			
+			$totalGeneral = 0;
+
 			$sql2 = "SELECT p.id, p.celular_cliente,
 		pp.precio_total, pp.id_producto,
 	    pr.id_categoria, sum(pp.precio_total) as total,
@@ -297,7 +298,7 @@ function obtener_clientes_referido($idPedido) {
 	    WHERE celular_referido = ? AND p.celular_cliente = ? -- AND pr.id_categoria
 	    GROUP BY pr.id_categoria";
 		$result2 = db_query($sql2, array($row['celular_referido'], $row['celular_cliente']), true);
-			
+
 		echo '<div class="datosCliente-container">
         <div class="datosCliente-content">
           <table class="table-responsive">
@@ -340,16 +341,18 @@ function obtener_clientes_referido($idPedido) {
                 <td class="comision">'.$row2['comision'].'</td>
                 <td class="price">'.($row2['total']*$row2['comision']/100).'</td>';
 				echo '</tr>';
+
+				$totalGeneral+=($row2['total']*$row2['comision']/100);
 			}
 			echo '<tr>
               <td></td>
               <td><strong>Total</strong></td>';
-			echo '<td>'.$row['pedidoTotal'].'</td>';
+			echo '<td>'.$totalGeneral.'</td>'; //. $row['pedidoTotal']
 			echo '</tr>
           </tbody>
         </table>
         </div>';
-			
+
 			echo '</div>';
 		}
 	}
