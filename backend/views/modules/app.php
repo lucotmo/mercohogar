@@ -198,13 +198,13 @@ function cambiar_estado_pedido($idPedido) {
   $data = array($idPedido);
 
   $result = db_query($sql, $data);
-  
+
   if( empty($result) ) {
   	$result[]= "No existen pedidos para $idPerfil";
   }else{
     return $result;
   }
-  
+
   echo json_decode($result);
 }
 
@@ -341,6 +341,46 @@ function ver_cliente ($idCliente) {
 if ( isset($_POST['id_cliente']) )  ver_cliente($_POST['id_cliente']);
 
 
+
+
+/* funciones generales */
+
+function select_ciudades(){
+	$ciudades = "SELECT
+	* FROM ciudades";
+
+	$r_ciudades= db_query($ciudades, array(), true);
+	return $r_ciudades;
+}
+
+function select_tdoc(){
+	$doc = "SELECT
+	* FROM tipo_doc";
+
+	$r_doc= db_query($doc, array(), true);
+	return $r_doc;
+}
+
+function select_banco(){
+	$banco = "SELECT
+	* FROM banco";
+
+	$r_banco= db_query($banco, array(), true);
+	return $r_banco;
+}
+
+function select_tcuenta(){
+	$tcuenta = "SELECT
+	* FROM tipo_cuenta";
+
+	$r_tcuenta= db_query($tcuenta, array(), true);
+	return $r_tcuenta;
+}
+
+/* fin de funciones generales */
+
+
+
 function form_afiliado ($idAfiliado) {
   $sql = "SELECT *
     FROM afiliado
@@ -362,74 +402,94 @@ function form_afiliado ($idAfiliado) {
           <div class="inpText-container">
             <div class="inpText-content">
               <label class="labelText" for="celular">Celular</label>
-              <input type="text" class="inpText" name="celular" value="'.$row['celular'].'" id="celular" placeholder="Celular">
+              <input type="hidden" class="inpText" name="idAfiliado" value="'.$row['id'].'">
+              <input type="text" class="inpText" name="celularAfiliado" value="'.$row['celular'].'" id="celular" placeholder="Celular">
             </div>
             <div class="inpText-content">
               <label class="labelText" for="nombre">Nombre</label>
-              <input type="text" class="inpText" name="nombre" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
+              <input type="text" class="inpText" name="nombreAfiliado" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
             </div>
           </div>
           <div class="inpText-container">
             <div class="inpSelect-content">
-              <select type="text" class="inpSelect" name="ciudad" value="'.$row['ciudad'].'" id="ciudad" placeholder="Ciudad">
-                <option value="">Seleciona una ciudad</option>
-                <option value="1">Bucaramanga</option>
-                <option value="2">Giron</option>
-                <option  value="3">Floridablanca</option>
-                <option value="4">Piedecuesta</option>
-              </select>
+              <select type="text" class="inpSelect" name="ciudadAfiliado" id="ciudad" placeholder="Ciudad">
+                <option value="">Seleciona una ciudad</option>';
+        $c = select_ciudades();
+        foreach($c as $ciudad){
+          echo '<option ';
+          echo ( ( $ciudad['ciudad_id'] == $row['ciudad'] ) ? 'selected' : '' );
+          echo ' value="'.$ciudad['ciudad_id'].'">';
+          echo ( ucwords(strtolower($ciudad['nombre'])) );
+          echo '</option>';
+        }
+        echo '</select>
             </div>
             <div class="inpText-content">
               <label class="labelText" for="barrio">Barrio</label>
-              <input type="text" class="inpText" name="barrio" value="'.$row['barrio'].'" id="barrio" placeholder="Barrio">
+              <input type="text" class="inpText" name="barrioAfiliado" value="'.$row['barrio'].'" id="barrio" placeholder="Barrio">
             </div>
           </div>
           <div class="inpText-container">
             <div class="inpText-content">
               <label class="labelText" for="direccion">Direccion</label>
-              <input type="text" class="inpText" name="direccion" value="'.$row['direccion'].'" id="direccion" placeholder="Direccion">
+              <input type="text" class="inpText" name="direccionAfiliado" value="'.$row['direccion'].'" id="direccion" placeholder="Direccion">
             </div>
           </div>
           <div class="inpText-container">
             <div class="inpSelect-content">
-              <select class="inpSelect" name="tipoDoc">
-                <option value="">Seleccion</option>
-                <option  value="1">C.C</option>
-                <option  value="2">T.I</option>
-              </select>
+              <select class="inpSelect" name="tipoDocAfiliado">
+                <option value="">Seleccion</option>';
+                $doc = select_tdoc();
+			          foreach ($doc as $do){
+                  echo '<option ';
+                  echo ( ( $do['tipo_doc_id'] == $row['tipo_doc'] ) ? 'selected' : '' );
+                  echo ' value="'.$do['tipo_doc_id'].'">';
+                  echo ( $do['nombre_tipo'] );
+                  echo '</option>';
+                }
+              echo '</select>
             </div>
             <div class="inpText-content">
               <label class="labelText" for="documento">Documento</label>
-              <input type="text" class="inpText" name="documento" value="'.$row['documento'].'" id="documento" placeholder="Documento">
+              <input type="text" class="inpText" name="documentoAfiliado" value="'.$row['documento'].'" id="documento" placeholder="Documento">
             </div>
             <div class="inpText-content">
               <label class="labelText" for="cuenta_bancaria">Cuenta Bancaria</label>
-              <input type="text" class="inpText" name="cuenta_bancaria" value="'.$row['cuenta_bancaria'].'" id="cuenta_bancaria" placeholder="Cuenta Bancaria">
+              <input type="text" class="inpText" name="cuentaBancariaAfiliado" value="'.$row['cuenta_bancaria'].'" id="cuenta_bancaria" placeholder="Cuenta Bancaria">
             </div>
           </div>
           <div class="inpText-container">
             <div class="inpText-content">
               <label class="labelText" >Banco</label>
-              <select class="inpSelect" name="Banco" >
-                <option value="">Seleccion</option>
-                <option  value="1">Bancolombia</option>
-                <option value="2">BBVA</option>
-                <option value="3">Caja Social</option>
-                <option value="4">Davivienda</option>
-                <option value="5">AV villas</option>
-              </select>
+              <select class="inpSelect" name="bancoAfiliado" >
+                <option value="">Seleccion</option>';
+                $bancos = select_banco();
+			          foreach ($bancos as $banco){
+                  echo '<option ';
+                  echo ( ( $banco['banco_id'] == $row['banco'] ) ? 'selected' : '' );
+                  echo ' value="'.$banco['banco_id'].'">';
+                  echo ( ucwords(strtolower($banco['nombre_banco'])) );
+                  echo '</option>';
+                }
+              echo '</select>
             </div>
             <div class="inpText-content">
               <label class="labelText" >Tipo de cuenta</label>
-              <select class="inpSelect" name="Tipo de cuenta" >
-                <option value="">Seleccion</option>
-                <option value="1">Ahorro</option>
-                <option value="2">Corriente</option>
-              </select>
+              <select class="inpSelect" name="tipoCuentaAfiliado" >
+                <option value="">Seleccion</option>';
+                $tcuentas = select_tcuenta();
+			          foreach ($tcuentas as $tcuenta){
+                  echo '<option ';
+                  echo ( ( $tcuenta['tipo_id'] == $row['tipo_cuenta'] ) ? 'selected' : '' );
+                  echo ' value="'.$tcuenta['tipo_id'].'">';
+                  echo ( ucwords(strtolower($tcuenta['nombre_tipo_cuenta'])) );
+                  echo '</option>';
+                }
+          echo '</select>
           </div>
           <div class="inpText-content">
             <label class="labelText" for="correo">Correo</label>
-            <input type="text" class="inpText" name="correo" value="'.$row['correo'].'" id="correo" placeholder="Correo">
+            <input type="text" class="inpText" name="correoAfiliado" value="'.$row['correo'].'" id="correo" placeholder="Correo">
           </div>
           <div class="inpText-container">
             <div class="inpSubmit-content">
@@ -465,6 +525,7 @@ function form_cliente ($idCliente) {
         <h3 class="form-titulo">Editar Cliente</h3>
         <div class="inpText-content">
           <label for="celularCliente" class="labelText">Celular</label>
+          <input type="hidden" class="inpText" name="idCliente" value="'.$row['id_cliente'].'" id="id_cliente">
           <input type="text" class="inpText" name="celularCliente" value="'.$row['celular'].'" id="celularCliente" placeholder="Celular">
         </div>
         <div class="inputText-container">
@@ -479,9 +540,19 @@ function form_cliente ($idCliente) {
         </div>
         <div class="inputText-container">
           <div class="inpText-content">
-            <label for="ciudadCliente" class="labelText">Ciudad</label>
-            <input type="text" class="inpText" name="ciudadCliente" value="'.$row['id_ciudad'].'" id="ciudadCliente" placeholder="Nombre">
-          </div>
+            <label class="labelText" >Ciudad</label>
+            <select class="inpSelect" name="ciudadCliente" >
+              <option value="">Seleccion</option>';
+              $c = select_ciudades();
+              foreach($c as $ciudad){
+                echo '<option ';
+                echo ( ( $ciudad['ciudad_id'] == $row['id_ciudad'] ) ? 'selected' : '' );
+                echo ' value="'.$ciudad['ciudad_id'].'">';
+                echo ( ucwords(strtolower($ciudad['nombre'])) );
+                echo '</option>';
+              }
+        echo '</select>
+        </div>
           <div class="inpText-content">
             <label for="barrioCliente" class="labelText">Barrio</label>
             <input type="text" class="inpText" name="barrioCliente" value="'.$row['barrio'].'" id="barrioCliente" placeholder="Nombre">
@@ -504,3 +575,104 @@ function form_cliente ($idCliente) {
 if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
 
 
+
+//Celular	Nombre	Ciudad	Barrio	Direccion
+
+function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $id) {
+  $sql = "UPDATE cliente
+  SET celular = ?, nombre = ?, apellidos = ?, id_ciudad = ?, barrio = ?, direccion = ?
+  WHERE id_cliente = $id";
+  $data = array(
+    $celular,
+    $nombre,
+    $apellidos,
+    $ciudad,
+    $barrio,
+    $direccion
+  );
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito. En breve recibirás un email con la agenda del bloque que elegiste.'
+    );
+
+    //$registro = existe_registro($email);
+    //enviar_email($registro);
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['idCliente']) )
+  update_form_clientes(
+    $_POST['celularCliente'],
+    $_POST['nombreCliente'],
+    $_POST['apellidosCliente'],
+    $_POST['ciudadCliente'],
+    $_POST['barrioCliente'],
+    $_POST['direccionCliente'],
+    $_POST['idCliente']
+  );
+
+
+  function update_form_afiliados($celular, $nombre, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
+    $sql = "UPDATE afiliado
+    SET celular = ?, nombre = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
+    WHERE id = $id";
+    $data = array(
+      $celular,
+      $nombre,
+      $ciudad,
+      $barrio,
+      $direccion,
+      $tipoDoc,
+      $documento,
+      $cuentaBancaria,
+      $banco,
+      $tipoCuenta,
+      $correo
+   );
+
+    $result = db_query($sql, $data);
+
+    if ($result) {
+      $res = array(
+        'err' => false,
+        'msg' => 'Tu registro se efectuó con éxito. En breve recibirás un email con la agenda del bloque que elegiste.'
+      );
+
+      //$registro = existe_registro($email);
+      //enviar_email($registro);
+    } else {
+      $res = array(
+        'err' => true,
+        'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+      );
+    }
+    //header( 'Content-type: application/json' );
+    echo json_encode($res);
+  }
+
+  if ( isset($_POST['idAfiliado']) )
+    update_form_afiliados(
+      $_POST['celularAfiliado'],
+      $_POST['nombreAfiliado'],
+      $_POST['ciudadAfiliado'],
+      $_POST['barrioAfiliado'],
+      $_POST['direccionAfiliado'],
+      $_POST['tipoDocAfiliado'],
+      $_POST['documentoAfiliado'],
+      $_POST['cuentaBancariaAfiliado'],
+      $_POST['bancoAfiliado'],
+      $_POST['tipoCuentaAfiliado'],
+      $_POST['correoAfiliado'],
+      $_POST['idAfiliado']
+    );
