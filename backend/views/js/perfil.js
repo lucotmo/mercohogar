@@ -71,32 +71,53 @@ if ( perfilesContent ){
 
 
 
-/*====================================================
-=            cerrar segundo editar perfil            =
-====================================================*/
+/*=============================================
+=            constantes            =
+=============================================*/
 
-/* let probandoEstaJoda = document.querySelector('#intento45')
+const tableAfiliados = document.querySelector('.afiliados-content'),
+  respuestaAfiliados = document.querySelector('.respuestaAfiliados'),
+  tableClientes = document.querySelector('#clientes-content'),
+  respuestaClientes = document.querySelector('.respuestaClientes')
 
-if ( probandoEstaJoda ){
-  probandoEstaJoda.addEventListener('click', function(e){
-    console.log(e.target)
+
+/*=====  End of constantes  ======*/
+
+
+
+
+/*=============================================
+=            funciones            =
+=============================================*/
+function tableVer(btn, idDato, respuesta){
+  btn.addEventListener('click', function(e){
+    e.preventDefault()
+    let data = new FormData(),
+      id = e.target.dataset.id
+    data.append(idDato, id)
+
+    fetch('views/modules/app.php', {
+      body: data,
+      method: 'post'
+    })
+      .then(res =>{
+        return(res.ok)
+          ? res.text()
+          : Promise.reject({ status: res.status, statusText: res.statusText })
+      })
+      .then(res => {
+        //console.log(res)
+        //console.log('start')
+        respuesta.innerHTML = `${res}`
+      })
+      .catch(err =>{
+        let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+        console.log(mensaje)
+      })
   })
-} */
+}
 
-/* document.addEventListener('click', function(e){
-  console.log(document.getElementById("intento45"))
-  if ( e.target == document.getElementById("Editar2Miembro") ){
-    let form = document.getElementById('formModalEditarMiembros')
-    if ( form.style.display == "none" ){
-      form.style.display = "flex"
-    }else{
-      form.style.display = "none"
-    }
-  }
-}) */
-
-/*=====  End of cerrar segundo editar perfil  ======*/
-
+/*=====  End of funciones  ======*/
 
 
 
@@ -104,38 +125,17 @@ if ( probandoEstaJoda ){
 =            mostrar Afiliados            =
 =============================================*/
 
-const tableAfiliados = document.querySelector('.afiliados-content')
-
-const respuestaAfiliados = document.querySelector('.respuestaAfiliados')
-//console.log(document.querySelector('.respuestaAfiliados'))
 if ( tableAfiliados ){
   let btnVerAfiliados = tableAfiliados.querySelectorAll("#verAfiliado")
   btnVerAfiliados.forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.preventDefault()
-      let data = new FormData(),
-        idAfiliado = e.target.dataset.id
-      data.append('id_afiliado', idAfiliado)
+    tableVer(btn, 'id_afiliado', respuestaAfiliados)
+  })
+}
 
-      fetch('views/modules/app.php', {
-        body: data,
-        method: 'post'
-      })
-        .then(res =>{
-          return(res.ok)
-            ? res.text()
-            : Promise.reject({ status: res.status, statusText: res.statusText })
-        })
-        .then(res => {
-          //console.log(res)
-          //console.log('start')
-          respuestaAfiliados.innerHTML = `${res}`
-        })
-        .catch(err =>{
-          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
-          console.log(mensaje)
-        })
-    })
+if ( tableAfiliados ){
+  let btnVerAfiliados = tableAfiliados.querySelectorAll("#editAfiliado")
+  btnVerAfiliados.forEach(function(btn){
+    tableVer(btn, 'id_editAfiliado', respuestaAfiliados)
   })
 }
 
@@ -144,46 +144,23 @@ if ( tableAfiliados ){
 
 
 /*=============================================
-=            mostrar Afiliados            =
+=            mostrar Cliente            =
 =============================================*/
 
-const tableClientes = document.querySelector('#clientes-content')
-
-const respuestaClientes = document.querySelector('.respuestaClientes')
-console.log(respuestaClientes)
-//console.log(document.querySelector('.respuestaAfiliados'))
 if ( tableClientes ){
   let btnVerClientes = tableClientes.querySelectorAll("#verClientes")
   btnVerClientes.forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.preventDefault()
-      let data = new FormData(),
-        idCliente = e.target.dataset.id
-      data.append('id_cliente', idCliente)
-
-      fetch('views/modules/app.php', {
-        body: data,
-        method: 'post'
-      })
-        .then(res =>{
-          return(res.ok)
-            ? res.text()
-            : Promise.reject({ status: res.status, statusText: res.statusText })
-        })
-        .then(res => {
-          console.log(res)
-          //console.log('start')
-          respuestaClientes.innerHTML = `${res}`
-        })
-        .catch(err =>{
-          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
-          console.log(mensaje)
-        })
-    })
+    tableVer(btn, 'id_cliente', respuestaClientes)
   })
 }
 
 
-console.log('luchooooo')
+if ( tableClientes ){
+  let btnVerClientes = tableClientes.querySelectorAll("#editClientes")
+  btnVerClientes.forEach(function(btn){
+    tableVer(btn, 'id_editCliente', respuestaClientes)
+  })
+}
 
-/*=====  End of mostrar Afiliados  ======*/
+
+/*=====  End of mostrar Cliente  ======*/

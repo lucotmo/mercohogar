@@ -50,7 +50,7 @@ class GestorAfiliados{
           <td>'.$item["celular"].'</td>
           <td>
             <a href="#" class="fa fa-eye btn__perfilDatos" data-id="'.$item["id"].'" id="verAfiliado"></a>
-            <a href="#" class="fa fa-edit btn__perfilDatos"></a>
+            <a href="#" class="fa fa-edit btn__perfilDatos" data-id="'.$item["id"].'" id="editAfiliado"></a>
           </td>
         </tr>';
       //<a href="index.php?action=perfil&idBorrarAfiliado='.$item["id"].'" class="fa fa-trash btn__perfilDatos"></a>

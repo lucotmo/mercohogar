@@ -189,7 +189,6 @@ require "views/modules/navegacionEnd.php";
       </div>
     </div>
   </div>
-  <div class="respuestaAfiliados"></div>
   <div class="title-content">
     <h1 class="title__titulo">Afiliados</h1>
   </div>
@@ -209,17 +208,16 @@ require "views/modules/navegacionEnd.php";
           $verAfiliados = new GestorAfiliados();
           $verAfiliados -> verAfiliadoController();
           $verAfiliados -> borrarAfiliadoController();
-        ?>
+          ?>
       </table>
     </div>
   </div>
-  <div class="respuestaClientes"></div>
 
   <div class="title-content">
     <h1 class="title__titulo">Clientes</h1>
   </div>
   <div class="afiliados-container">
-  <div class="afiliados-container" >
+    <div class="afiliados-container" >
       <div class="afiliados-content" id="clientes-content">
         <table class="responsive-table">
           <tr>
@@ -232,10 +230,13 @@ require "views/modules/navegacionEnd.php";
           <?php
             $verClientes = new GestorClientes();
             $verClientes -> verClientesController();
-          ?>
+            ?>
         </table>
 
       </div>
     </div>
   </div>
 </div>
+
+<div class="respuestaAfiliados"></div>
+<div class="respuestaClientes"></div>
