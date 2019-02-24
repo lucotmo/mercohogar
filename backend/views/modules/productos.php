@@ -46,8 +46,8 @@ require "views/modules/navegacionEnd.php";
         </div>
         <div><input name="tituloProducto" type="text" placeholder="Título..." class="formTitle" required></div>
         <div><input name="medidaProducto" type="text" placeholder="Medida..." class="formMedida" required></div>
-        <div><input name="precioProductoViejo" type="text" placeholder="Precio Viejo..." class="formPrecioViejo"></div>
-        <div><input name="precioProductoActual" type="text" placeholder="Precio..." class="formPrecioActual" required></div>
+        <div><input name="precioProductoViejo price" type="text" placeholder="Precio Viejo..." class="formPrecioViejo"></div>
+        <div><input name="precioProductoActual price" type="text" placeholder="Precio..." class="formPrecioActual" required></div>
         <div>
           <select class="selectProducto" type="text" name="promocion">
             <option value="">promo...</option>
