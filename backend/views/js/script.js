@@ -205,27 +205,26 @@ if ( btnContentEditarProducto ){
               <div><input name="editarprecioProductoActual" type="text" placeholder="Precio..." class="formPrecioActual" value="${precioActualProducto}" required></div>
               <div>
                 <select class="selectProducto" type="text" name="editarpromocion">
-                  <option value="${promocionProducto}" >promo...</option>
-                  <option value="oferta">Oferta</option>
-                  <option value="nuevo">Nuevo</option>
-                  <option value="" >Ninguno</option>
+                  <option value="">promo...</option>
+                  <option ${promocionProducto == "oferta" ? 'selected' : ''} value="oferta">Oferta</option>
+                  <option ${promocionProducto == "nuevo" ? 'selected' : ''} value="nuevo">Nuevo</option>
                 </select>
               </div>
               <div>
                 <select class="selectProducto" type="text"  required name="editarciudad">
-                  <option value="${ciudadProducto}" >Ciudad...</option>
-                  <option value="1">Bucaramanga</option>
-                  <option value="2">Bogota</option>
+                  <option >Ciudad...</option>
+                  <option ${ciudadProducto == "1" ? 'selected' : ''} value="1">Bucaramanga</option>
+                  <option ${ciudadProducto == "2" ? 'selected' : ''} value="2">Bogota</option>
                 </select>
               </div>
               <div>
                 <select class="selectProducto" type="text" required name="editarcategoria">
                   <option value="${categoriaProducto}" >categoria</option>
-                  <option value="1">fruta</option>
-                  <option value="2">verduras</option>
-                  <option value="3">hortalizas</option>
-                  <option value="4">pulpas</option>
-                  <option value="5">emprendedores</option>
+                  <option ${categoriaProducto == "1" ? 'selected' : ''} value="1">fruta</option>
+                  <option ${categoriaProducto == "2" ? 'selected' : ''} value="2">verduras</option>
+                  <option ${categoriaProducto == "3" ? 'selected' : ''} value="3">hortalizas</option>
+                  <option ${categoriaProducto == "4" ? 'selected' : ''} value="4">pulpas</option>
+                  <option ${categoriaProducto == "5" ? 'selected' : ''} value="5">emprendedores</option>
                 </select>
               </div>
               <input name="editarproducto_id" type="hidden" value="${idProducto}">
