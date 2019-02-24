@@ -271,21 +271,22 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
 
 
 function obtener_clientes_referido($idPedido) {
-	$sql = "SELECT p.id, p.celular_cliente, p.celular_referido, count(p.celular_referido) as total, sum(p.valor_pedido) as pedidoTotal,
+	$sql = "SELECT p.id, p.celular_cliente, p.celular_referido,
+	(SELECT count(*) FROM producto_pedido as pp WHERE pp.id_pedido = p.id) as total,
     cl.nombre as nombreCliente
     FROM pedido as p
     INNER JOIN cliente as cl ON p.celular_cliente = cl.celular
-    WHERE celular_referido = ? AND p.estado_pedido = 5
-    GROUP BY celular_cliente";
+    WHERE celular_referido = ? AND p.estado_pedido = 5";
 	$data = array($idPedido);
+	//echo $sql;
 	$result = db_query($sql, $data, true);
 	//$result3 = db_query($sql3, $data, true);
 
 	if (count($result) === 0) {
 		return 'No existen registros';
 	} else {
-		$totalGeneral = 0;
 		foreach ($result as $row){
+			$totalGeneral = 0;
 
 			$sql2 = "SELECT p.id, p.celular_cliente,
 		pp.precio_total, pp.id_producto,
@@ -295,9 +296,10 @@ function obtener_clientes_referido($idPedido) {
 	    INNER JOIN producto_pedido as pp ON p.id = pp.id_pedido
 	    INNER JOIN producto as pr ON pr.producto_id = pp.id_producto
 	    INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
-	    WHERE celular_referido = ? AND p.celular_cliente = ? -- AND pr.id_categoria
+	    WHERE celular_referido = ? AND p.celular_cliente = ?
+		AND p.id  = ?
 	    GROUP BY pr.id_categoria";
-		$result2 = db_query($sql2, array($row['celular_referido'], $row['celular_cliente']), true);
+		$result2 = db_query($sql2, array($row['celular_referido'], $row['celular_cliente'], $row['id']), true);
 
 		echo '<div class="datosCliente-container">
         <div class="datosCliente-content">
@@ -347,7 +349,7 @@ function obtener_clientes_referido($idPedido) {
 			echo '<tr>
               <td></td>
               <td><strong>Total</strong></td>';
-			echo '<td>'.$totalGeneral.'</td>'; //. $row['pedidoTotal']
+			echo '<td>'.$totalGeneral.'</td>';
 			echo '</tr>
           </tbody>
         </table>
@@ -358,6 +360,81 @@ function obtener_clientes_referido($idPedido) {
 	}
 }
 
+function comision_no_pagada($afiliado){
+	$nopagodo = "SELECT
+	ca.nombre_categoria, 
+	ca.comision,
+	(sum(pp.precio_total)*ca.comision/100) as _real
+	FROM pedido as p 
+	INNER JOIN producto_pedido as pp ON p.id = pp.id_pedido 
+	INNER JOIN producto as pr ON pr.producto_id = pp.id_producto 
+	INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
+	WHERE
+	p.celular_referido = ?
+	and pago is false
+	GROUP BY pr.id_categoria;";
+	
+	$data = array($afiliado);
+	
+	$r_nopagado= db_query($nopagodo, $data, true);
+	
+	return $r_nopagado;
+}
+
+function comision_pagada($afiliado){
+	$pagado = "SELECT
+	ca.nombre_categoria,
+	ca.comision,
+	(sum(pp.precio_total)*ca.comision/100) as _real
+	FROM pedido as p
+	INNER JOIN producto_pedido as pp ON p.id = pp.id_pedido
+	INNER JOIN producto as pr ON pr.producto_id = pp.id_producto
+	INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
+	WHERE
+	p.celular_referido = ?
+	and pago is true
+	GROUP BY pr.id_categoria;";
+	
+	$data = array($afiliado);
+	
+	$r_pagado = db_query($pagado, $data, true);
+	
+	return $r_pagado;
+	
+}
+
+
+function select_ciudades(){
+	$ciudades = "SELECT
+	* FROM ciudades";
+	
+	$r_ciudades= db_query($ciudades, array(), true);
+	return $r_ciudades;
+}
+
+function select_tdoc(){
+	$doc = "SELECT
+	* FROM tipo_doc";
+	
+	$r_doc= db_query($doc, array(), true);
+	return $r_doc;
+}
+
+function select_banco(){
+	$banco = "SELECT
+	* FROM banco";
+	
+	$r_banco= db_query($banco, array(), true);
+	return $r_banco;
+}
+
+function select_tcuenta(){
+	$tcuenta = "SELECT
+	* FROM tipo_cuenta";
+	
+	$r_tcuenta= db_query($tcuenta, array(), true);
+	return $r_tcuenta;
+}
 /* SELECT p.id, p.celular_cliente, p.celular_referido, count(p.celular_referido) as total, p.valor_pedido,
  cl.nombre as nombreCliente
  FROM pedido as p

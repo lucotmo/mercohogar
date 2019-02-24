@@ -10,6 +10,7 @@ require "views/modules/app.php";
 require "views/modules/header.php";
 require "views/modules/navegacionStart.php";
 require "views/modules/navegacionEnd.php";
+//echo "<pre>".print_r($_SESSION,1 )."</pre>";
 ?>
 
 <div class="mainReset-content">
@@ -21,7 +22,7 @@ require "views/modules/navegacionEnd.php";
     </form>
   </div>
   <div class="containerDatosClientesReferido">
-    <?php obtener_clientes_referido('3153855955'); ?>
+    <?php obtener_clientes_referido($_SESSION["celular"]); ?>
     <!-- <div class="datosCliente-container">
       <div class="datosCliente-content">
         <table class="table-responsive">
