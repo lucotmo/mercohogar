@@ -371,7 +371,8 @@ function comision_no_pagada($afiliado){
 	INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
 	WHERE
 	p.celular_referido = ?
-	and pago is false
+	AND p.pago is false
+	AND p.estado_pedido = 5
 	GROUP BY pr.id_categoria;";
 	
 	$data = array($afiliado);
@@ -392,7 +393,8 @@ function comision_pagada($afiliado){
 	INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
 	WHERE
 	p.celular_referido = ?
-	and pago is true
+	AND p.pago is true
+	AND p.estado_pedido = 5
 	GROUP BY pr.id_categoria;";
 	
 	$data = array($afiliado);

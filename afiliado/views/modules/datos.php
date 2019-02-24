@@ -7,6 +7,7 @@ if(!$_SESSION["validar"]){
 }
 
 require "views/modules/app.php";
+require  "models/gestorAfiliado.php";
 
 require "views/modules/header.php";
 require "views/modules/navegacionStart.php";
@@ -21,6 +22,7 @@ require "views/modules/navegacionEnd.php";
   </div>
   <?php 
     if($_POST) {
+    	$afiliado = new GestorAfiliadosModel();
     	//echo "<pre>". print_r($_POST,1)."</pre>";
     	if( ( !empty($_POST['password']) &&  !empty($_POST['password2']) )
     	||
@@ -31,10 +33,10 @@ require "views/modules/navegacionEnd.php";
     		if( $_POST['password'] !=  $_POST['password2'] ) {
     			echo "<h3>* Las contraseñas no son identicas</h3>";
     		} else {
-    			echo "update";
+    			$afiliado->updateAfiliado($_POST);
     		}
     	} else {
-    		echo "update";
+    		$afiliado->updateAfiliado($_POST);
     	}
     }
     ?>
@@ -43,6 +45,7 @@ require "views/modules/navegacionEnd.php";
       <div class="inpText-container">
         <div class="inpText-content">
           <label class="labelText" for="celular">Celular</label>
+          <input type="hidden" name="id_usario" value="<?php echo $_SESSION["id"]; ?>">
           <input type="text" class="inpText" value="<?php echo $_SESSION["celular"]; ?>" name="celular" placeholder="Celular">
         </div>
       </div>
@@ -95,17 +98,17 @@ require "views/modules/navegacionEnd.php";
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Documento</label>
-          <input type="text" class="inpText" value="<?php echo $_SESSION["documento"]; ?>" name="celular"  placeholder="Documento">
+          <input type="text" class="inpText" value="<?php echo $_SESSION["documento"]; ?>" name="documento"  placeholder="Documento">
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Cuenta Bancaria</label>
-          <input type="text" class="inpText" value="<?php echo $_SESSION["cuenta_bancaria"]; ?>" name="celular" placeholder="Cuenta Bancaria">
+          <input type="text" class="inpText" value="<?php echo $_SESSION["cuenta_bancaria"]; ?>" name="cuenta_bancaria" placeholder="Cuenta Bancaria">
         </div>
       </div>
       <div class="inpText-container">
         <div class="inpText-content">
           <label class="labelText" for="celular">Banco</label>
-          <select class="inpSelect" name="Banco">
+          <select class="inpSelect" name="banco">
             <option value="">Selecciona un banco</option>
             <?php
 			$bancos = select_banco();
@@ -117,7 +120,7 @@ require "views/modules/navegacionEnd.php";
         </div>
         <div class="inpText-content">
           <label class="labelText" for="celular">Tipo de cuenta</label>
-          <select class="inpSelect" name="Tipo de cuenta" value="2">
+          <select class="inpSelect" name="tipo_de_cuenta">
             <option value="">Selecciona el tipo</option>
             <?php
 			$tcuentas = select_tcuenta();
@@ -151,19 +154,3 @@ require "views/modules/navegacionEnd.php";
   </form>
 
 </div>
-
-<!-- /*$_SESSION["id"] = $respuesta["id"];
-            $_SESSION["celular"] = $respuesta["celular"];
-            $_SESSION["nombre"] = $respuesta["nombre"];
-            $_SESSION["apellidos"] = $respuesta["apellidos"];
-            $_SESSION["ciudad"] = $respuesta["ciudad"];
-            $_SESSION["barrio"] = $respuesta["barrio"];
-            $_SESSION["direccion"] = $respuesta["direccion"];
-            $_SESSION["tipo_doc"] = $respuesta["tipo_doc"];
-            $_SESSION["documento"] = $respuesta["documento"];
-            $_SESSION["cuenta_bancaria"] = $respuesta["cuenta_bancaria"];
-            $_SESSION["banco"] = $respuesta["banco"];
-            $_SESSION["tipo_cuenta"] = $respuesta["tipo_cuenta"];
-            $_SESSION["correo"] = $respuesta["correo"];
-            $_SESSION["password"] = $respuesta["password"];
-            $_SESSION["intentos"] = $respuesta["intentos"];*/ -->
