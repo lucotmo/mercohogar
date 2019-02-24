@@ -9,6 +9,7 @@ class Categorias{
       ';
     }
 
+
   }
   public function mostrarCategoriasController(){
 		$respuesta = CategoriasModels::seleccionarCategoriasModel("categoria");
@@ -19,9 +20,17 @@ class Categorias{
         <td>
           <a class="categoriaId" id="'.$item["categoria_id"].'" style="display:none;"></a>
           <a href="#" class="fa fa-edit btn__perfilDatos" id="btnEditarCategoria"></a>
-          <a href="index.php?action=categorias&idBorrar='.$item["categoria_id"].'" class="fa fa-trash btn__perfilDatos"></a>
         </td>
       </tr>';
+      /* echo '<tr>
+        <td class="tabla__item__categoria">'.$item["nombre_categoria"].'</td>
+        <td class="tabla__item__comision">'.$item["comision"].'</td>
+        <td>
+          <a class="categoriaId" id="'.$item["categoria_id"].'" style="display:none;"></a>
+          <a href="#" class="fa fa-edit btn__perfilDatos" id="btnEditarCategoria"></a>
+          <a href="index.php?action=categorias&idBorrar='.$item["categoria_id"].'" class="fa fa-trash btn__perfilDatos"></a>
+        </td>
+      </tr>'; */
     }
   }
   public function guardarCategoriaController(){
