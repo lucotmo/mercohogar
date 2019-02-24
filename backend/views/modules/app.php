@@ -22,18 +22,6 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
 }
 
 function obtener_pedido ($idPedido) {
-  //$sql = "SELECT * FROM pedido WHERE id = ? ORDER BY id";
-  /* $sql = "SELECT p.id, p.fecha, p.id_ciudad, p.barrio, p.direccion, p.celular_cliente, p.total_valor_pedido, p.estado_pedido,
-    cl.celular, cl.nombre, cl.apellidos,
-    c.ciudad_id, c.nombre as ciudad,
-    pp.id_producto, pp.precio_actual, pp.cantidad, pp.precio_total,
-    pr.titulo, pr.medida
-    FROM pedido as p
-    INNER JOIN cliente as cl ON p.celular_cliente = cl.celular
-    INNER JOIN ciudades as c ON p.id_ciudad = c.ciudad_id
-    INNER JOIN producto_pedido as pp ON p.id = pp.id_pedido
-    INNER JOIN producto as pr ON pp.id_producto = pr.producto_id
-    WHERE id = ?"; */
   $sql = "SELECT p.id,
     pp.id_producto, pp.precio_actual, pp.cantidad, pp.precio_total,
     pr.titulo, pr.medida
@@ -192,13 +180,34 @@ function obtener_perfil ($idPerfil){
           </div>
         </form>
       </div>';
-      
+
       echo $html;
     }
   }
 }
 
 if ( isset($_POST['perfil_id']) )  obtener_perfil($_POST['perfil_id']);
+
+
+function cambiar_estado_pedido($idPedido) {
+
+  $sql = "UPDATE pedido
+  SET estado_pedido = estado_pedido + 1
+  WHERE id = ?";
+
+  $data = array($idPedido);
+
+  $result = db_query($sql, $data);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idPerfil";
+  }else{
+    return $result;
+  }
+
+}
+
+if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 
 /*
 let estadoPedido = dataset.id = estado_pedido + 1
