@@ -284,8 +284,8 @@ function obtener_clientes_referido($idPedido) {
 	if (count($result) === 0) {
 		return 'No existen registros';
 	} else {
-		$totalGeneral = 0;
 		foreach ($result as $row){
+			$totalGeneral = 0;
 
 			$sql2 = "SELECT p.id, p.celular_cliente,
 		pp.precio_total, pp.id_producto,
