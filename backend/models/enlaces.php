@@ -12,6 +12,7 @@ class EnlacesModels{
 		   $enlaces == "pendientes" ||
 		   $enlaces == "productos" ||
 		   $enlaces == "realizados" ||
+		   $enlaces == "finalizados" ||
 		   $enlaces == "ventas" ||
 		   $enlaces == "perfil" ||
 		   $enlaces == "app" ||
