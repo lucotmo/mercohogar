@@ -96,3 +96,94 @@ if ( probandoEstaJoda ){
 }) */
 
 /*=====  End of cerrar segundo editar perfil  ======*/
+
+
+
+
+/*=============================================
+=            mostrar Afiliados            =
+=============================================*/
+
+const tableAfiliados = document.querySelector('.afiliados-content')
+
+const respuestaAfiliados = document.querySelector('.respuestaAfiliados')
+//console.log(document.querySelector('.respuestaAfiliados'))
+if ( tableAfiliados ){
+  let btnVerAfiliados = tableAfiliados.querySelectorAll("#verAfiliado")
+  btnVerAfiliados.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      let data = new FormData(),
+        idAfiliado = e.target.dataset.id
+      data.append('id_afiliado', idAfiliado)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res =>{
+          return(res.ok)
+            ? res.text()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          //console.log(res)
+          //console.log('start')
+          respuestaAfiliados.innerHTML = `${res}`
+        })
+        .catch(err =>{
+          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+          console.log(mensaje)
+        })
+    })
+  })
+}
+
+/*=====  End of mostrar Afiliados  ======*/
+
+
+
+/*=============================================
+=            mostrar Afiliados            =
+=============================================*/
+
+const tableClientes = document.querySelector('#clientes-content')
+
+const respuestaClientes = document.querySelector('.respuestaClientes')
+console.log(respuestaClientes)
+//console.log(document.querySelector('.respuestaAfiliados'))
+if ( tableClientes ){
+  let btnVerClientes = tableClientes.querySelectorAll("#verClientes")
+  btnVerClientes.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      let data = new FormData(),
+        idCliente = e.target.dataset.id
+      data.append('id_cliente', idCliente)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res =>{
+          return(res.ok)
+            ? res.text()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          console.log(res)
+          //console.log('start')
+          respuestaClientes.innerHTML = `${res}`
+        })
+        .catch(err =>{
+          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+          console.log(mensaje)
+        })
+    })
+  })
+}
+
+
+console.log('luchooooo')
+
+/*=====  End of mostrar Afiliados  ======*/

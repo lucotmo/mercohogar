@@ -60,7 +60,7 @@ require "views/modules/navegacionEnd.php";
         </div>
       </form>
     </div>
-    
+
     <div class="formModal-container" style="display:none;" id="formModalEditarMiembro">
       <form class="formModal-content" method="post" enctype="multipart/form-data">
         <a class="btnCerrarFormModal" href="#" id="btnCerrarFormModalEditarMiembro">X</a>
@@ -103,7 +103,7 @@ require "views/modules/navegacionEnd.php";
         </div>
       </form>
     </div>
-    
+
     <div class="formModal-container" style="display:none;" id="formModalNuevoAfiliado">
       <form class="formModal-content" method="post">
         <a class="btnCerrarFormModal" href="#" id="btnCerrarFormModalNuevoAfiliado">X</a>
@@ -189,6 +189,7 @@ require "views/modules/navegacionEnd.php";
       </div>
     </div>
   </div>
+  <div class="respuestaAfiliados"></div>
   <div class="title-content">
     <h1 class="title__titulo">Afiliados</h1>
   </div>
@@ -212,13 +213,14 @@ require "views/modules/navegacionEnd.php";
       </table>
     </div>
   </div>
+  <div class="respuestaClientes"></div>
 
   <div class="title-content">
     <h1 class="title__titulo">Clientes</h1>
   </div>
   <div class="afiliados-container">
-  <div class="afiliados-container">
-      <div class="afiliados-content">
+  <div class="afiliados-container" >
+      <div class="afiliados-content" id="clientes-content">
         <table class="responsive-table">
           <tr>
             <th>Cliente</th>

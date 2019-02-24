@@ -67,7 +67,7 @@ class GestorClientes{
           <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
           <td></td>
           <td>
-            <a href="#" id="'.$item["id_cliente"].'" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
+            <a href="#" data-id="'.$item["id_cliente"].'" class="fa fa-eye btn__perfilDatos" id="verClientes"></a>
             <a href="#" class="fa fa-edit btn__perfilDatos"></a>
           </td>
         </tr>';

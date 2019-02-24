@@ -209,21 +209,136 @@ function cambiar_estado_pedido($idPedido) {
 
 if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 
-/*
-let estadoPedido = dataset.id = estado_pedido + 1
-let pedidoId = id
 
-//UPDATE pedido SET estado_pedido = 3 WHERE id = 4
-//UPDATE pedido SET estado_pedido = estadoPedido WHERE id = pedidoId
 
-*/
 
-/*
-//SELECT * FROM pedido WHERE celular_referido = '680004' && estado_pedido = 4
+function ver_afiliado ($idAfiliado) {
+  $sql = "SELECT *
+    FROM afiliado
+    WHERE id = ?";
 
-*/
+  $data = array($idAfiliado);
 
-/*
-//SELECT * FROM `afiliado` WHERE celular = '3153855955'
+  $result = db_query($sql, $data, true);
 
-*/
+  echo '<div class="vistaRespuesta">
+  <div class="vistaDelPedido">
+    <a class="btnCerrarVistaPedido" href="">X</a>
+    <h1 class="title__titulo">Datos</h1>';
+  echo '<table class="table-responsive">
+    <thead>
+      <tr>
+        <th>Celular</th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Barrio</th>
+        <th>Direccion</th>
+        <th></th>
+      </tr>
+    </thead>';
+    if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliado";
+    }else{
+    foreach ($result as $row) {
+    echo '<tbody>
+      <tr>
+        <td>'.$row['celular'].'</td>
+        <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
+        <td>'.$row['ciudad'].'</td>
+        <td>'.$row['barrio'].'</td>
+        <td>'.$row['direccion'].'</td>
+      </tr>
+    </tbody>';
+    }
+    }
+    echo '</table><br>';
+
+
+    echo '<table class="table-responsive">
+    <thead>
+      <tr>
+        <th>Tipo Docuento</th>
+        <th>Documento</th>
+        <th>Cuenta Bancaria</th>
+        <th>Banco</th>
+        <th>Tipo cuenta</th>
+        <th>Correo</th>
+        <th></th>
+      </tr>
+    </thead>';
+  if ( count($result) == 0 ){
+  echo "No existen pedidos para $idAfiliado";
+  }else{
+    foreach ($result as $row) {
+    echo '<tbody>
+      <tr>
+        <td>'.$row['tipo_doc'].'</td>
+        <td>'.$row['documento'].'</td>
+        <td>'.$row['cuenta_bancaria'].'</td>
+        <td>'.$row['banco'].'</td>
+        <td>'.$row['tipo_cuenta'].'</td>
+        <td>'.$row['correo'].'</td>
+      </tr>
+    </tbody>';
+    }
+  }
+    echo '</table><br>';
+  echo ' </div>
+  </div>';
+}
+
+if ( isset($_POST['id_afiliado']) )  ver_afiliado($_POST['id_afiliado']);
+
+
+function ver_cliente ($idCliente) {
+  $sql = "SELECT *
+    FROM cliente
+    WHERE id_cliente = ?";
+
+  $data = array($idCliente);
+
+  $result = db_query($sql, $data, true);
+
+  echo '<div class="vistaRespuesta">
+  <div class="vistaDelPedido">
+    <a class="btnCerrarVistaPedido" href="">X</a>
+    <h1 class="title__titulo">Datos</h1>';
+  echo '<table class="table-responsive">
+    <thead>
+      <tr>
+        <th>Celular</th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Barrio</th>
+        <th>Direccion</th>
+        <th></th>
+      </tr>
+    </thead>';
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idCliente";
+  }else{
+    foreach ($result as $row) {
+      echo '<tbody>
+        <tr>
+          <td>'.$row['celular'].'</td>
+          <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
+          <td>'.$row['id_ciudad'].'</td>
+          <td>'.$row['barrio'].'</td>
+          <td>'.$row['direccion'].'</td>
+        </tr>
+      </tbody>';
+    }
+  }
+    echo '</table><br>';
+
+
+
+  echo ' </div>
+  </div>';
+}
+
+if ( isset($_POST['id_cliente']) )  ver_cliente($_POST['id_cliente']);
+
+
+
+
