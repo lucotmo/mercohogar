@@ -210,21 +210,297 @@ function cambiar_estado_pedido($idPedido) {
 
 if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 
-/*
-let estadoPedido = dataset.id = estado_pedido + 1
-let pedidoId = id
 
-//UPDATE pedido SET estado_pedido = 3 WHERE id = 4
-//UPDATE pedido SET estado_pedido = estadoPedido WHERE id = pedidoId
 
-*/
 
-/*
-//SELECT * FROM pedido WHERE celular_referido = '680004' && estado_pedido = 4
+function ver_afiliado ($idAfiliado) {
+  $sql = "SELECT *
+    FROM afiliado
+    WHERE id = ?";
 
-*/
+  $data = array($idAfiliado);
 
-/*
-//SELECT * FROM `afiliado` WHERE celular = '3153855955'
+  $result = db_query($sql, $data, true);
 
-*/
+  echo '<div class="vistaRespuesta">
+  <div class="vistaDelPedido">
+    <a class="btnCerrarVistaPedido" href="">X</a>
+    <h1 class="title__titulo">Datos</h1>';
+  echo '<table class="table-responsive">
+    <thead>
+      <tr>
+        <th>Celular</th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Barrio</th>
+        <th>Direccion</th>
+        <th></th>
+      </tr>
+    </thead>';
+    if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliado";
+    }else{
+    foreach ($result as $row) {
+    echo '<tbody>
+      <tr>
+        <td>'.$row['celular'].'</td>
+        <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
+        <td>'.$row['ciudad'].'</td>
+        <td>'.$row['barrio'].'</td>
+        <td>'.$row['direccion'].'</td>
+      </tr>
+    </tbody>';
+    }
+    }
+    echo '</table><br>';
+
+
+    echo '<table class="table-responsive">
+    <thead>
+      <tr>
+        <th>Tipo Docuento</th>
+        <th>Documento</th>
+        <th>Cuenta Bancaria</th>
+        <th>Banco</th>
+        <th>Tipo cuenta</th>
+        <th>Correo</th>
+        <th></th>
+      </tr>
+    </thead>';
+  if ( count($result) == 0 ){
+  echo "No existen pedidos para $idAfiliado";
+  }else{
+    foreach ($result as $row) {
+    echo '<tbody>
+      <tr>
+        <td>'.$row['tipo_doc'].'</td>
+        <td>'.$row['documento'].'</td>
+        <td>'.$row['cuenta_bancaria'].'</td>
+        <td>'.$row['banco'].'</td>
+        <td>'.$row['tipo_cuenta'].'</td>
+        <td>'.$row['correo'].'</td>
+      </tr>
+    </tbody>';
+    }
+  }
+    echo '</table><br>';
+  echo ' </div>
+  </div>';
+}
+
+if ( isset($_POST['id_afiliado']) )  ver_afiliado($_POST['id_afiliado']);
+
+
+function ver_cliente ($idCliente) {
+  $sql = "SELECT *
+    FROM cliente
+    WHERE id_cliente = ?";
+
+  $data = array($idCliente);
+
+  $result = db_query($sql, $data, true);
+
+  echo '<div class="vistaRespuesta">
+  <div class="vistaDelPedido">
+    <a class="btnCerrarVistaPedido" href="">X</a>
+    <h1 class="title__titulo">Datos</h1>';
+  echo '<table class="table-responsive">
+    <thead>
+      <tr>
+        <th>Celular</th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Barrio</th>
+        <th>Direccion</th>
+        <th></th>
+      </tr>
+    </thead>';
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idCliente";
+  }else{
+    foreach ($result as $row) {
+      echo '<tbody>
+        <tr>
+          <td>'.$row['celular'].'</td>
+          <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
+          <td>'.$row['id_ciudad'].'</td>
+          <td>'.$row['barrio'].'</td>
+          <td>'.$row['direccion'].'</td>
+        </tr>
+      </tbody>';
+    }
+  }
+    echo '</table><br>';
+
+
+
+  echo ' </div>
+  </div>';
+}
+
+if ( isset($_POST['id_cliente']) )  ver_cliente($_POST['id_cliente']);
+
+
+function form_afiliado ($idAfiliado) {
+  $sql = "SELECT *
+    FROM afiliado
+    WHERE id = ?";
+
+  $data = array($idAfiliado);
+
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliado";
+  }else{
+    foreach ($result as $row) {
+      echo '
+      <div class="formModal-container" id="formModalEditarCliente">
+        <form class="formModal-content" method="post">
+          <a class="btnCerrarFormModal" href="" >X</a>
+          <h3 class="form-titulo">Editar Cliente</h3>
+          <div class="inpText-container">
+            <div class="inpText-content">
+              <label class="labelText" for="celular">Celular</label>
+              <input type="text" class="inpText" name="celular" value="'.$row['celular'].'" id="celular" placeholder="Celular">
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="nombre">Nombre</label>
+              <input type="text" class="inpText" name="nombre" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpSelect-content">
+              <select type="text" class="inpSelect" name="ciudad" value="'.$row['ciudad'].'" id="ciudad" placeholder="Ciudad">
+                <option value="">Seleciona una ciudad</option>
+                <option value="1">Bucaramanga</option>
+                <option value="2">Giron</option>
+                <option  value="3">Floridablanca</option>
+                <option value="4">Piedecuesta</option>
+              </select>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="barrio">Barrio</label>
+              <input type="text" class="inpText" name="barrio" value="'.$row['barrio'].'" id="barrio" placeholder="Barrio">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpText-content">
+              <label class="labelText" for="direccion">Direccion</label>
+              <input type="text" class="inpText" name="direccion" value="'.$row['direccion'].'" id="direccion" placeholder="Direccion">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpSelect-content">
+              <select class="inpSelect" name="tipoDoc">
+                <option value="">Seleccion</option>
+                <option  value="1">C.C</option>
+                <option  value="2">T.I</option>
+              </select>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="documento">Documento</label>
+              <input type="text" class="inpText" name="documento" value="'.$row['documento'].'" id="documento" placeholder="Documento">
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="cuenta_bancaria">Cuenta Bancaria</label>
+              <input type="text" class="inpText" name="cuenta_bancaria" value="'.$row['cuenta_bancaria'].'" id="cuenta_bancaria" placeholder="Cuenta Bancaria">
+            </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpText-content">
+              <label class="labelText" >Banco</label>
+              <select class="inpSelect" name="Banco" >
+                <option value="">Seleccion</option>
+                <option  value="1">Bancolombia</option>
+                <option value="2">BBVA</option>
+                <option value="3">Caja Social</option>
+                <option value="4">Davivienda</option>
+                <option value="5">AV villas</option>
+              </select>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" >Tipo de cuenta</label>
+              <select class="inpSelect" name="Tipo de cuenta" >
+                <option value="">Seleccion</option>
+                <option value="1">Ahorro</option>
+                <option value="2">Corriente</option>
+              </select>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="correo">Correo</label>
+            <input type="text" class="inpText" name="correo" value="'.$row['correo'].'" id="correo" placeholder="Correo">
+          </div>
+          <div class="inpText-container">
+            <div class="inpSubmit-content">
+              <input type="submit" class="inpSubmit" value="Guardar">
+            </div>
+          </div>
+
+        </form>
+      </div>';
+    }
+  }
+}
+
+if ( isset($_POST['id_editAfiliado']) )  form_afiliado($_POST['id_editAfiliado']);
+
+
+function form_cliente ($idCliente) {
+  $sql = "SELECT *
+    FROM cliente
+    WHERE id_cliente = ?";
+
+  $data = array($idCliente);
+
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idCliente";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container" id="formModalEditarCliente">
+      <form class="formModal-content" method="post">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Cliente</h3>
+        <div class="inpText-content">
+          <label for="celularCliente" class="labelText">Celular</label>
+          <input type="text" class="inpText" name="celularCliente" value="'.$row['celular'].'" id="celularCliente" placeholder="Celular">
+        </div>
+        <div class="inputText-container">
+          <div class="inpText-content">
+            <label for="nombreCliente" class="labelText">Nombre</label>
+            <input type="text" class="inpText" name="nombreCliente" value="'.$row['nombre'].'" id="nombreCliente" placeholder="Nombre">
+          </div>
+          <div class="inpText-content">
+            <label for="apellidosCliente" class="labelText">Apellidos</label>
+            <input type="text" class="inpText" name="apellidosCliente" value="'.$row['apellidos'].'" id="apellidosCliente" placeholder="Nombre">
+          </div>
+        </div>
+        <div class="inputText-container">
+          <div class="inpText-content">
+            <label for="ciudadCliente" class="labelText">Ciudad</label>
+            <input type="text" class="inpText" name="ciudadCliente" value="'.$row['id_ciudad'].'" id="ciudadCliente" placeholder="Nombre">
+          </div>
+          <div class="inpText-content">
+            <label for="barrioCliente" class="labelText">Barrio</label>
+            <input type="text" class="inpText" name="barrioCliente" value="'.$row['barrio'].'" id="barrioCliente" placeholder="Nombre">
+          </div>
+        </div>
+
+        <div class="inpText-content">
+          <label for="direccionCliente" class="labelText">Direccion</label>
+          <input type="text" class="inpText" name="direccionCliente" value="'.$row['direccion'].'" id="direccionCliente" placeholder="Contraseña">
+        </div>
+        <div class="inpSubmit-content">
+          <input type="submit" class="inpSubmit" value="Guardar">
+        </div>
+      </form>
+    </div>';
+    }
+  }
+}
+
+if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
+
+
