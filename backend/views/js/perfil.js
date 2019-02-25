@@ -183,11 +183,9 @@ const mensaje_ok = msg => `
     </p>
   `
 
-document.addEventListener('submit', e => {
+/* document.addEventListener('submit', e => {
   if (e.target.matches('form')) {
     e.preventDefault()
-    alert('Guardando Cambios...')
-
     let data = new FormData(e.target)
 
     fetch('views/modules/app.php', {
@@ -220,6 +218,6 @@ document.addEventListener('submit', e => {
         //respuesta.innerHTML = mensaje
       })
   }
-})
+}) */
 
-//console.log('lucho')
+console.log('lucho')
