@@ -111,11 +111,65 @@ if ( btnCategoriasProductos ){
 /*=====  End of checked categorias  ======*/
 
 
-$("#btnAgregarProducto").click(function(){
+/* $("#btnAgregarProducto").click(function(){
 
 	$("#formNuevoProducto").toggle(100);
 
-})
+}) */
+
+const btnAgregarProducto = document.getElementById('btnAgregarProducto')
+
+if ( btnAgregarProducto ){
+  btnAgregarProducto.addEventListener('click', function(e){
+    e.preventDefault()
+    let btnForm = document.getElementById('formModalNuevoProduct')
+    if ( btnForm.style.display == "none" ){
+      btnForm.style.display = "flex"
+    }else{
+      btnForm.style.display = "none"
+    }
+  })
+}
+
+const containerFormulariosProducto = document.querySelector('.container-formularios')
+//console.log(document.querySelector('.container-formularios'))
+function formEventoSubmitProducto(resp){
+  resp.addEventListener('submit', function(e) {
+    if (e.target.matches('form')) {
+      e.preventDefault()
+      let data = new FormData(e.target)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post',
+        enctype: 'multipart/form-data'
+      })
+        .then(res => {
+          //c(res)
+          return (res.ok)
+            ? res.json()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          if (res.err) {
+            //mensaje_error(res.msg)
+          } else {
+            location.reload()
+          }
+        })
+        .catch(err => {
+          let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+          console.log(mensaje)
+        })
+    }
+  })
+}
+
+if ( containerFormulariosProducto ){
+  formEventoSubmitProducto(containerFormulariosProducto)
+}
+
+//console.log(btnAgregarProducto)
 
 /*=============================================
 Subir Imagen a través del Input
@@ -153,9 +207,6 @@ $("#subirFoto").change(function(){
 			cache: false,
 			contentType: false,
 			processData: false,
-			/* beforeSend: function(){
-					$("#infoTamañoImagen").before('<img src="views/imagenes/status.gif" id="status">');
-			}, */
 			success: function(respuesta){
         console.log(respuesta)
         $("#status").remove();
@@ -316,7 +367,7 @@ if ( productContainer ){
 }
 
 
-console.log('kljdsflkdjfkj')
+//console.log('kljdsf')
 
 /* <div class="form" id="formEditarProducto" style="display:flex">
             <div class="title">
@@ -448,3 +499,50 @@ console.log('kljdsflkdjfkj')
     </form>
     <div id="infoTamañoImagen"></div>
   </div> */
+
+
+$("#cargarFoto").change(function(){
+  imagen = this.files[0];
+
+  //Validar tamaño de la imagen
+  imagenSize = imagen.size;
+  if(Number(imagenSize) > 2000000){
+    $("#infoTamañoImagen").before('<div class="">El archivo excede el peso permitido, 200kb</div>')
+  }else{
+    $(".alerta").remove();
+  }
+
+  // Validar tipo de la imagen
+  imagenType = imagen.type;
+  if(imagenType == "image/jpeg" || imagenType == "image/png"){
+    $(".alerta").remove();
+  }
+  else{
+    $("#infoTamañoImagen").before('<div class="">El archivo debe ser formato JPG o PNG</div>')
+  }
+
+  /*=============================================
+  Mostrar imagen con AJAX
+  =============================================*/
+  if(Number(imagenSize) < 2000000 && imagenType == "image/jpeg" || imagenType == "image/png"){
+    var datos = new FormData();
+    datos.append("imagen", imagen);
+    $.ajax({
+      url:"views/ajax/gestorProductos.php",
+      method: "POST",
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(respuesta){
+        console.log(respuesta)
+        $("#status").remove();
+        if(respuesta == 0){
+          $("#infoTamañoImagen").before('<div class="">La imagen es inferior a 188px * 188px</div>')
+        }else{
+          $("#arrastrarImagenProducto").html('<img src="'+respuesta.slice(6)+'" class="img-thumbnail" style="width:48px; heigth: 48px"><i class="fa fa-camera icon-camera"></i>');
+        }
+      }
+    })
+  }
+})

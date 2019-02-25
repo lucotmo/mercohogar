@@ -233,3 +233,21 @@ label[for="subirFoto"] img, label[for="cambiarFoto"] img{
 .viewFormNuevoProducto{
   display: flex;
 }
+
+
+input[type="file"]#cargarFoto, input[type="file"]#cargarFoto {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+label[for="cargarFoto"] img, label[for="cargarFoto"] img{
+	display: block;
+	max-width: 40px;
+	width: 100%;
+	border: 2px solid rgb(170, 170, 170);
+ 	border-radius: 5px;
+}

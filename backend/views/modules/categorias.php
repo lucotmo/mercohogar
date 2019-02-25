@@ -19,10 +19,10 @@ require "views/modules/navegacionEnd.php";
 <div class="mainReset-content">
   <div class="title-content">
     <h1 class="title__titulo"><?php echo $_GET["action"]; ?></h1>
-    <form class="buscar" name="titulo" action="" method="get">
+    <!-- <form class="buscar" name="titulo" action="" method="get">
       <input class="filtro" type="text" placeholder="Producto..." id="search-item">
       <button type="submit" class="icono fa fa-search"></button>
-    </form>
+    </form> -->
   </div>
   <div class="btnAgregar-content">
     <button class="btnAgregar" id="btnAgregarCategorias">Nueva Categoria</button>
