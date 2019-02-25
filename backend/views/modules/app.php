@@ -613,7 +613,7 @@ if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
 
 
 
-//Celular	Nombre	Ciudad	Barrio	Direccion
+
 
 function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $id) {
   $sql = "UPDATE cliente

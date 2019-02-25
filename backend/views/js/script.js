@@ -187,68 +187,39 @@ if ( btnContentEditarProducto ){
         ciudadProducto = base.querySelector('#product__ciudad').value,
         categoriaProducto = base.querySelector('#product__categoria').value,
         templateEditarProducto = `
-          <div class="form" id="formEditarProducto" style="display:flex">
-          <div class="title" style="font-size:2.5em">
-            <h6 >Editar producto</h6>
-          </div>
-          <form method="post" enctype="multipart/form-data">
-          <div class="" style="width: 100%">
-        <div class="inpText-container" style="display:flex; justify-content:space-between; align-items:center">
+        <div class="form" id="formEditarProducto" style="display:flex">
+        <div class="title">
+          <h6 >Editar producto</h6>
+        </div>
+        <form method="post" enctype="multipart/form-data">
           <div class="content-subirFoto">
             <input type="file" name class="imagenProducto" id="cambiarFoto">
             <label for="cambiarFoto" class="input" id="cambiarImagenProducto">
-              <img src="views${rutaImagen.split("views")[1]}" alt="" style="width:48px; heigth: 48px">
+              <img src="views${rutaImagen.split("views")[1]}" alt="">
               <i class="fa fa-camera icon-camera"></i>
             </label>
           </div>
-          <div class="inpText-content">
-            <label class="labelText" for="">Titulo</label>
-            <input type="hidden" name="idProducto" value="${idProducto}">
-            <input class="inpText" name="tituloProducto" value="${titleProducto}" type="text" placeholder="Título..." class="formTitle" required></div>
-          <div class="inpText-content">
-            <label class="labelText" for="">Medida</label>
-            <select class="inpSelect" type="text" name="medidaProducto" required>
-            <option ${medidaProducto == "und" ? 'selected' : ''} value="und">und</option>
-            <option ${medidaProducto == "lb" ? 'selected' : ''} value="lb">lb</option>
-            <option ${medidaProducto == "cabeza" ? 'selected' : ''} value="cabeza">cabeza</option>
-            <option ${medidaProducto == "bandeja" ? 'selected' : ''} value="bandeja">bandeja</option>
-            <option ${medidaProducto == "atado 500gr" ? 'selected' : ''} value="atado 500gr">atado 500gr</option>
-            <option ${medidaProducto == "atado 200gr" ? 'selected' : ''} value="atado 200gr">atado 200gr</option>
-            <option ${medidaProducto == "band 500gr" ? 'selected' : ''} value="band 500gr">band 500gr</option>
-            <option ${medidaProducto == "band 350gr" ? 'selected' : ''} value="band 350gr">band 350gr</option>
-            <option ${medidaProducto == "band x 4" ? 'selected' : ''} value="band x 4">band x 4</option>
-            </select>
-          </div>
-        </div>
-        <div class="inpText-container">
-          <div class="inpText-content">
-            <label class="labelText" for="">Precio Viejo</label>
-            <input class="inpText price" name="precioProductoViejo" value="${precioViejoProducto}" type="text" placeholder="Precio Viejo..." class="formPrecioViejo">
-          </div>
-          <div class="inpText-content">
-            <label class="labelText" for="">Precio</label>
-            <input class="inpText price" name="precioProductoActual" value="${precioActualProducto}" type="text" placeholder="Precio..." class="formPrecioActual" required>
-          </div>
-          <div class="inpText-content">
-            <label class="labelText" for="">Promocion</label>
-            <select class="inpSelect" type="text" name="promocion">
+          <div><input name="editartituloProducto" type="text" placeholder="Título..." class="formTitle" value="${titleProducto}" required></div>
+          <div><input name="editarmedidaProducto" type="text" placeholder="Medida..." class="formMedida" value="${medidaProducto}" required></div>
+          <div><input name="editarprecioProductoViejo" type="text" placeholder="Precio Viejo..." class="formPrecioViejo" value="${precioViejoProducto}"></div>
+          <div><input name="editarprecioProductoActual" type="text" placeholder="Precio..." class="formPrecioActual" value="${precioActualProducto}" required></div>
+          <div>
+            <select class="selectProducto" type="text" name="editarpromocion">
               <option value="">promo...</option>
               <option ${promocionProducto == "oferta" ? 'selected' : ''} value="oferta">Oferta</option>
               <option ${promocionProducto == "nuevo" ? 'selected' : ''} value="nuevo">Nuevo</option>
             </select>
           </div>
-          <div class="inpText-content">
-            <label class="labelText" for="">Ciudad</label>
-            <select class="inpSelect" type="text" required name="ciudad">
-              <option value="">Ciudad...</option>
+          <div>
+            <select class="selectProducto" type="text"  required name="editarciudad">
+              <option >Ciudad...</option>
               <option ${ciudadProducto == "1" ? 'selected' : ''} value="1">Bucaramanga</option>
               <option ${ciudadProducto == "2" ? 'selected' : ''} value="2">Bogota</option>
             </select>
           </div>
-          <div class="inpText-content">
-            <label class="labelText" for="">Categoria</label>
-            <select class="inpText" type="text" required name="categoria">
-              <option value="">Categoria</option>
+          <div>
+            <select class="selectProducto" type="text" required name="editarcategoria">
+              <option value="${categoriaProducto}" >categoria</option>
               <option ${categoriaProducto == "1" ? 'selected' : ''} value="1">fruta</option>
               <option ${categoriaProducto == "2" ? 'selected' : ''} value="2">verduras</option>
               <option ${categoriaProducto == "3" ? 'selected' : ''} value="3">hortalizas</option>
@@ -256,14 +227,14 @@ if ( btnContentEditarProducto ){
               <option ${categoriaProducto == "5" ? 'selected' : ''} value="5">emprendedores</option>
             </select>
           </div>
-        </div>
-        <div class="inpSubmit-content">
-          <input class="inpSubmit" type="submit" id="guardarProducto" value="Guardar" >
-        </div>
+          <input name="editarproducto_id" type="hidden" value="${idProducto}">
+          <input name="fotoAntigua" type="hidden" value="views${rutaImagen.split("views")[1]}">
+          <div class="content-btnGuardarProduct">
+            <input class="btnGuardarProducto" type="submit" id="updateProducto" value="Guardar" >
+          </div>
+        </form>
+        <div id="infoTamañoImagen"></div>
       </div>
-    </form>
-    <div id="infoTamañoImagen"></div>
-  </div>
         `
       document.querySelector('.formEditContent').innerHTML = templateEditarProducto
 
@@ -343,3 +314,137 @@ if ( productContainer ){
   })
 
 }
+
+
+console.log('kljdsflkdjfkj')
+
+/* <div class="form" id="formEditarProducto" style="display:flex">
+            <div class="title">
+              <h6 >Editar producto</h6>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+              <div class="content-subirFoto">
+                <input type="file" name class="imagenProducto" id="cambiarFoto">
+                <label for="cambiarFoto" class="input" id="cambiarImagenProducto">
+                  <img src="views${rutaImagen.split("views")[1]}" alt="">
+                  <i class="fa fa-camera icon-camera"></i>
+                </label>
+              </div>
+              <div><input name="editartituloProducto" type="text" placeholder="Título..." class="formTitle" value="${titleProducto}" required></div>
+              <div><input name="editarmedidaProducto" type="text" placeholder="Medida..." class="formMedida" value="${medidaProducto}" required></div>
+              <div><input name="editarprecioProductoViejo" type="text" placeholder="Precio Viejo..." class="formPrecioViejo" value="${precioViejoProducto}"></div>
+              <div><input name="editarprecioProductoActual" type="text" placeholder="Precio..." class="formPrecioActual" value="${precioActualProducto}" required></div>
+              <div>
+                <select class="selectProducto" type="text" name="editarpromocion">
+                  <option value="">promo...</option>
+                  <option ${promocionProducto == "oferta" ? 'selected' : ''} value="oferta">Oferta</option>
+                  <option ${promocionProducto == "nuevo" ? 'selected' : ''} value="nuevo">Nuevo</option>
+                </select>
+              </div>
+              <div>
+                <select class="selectProducto" type="text"  required name="editarciudad">
+                  <option >Ciudad...</option>
+                  <option ${ciudadProducto == "1" ? 'selected' : ''} value="1">Bucaramanga</option>
+                  <option ${ciudadProducto == "2" ? 'selected' : ''} value="2">Bogota</option>
+                </select>
+              </div>
+              <div>
+                <select class="selectProducto" type="text" required name="editarcategoria">
+                  <option value="${categoriaProducto}" >categoria</option>
+                  <option ${categoriaProducto == "1" ? 'selected' : ''} value="1">fruta</option>
+                  <option ${categoriaProducto == "2" ? 'selected' : ''} value="2">verduras</option>
+                  <option ${categoriaProducto == "3" ? 'selected' : ''} value="3">hortalizas</option>
+                  <option ${categoriaProducto == "4" ? 'selected' : ''} value="4">pulpas</option>
+                  <option ${categoriaProducto == "5" ? 'selected' : ''} value="5">emprendedores</option>
+                </select>
+              </div>
+              <input name="editarproducto_id" type="hidden" value="${idProducto}">
+              <input name="fotoAntigua" type="hidden" value="views${rutaImagen.split("views")[1]}">
+              <div class="content-btnGuardarProduct">
+                <input class="btnGuardarProducto" type="submit" id="updateProducto" value="Guardar" >
+              </div>
+            </form>
+            <div id="infoTamañoImagen"></div>
+          </div> */
+
+
+
+/* <div class="form" id="formEditarProducto" style="display:flex">
+          <div class="title" style="font-size:2.5em">
+            <h6 >Editar producto</h6>
+          </div>
+          <form method="post" enctype="multipart/form-data">
+          <div class="" style="width: 100%">
+        <div class="inpText-container" style="display:flex; justify-content:space-between; align-items:center">
+          <div class="content-subirFoto">
+            <input type="file" name class="imagenProducto" id="cambiarFoto">
+            <label for="cambiarFoto" class="input" id="cambiarImagenProducto">
+              <img src="views${rutaImagen.split("views")[1]}" alt="" style="width:48px; heigth: 48px">
+              <i class="fa fa-camera icon-camera"></i>
+            </label>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="">Titulo</label>
+            <input type="hidden" name="idProducto" value="${idProducto}">
+            <input class="inpText" name="tituloProducto" value="${titleProducto}" type="text" placeholder="Título..." class="formTitle" required></div>
+          <div class="inpText-content">
+            <label class="labelText" for="">Medida</label>
+            <select class="inpSelect" type="text" name="medidaProducto" required>
+            <option ${medidaProducto == "und" ? 'selected' : ''} value="und">und</option>
+            <option ${medidaProducto == "lb" ? 'selected' : ''} value="lb">lb</option>
+            <option ${medidaProducto == "cabeza" ? 'selected' : ''} value="cabeza">cabeza</option>
+            <option ${medidaProducto == "bandeja" ? 'selected' : ''} value="bandeja">bandeja</option>
+            <option ${medidaProducto == "atado 500gr" ? 'selected' : ''} value="atado 500gr">atado 500gr</option>
+            <option ${medidaProducto == "atado 200gr" ? 'selected' : ''} value="atado 200gr">atado 200gr</option>
+            <option ${medidaProducto == "band 500gr" ? 'selected' : ''} value="band 500gr">band 500gr</option>
+            <option ${medidaProducto == "band 350gr" ? 'selected' : ''} value="band 350gr">band 350gr</option>
+            <option ${medidaProducto == "band x 4" ? 'selected' : ''} value="band x 4">band x 4</option>
+            </select>
+          </div>
+        </div>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="">Precio Viejo</label>
+            <input class="inpText price" name="precioProductoViejo" value="${precioViejoProducto}" type="text" placeholder="Precio Viejo..." class="formPrecioViejo">
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="">Precio</label>
+            <input class="inpText price" name="precioProductoActual" value="${precioActualProducto}" type="text" placeholder="Precio..." class="formPrecioActual" required>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="">Promocion</label>
+            <select class="inpSelect" type="text" name="promocion">
+              <option value="">promo...</option>
+              <option ${promocionProducto == "oferta" ? 'selected' : ''} value="oferta">Oferta</option>
+              <option ${promocionProducto == "nuevo" ? 'selected' : ''} value="nuevo">Nuevo</option>
+            </select>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="">Ciudad</label>
+            <select class="inpSelect" type="text" required name="ciudad">
+              <option value="">Ciudad...</option>
+              <option ${ciudadProducto == "1" ? 'selected' : ''} value="1">Bucaramanga</option>
+              <option ${ciudadProducto == "2" ? 'selected' : ''} value="2">Bogota</option>
+            </select>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="">Categoria</label>
+            <select class="inpText" type="text" required name="categoria">
+              <option value="">Categoria</option>
+              <option ${categoriaProducto == "1" ? 'selected' : ''} value="1">fruta</option>
+              <option ${categoriaProducto == "2" ? 'selected' : ''} value="2">verduras</option>
+              <option ${categoriaProducto == "3" ? 'selected' : ''} value="3">hortalizas</option>
+              <option ${categoriaProducto == "4" ? 'selected' : ''} value="4">pulpas</option>
+              <option ${categoriaProducto == "5" ? 'selected' : ''} value="5">emprendedores</option>
+            </select>
+          </div>
+        </div>
+        <input name="editarproducto_id" type="hidden" value="${idProducto}">
+        <input name="fotoAntigua" type="hidden" value="views${rutaImagen.split("views")[1]}">
+        <div class="inpSubmit-content">
+          <input class="inpSubmit" type="submit" id="guardarProducto" value="Guardar" >
+        </div>
+      </div>
+    </form>
+    <div id="infoTamañoImagen"></div>
+  </div> */
