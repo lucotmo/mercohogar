@@ -354,6 +354,30 @@ function select_ciudades(){
 	return $r_ciudades;
 }
 
+function select_ciudad_negocio(){
+	$ciudades_negocio = "SELECT
+	* FROM ciudad_negocio";
+
+	$r_ciudades_negocio= db_query($ciudades_negocio, array(), true);
+	return $r_ciudades_negocio;
+}
+
+function select_categorias(){
+	$categorias = "SELECT
+	* FROM categoria";
+
+	$r_categorias= db_query($categorias, array(), true);
+	return $r_categorias;
+}
+
+function select_medidas(){
+	$medidas = "SELECT
+	* FROM medidas";
+
+	$r_medidas= db_query($medidas, array(), true);
+	return $r_medidas;
+}
+
 function select_tdoc(){
 	$doc = "SELECT
 	* FROM tipo_doc";
