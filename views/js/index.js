@@ -73,7 +73,7 @@
       renderProduct(product)
       renderInputProduct(product)
       renderInput(product)
-      console.log(1)
+      //console.log(1)
       precioTotalPedido()
     })
   }
@@ -119,7 +119,7 @@
 
             updateProduct( newProduct )
             updateInputProduct(newProduct)
-            console.log(2)
+            //console.log(2)
             precioTotalPedido()
             //renderInput(newProduct)
 
@@ -143,7 +143,7 @@
             renderProduct( newProduct )
             renderInputProduct(newProduct)
             renderInput(newProduct)
-            console.log(3)
+            //console.log(3)
             precioTotalPedido()
             if ( Products.length > 0 ){
               document.querySelector('.contenedor-total-pedido').style.display = "block"
@@ -154,6 +154,7 @@
         }
       }
       if ( e.target.className === 'icon-l fa fa-minus' ){
+    	  console.log("eliminar el panel central")
         let i = e.target.parentElement.querySelector('input').value;
         if ( i > 0 ){
           e.target.parentElement.querySelector('input').value = parseInt(i) - parseInt(1)
@@ -181,7 +182,7 @@
 
             updateProduct( newProduct )
             updateInputProduct(newProduct)
-            console.log(4)
+            //console.log(4)
             precioTotalPedido()
           }
         }
@@ -315,7 +316,7 @@
           updateProduct( newProduct )
           updateInputProduct(newProduct)
           renderInput(newProduct)
-          console.log(5)
+          //console.log(5)
           precioTotalPedido()
 
         }
@@ -324,25 +325,42 @@
     }
     if ( e.target.className === 'icon-l fa fa-minus' ){
       let i = e.target.parentElement.querySelector('input').value;
-
       if ( i > 0 ){
+    	  /*var a = [1, 2, 3, 4];
+    	  console.log(a)
+    	  a.splice(-1 ,1);
+    	  console.log(a)
+    	  return false;*/
         e.target.parentElement.querySelector('input').value = parseInt(i) - parseInt(1)
+        //console.log(e.target.parentElement.querySelector('input').value)
+        
         if ( e.target.parentElement.querySelector('input').value == 0 ){
-          let Products = JSON.parse(localStorage.getItem("pedido")) || [],
-            toRemove =  Products.findIndex( product => product.id.toString() === e.target.dataset.id ),
-            hermano = e.target.nextElementSibling.id,
-            elem = Products.filter(el => el.id === hermano)[0].id,
-            inp = Array.from(document.querySelector('.productos').querySelectorAll('input')).filter(el => el.id === elem)[0],
-            inp2 = Array.from(document.querySelector('.list-pedido-envio').querySelectorAll('.id_product')).filter(el => el.value === elem)[0]
-
+          let Products = JSON.parse(localStorage.getItem("pedido")) || [];
+          //console.log(Products);
+          //console.log(e)
+          //console.log(e.target)
+          //console.log(e.target.dataset.id)
+          //console.log(e.target.nextElementSibling.id)
+          //return false;
+          //let toRemove =  Products.findIndex( product => product.id.toString() === e.target.dataset.id );
+          let toRemove =  Products.findIndex( product => product.id.toString() === e.target.nextElementSibling.id );
+          //console.log( toRemove );
+          let hermano = e.target.nextElementSibling.id;
+          //console.log(hermano);
+          let elem = Products.filter(el => el.id === hermano)[0].id;
+          //console.log(elem)
+          //return false;
+          let inp = Array.from(document.querySelector('.productos').querySelectorAll('input')).filter(el => el.id === elem)[0];
+          let inp2 = Array.from(document.querySelector('.list-pedido-envio').querySelectorAll('.id_product')).filter(el => el.value === elem)[0];
+          
           Products.splice(toRemove ,1)
           localStorage.setItem("pedido", JSON.stringify(Products))
           Products.forEach( function(product) {
-
             renderInput(product)
-            console.log(6)
+            //console.log(6)
             precioTotalPedido()
           })
+          //console.log(Products)
           e.target.parentElement.parentElement.parentElement.remove()
           inp.value = 0
           inp2.parentElement.innerHTML = ''
