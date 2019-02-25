@@ -420,10 +420,10 @@ function form_afiliado ($idAfiliado) {
   }else{
     foreach ($result as $row) {
       echo '
-      <div class="formModal-container" id="formModalEditarCliente">
+      <div class="formModal-container" id="formModalEditarAfiliado">
         <form class="formModal-content" method="post">
           <a class="btnCerrarFormModal" href="" >X</a>
-          <h3 class="form-titulo">Editar Cliente</h3>
+          <h3 class="form-titulo">Editar Afiliado</h3>
           <div class="inpText-container">
             <div class="inpText-content">
               <label class="labelText" for="celular">Celular</label>
@@ -544,8 +544,8 @@ function form_cliente ($idCliente) {
     echo "No existen pedidos para $idCliente";
   }else{
     foreach ($result as $row) {
-      echo '<div class="formModal-container" id="formModalEditarCliente">
-      <form class="formModal-content" method="post">
+      echo '<div class="formModal-container">
+      <form class="formModal-content" id="formModalEditarCliente" method="post">
         <a class="btnCerrarFormModal" href="" >X</a>
         <h3 class="form-titulo">Editar Cliente</h3>
         <div class="inpText-content">
