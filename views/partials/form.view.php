@@ -1,5 +1,5 @@
 <div class="formularioPedido">
-  <form class="formulario">
+  <form class="formulario" >
     <a class="close-envio" href="#">x</a>
     <div class="contenidoDatosFormularioPedido">
       <div class="celCod">
@@ -40,19 +40,19 @@
       </div>
       <div class="direccion">
         <label for="" class="dir-title">Direccion</label>
-        <input type="text" name="direccion" class="dir-inp" placeholder="Direccion" required>
+        <input type="text" name="direccion" id="direccion" class="dir-inp" placeholder="Direccion" required>
       </div>
     </div>
     <div class="direccionDiferentes-container">
       <div class="opcionDif">
         <p for="" class="envioDif">enviar a unar direccion diferente</p>
-        <input class="check" type="checkbox">
+        <input class="check" id="ch_otra_direccion" name="checkedOtro" value="0"  type="checkbox">
       </div>
       <div class="direccionDiferente__content">
         <div class="ciuBarr">
           <div class="ciudad2">
             <label for="" class="ciu-title">Ciudad</label>
-            <select type="text" name="ciudad2" id="ciudad2" class="ciu-inp">
+            <select  name="ciudad2" id="ciudad2" class="ciu-inp">
               <option value="" disabled selected>Selecciona una</option>
               <?php
                 $ciudades = new Ciudades();
@@ -62,12 +62,12 @@
           </div>
           <div class="barrio">
             <label for="" class="bar-title">Barrio</label>
-            <input type="text" name="barrio2" class="bar-inp" placeholder="Barrio">
+            <input type="text" name="barrio2" id="barrio2" class="bar-inp" placeholder="Barrio">
           </div>
         </div>
         <div class="direccion">
           <label for="" class="dir-title">Direccion</label>
-          <input type="text" name="direccion2" class="dir-inp" placeholder="Direccion">
+          <input type="text" name="direccion2" id="direccion2" class="dir-inp" placeholder="Direccion">
         </div>
       </div>
     </div>
@@ -84,16 +84,16 @@
     <div class="precio-final-container">
       <div class="precioPedido-container">
         <span class="prec-text">Tu pedido $</span>
-        <input type="text" name="valorPedido" class="prec-valor" name="suma-productos" value="0" required>
+        <input type="text" name="valorPedido" style="pointer-events:none" class="prec-valor" name="suma-productos" required>
       </div>
       <div class="precioDomicilio-container">
         <span class="domi-text">Domicilio $</span>
-        <input type="text" name="domicilio" class="domi-valor" name="domicilio" value="0" required>
+        <input type="text" name="domicilio" style="pointer-events:none" class="domi-valor" name="domicilio"  value="0" required>
       </div>
     </div>
     <div class="precioTotal-container">
       <span class="total-text">Valor Total $</span>
-      <input type="text" name="valorTotal" class="total-valor" name="suma-total" value="0" required>
+      <input type="text" name="valorTotal" style="pointer-events:none" class="total-valor"  name="suma-total" required>
     </div>
     <div class="btn-envio-content">
       <input class="btn-envio-pedido" type="submit" value="Enviar pedido">

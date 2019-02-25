@@ -226,13 +226,42 @@ if( cel_inp !== null ) {
 	});
 }
 
+var codRef_inp =  document.querySelector('.codRef-inp');
+if( codRef_inp !== null ) {
+	codRef_inp.addEventListener('input', function () { 
+	    this.value = this.value.replace(/[^0-9]/g,'');
+	});
+}
+
+
+
+var click_direccion = document.getElementById('ch_otra_direccion');
+click_direccion.addEventListener('click', e => {
+    var ciudad2 = document.getElementById('ciudad2'),
+    barrio2 = document.getElementById('barrio2'),
+    direccion2 = document.getElementById('direccion2');
+	ciudad2.value="";
+	barrio2.value="";
+	direccion2.value="";
+	
+    if(e.target.checked) {
+    	e.target.value=1;
+    	ciudad2.required = true;
+    	barrio2.required = true;
+    	direccion2.required = true; 
+    } else {
+    	e.target.value=0;
+    	ciudad2.required = false; 
+    	barrio2.required = false; 
+    	direccion2.required = false;
+    }
+});
+
 document.addEventListener('submit', e => {
   if (e.target.matches('form')) {
     e.preventDefault()
-    //alert('Enviando pedido...')
-
+    
     let data = new FormData(e.target)
-
     fetch('views/pages/app.view.php', {
       body: data,
       method: 'post'
@@ -243,7 +272,7 @@ document.addEventListener('submit', e => {
           : Promise.reject({ status: res.status, statusText: res.statusText })
       }).then(res => {
     	  //console.log(res.cliente)
-    	  let body = null;
+    	let body = null;
         if (res.cliente) {
         	body = `<div class="respuestaEnvio-content">
       		    <a class="closeRespuestaEnvio"  onclick="location.reload()" href="javascript:;">X</a>
@@ -251,11 +280,17 @@ document.addEventListener('submit', e => {
       		    <p class="respuestaEnvio__info">`+res.msg+`</p>
       		  </div>`
         } else {
+        	var direccion_ ;
+          if( click_direccion.checked ) {
+        	  direccion_ = document.getElementById('direccion2').value;
+          } else {
+        	  direccion_ = document.getElementById("direccion").value;
+          }
     	  body = `<div class="respuestaEnvio-content">
   		    <a class="closeRespuestaEnvio"  onclick="location.reload()" href="javascript:;">X</a>
   		    <h1 class="respuestaEnvio__title">Tu pedido fue recibido con <span>éxito</span></h1>
   		    <p class="respuestaEnvio__saludo">Hola <span>`+document.querySelector(".nom-inp").value+ ' ' +document.querySelector(".ape-inp").value+ `</span>, 
-  		    tu pedido se enviara a la <span>`+document.querySelector(".dir-inp").value+`</span></p>  
+  		    tu pedido se enviara a la <span>`+direccion_+`</span></p>  
   		    <p class="respuestaEnvio__contact">Te contactaremos al <span>`+document.querySelector(".cel-inp").value+`</span>
   		        para confirmar horario de
   		        entrega del pedido!</p>
