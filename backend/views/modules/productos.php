@@ -65,11 +65,11 @@ require "views/modules/navegacionEnd.php";
           <div class="inpText-container">
             <div class="inpText-content">
               <label class="labelText" for="">Precio Viejo</label>
-              <input class="inpText" name="inpText price" type="text" placeholder="Precio Viejo..." class="formPrecioViejo">
+              <input class="inpText" name="precioProductoViejo" type="text" placeholder="Precio Viejo..." class="formPrecioViejo">
             </div>
             <div class="inpText-content">
               <label class="labelText" for="">Precio</label>
-              <input class="inpText" name="inpText price" type="text" placeholder="Precio..." class="formPrecioActual" required>
+              <input class="inpText" name="precioProductoActual" type="text" placeholder="Precio..." class="formPrecioActual" required>
             </div>
             <div class="inpText-content">
               <label class="labelText" for="">Promocion</label>
