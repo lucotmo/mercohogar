@@ -2,7 +2,7 @@
 //require_once "../../models/conexion.php";
 require_once (dirname(__FILE__) ."/../../../backend/models/conexion.php");
 
-
+/* funciones generales */
 
 function db_query ( $sql, $data = array(), $is_search = false, $search_one = false ) {
   $db = Conexion::conectar();
@@ -21,6 +21,68 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
     return true;
   }
 }
+
+
+function select_ciudades(){
+	$ciudades = "SELECT
+	* FROM ciudades";
+
+	$r_ciudades= db_query($ciudades, array(), true);
+	return $r_ciudades;
+}
+
+function select_ciudad_negocio(){
+	$ciudades_negocio = "SELECT
+	* FROM ciudad_negocio";
+
+	$r_ciudades_negocio= db_query($ciudades_negocio, array(), true);
+	return $r_ciudades_negocio;
+}
+
+function select_categorias(){
+	$categorias = "SELECT
+	* FROM categoria";
+
+	$r_categorias= db_query($categorias, array(), true);
+	return $r_categorias;
+}
+
+function select_medidas(){
+	$medidas = "SELECT
+	* FROM medidas";
+
+	$r_medidas= db_query($medidas, array(), true);
+	return $r_medidas;
+}
+
+function select_tdoc(){
+	$doc = "SELECT
+	* FROM tipo_doc";
+
+	$r_doc= db_query($doc, array(), true);
+	return $r_doc;
+}
+
+function select_banco(){
+	$banco = "SELECT
+	* FROM banco";
+
+	$r_banco= db_query($banco, array(), true);
+	return $r_banco;
+}
+
+function select_tcuenta(){
+	$tcuenta = "SELECT
+	* FROM tipo_cuenta";
+
+	$r_tcuenta= db_query($tcuenta, array(), true);
+	return $r_tcuenta;
+}
+
+/* fin de funciones generales */
+
+
+
 
 function obtener_pedido ($idPedido) {
   $sql = "SELECT p.id,
@@ -139,7 +201,7 @@ function obtener_perfil ($idPerfil){
     echo "No existen pedidos para $idPerfil";
   }else{
     foreach ($result as $row) {
-      $html= '
+      echo '
       <div class="formModal-container" id="formModalEditarMiembros">
         <form class="formModal-content" method="post" enctype="multipart/form-data">
           <a class="btnCerrarFormModal" href="" id="intento45">X</a>
@@ -167,10 +229,16 @@ function obtener_perfil ($idPerfil){
           </div>
           <div class="inpSelect-content">
             <select type="text" class="inpSelect" name="editarCiudad">
-              <option value="">Ciudad</option>
-              <option '. ($row['id_ciudad'] == '1' ? 'selected' : '')  .' value="1">Bucaramanga</option>
-              <option '. ($row['id_ciudad'] == '2' ? 'selected' : '')  .' value="2">Bogota</option>
-            </select>
+              <option value="">Ciudad</option>';
+              $cn = select_ciudad_negocio();
+              foreach($cn as $ciudad){
+                echo '<option ';
+                echo ( ( $ciudad['id_ciudad_negocio'] == $row['id_ciudad'] ) ? 'selected' : '' );
+                echo ' value="'.$ciudad['id_ciudad_negocio'].'">';
+                echo ( ucwords(strtolower($ciudad['nombre_ciudad'])) );
+                echo '</option>';
+              }
+      echo '</select>
           </div>
           <div class="inpText-content">
             <label for="editarEmailNuevo" class="labelText">Email</label>
@@ -181,8 +249,6 @@ function obtener_perfil ($idPerfil){
           </div>
         </form>
       </div>';
-
-      echo $html;
     }
   }
 }
@@ -342,70 +408,6 @@ function ver_cliente ($idCliente) {
 if ( isset($_POST['id_cliente']) )  ver_cliente($_POST['id_cliente']);
 
 
-
-
-/* funciones generales */
-
-function select_ciudades(){
-	$ciudades = "SELECT
-	* FROM ciudades";
-
-	$r_ciudades= db_query($ciudades, array(), true);
-	return $r_ciudades;
-}
-
-function select_ciudad_negocio(){
-	$ciudades_negocio = "SELECT
-	* FROM ciudad_negocio";
-
-	$r_ciudades_negocio= db_query($ciudades_negocio, array(), true);
-	return $r_ciudades_negocio;
-}
-
-function select_categorias(){
-	$categorias = "SELECT
-	* FROM categoria";
-
-	$r_categorias= db_query($categorias, array(), true);
-	return $r_categorias;
-}
-
-function select_medidas(){
-	$medidas = "SELECT
-	* FROM medidas";
-
-	$r_medidas= db_query($medidas, array(), true);
-	return $r_medidas;
-}
-
-function select_tdoc(){
-	$doc = "SELECT
-	* FROM tipo_doc";
-
-	$r_doc= db_query($doc, array(), true);
-	return $r_doc;
-}
-
-function select_banco(){
-	$banco = "SELECT
-	* FROM banco";
-
-	$r_banco= db_query($banco, array(), true);
-	return $r_banco;
-}
-
-function select_tcuenta(){
-	$tcuenta = "SELECT
-	* FROM tipo_cuenta";
-
-	$r_tcuenta= db_query($tcuenta, array(), true);
-	return $r_tcuenta;
-}
-
-/* fin de funciones generales */
-
-
-
 function form_afiliado ($idAfiliado) {
   $sql = "SELECT *
     FROM afiliado
@@ -439,14 +441,14 @@ function form_afiliado ($idAfiliado) {
             <div class="inpSelect-content">
               <select type="text" class="inpSelect" name="ciudadAfiliado" id="ciudad" placeholder="Ciudad">
                 <option value="">Seleciona una ciudad</option>';
-        $c = select_ciudades();
-        foreach($c as $ciudad){
-          echo '<option ';
-          echo ( ( $ciudad['ciudad_id'] == $row['ciudad'] ) ? 'selected' : '' );
-          echo ' value="'.$ciudad['ciudad_id'].'">';
-          echo ( ucwords(strtolower($ciudad['nombre'])) );
-          echo '</option>';
-        }
+            $c = select_ciudades();
+            foreach($c as $ciudad){
+              echo '<option ';
+              echo ( ( $ciudad['ciudad_id'] == $row['ciudad'] ) ? 'selected' : '' );
+              echo ' value="'.$ciudad['ciudad_id'].'">';
+              echo ( ucwords(strtolower($ciudad['nombre'])) );
+              echo '</option>';
+            }
         echo '</select>
             </div>
             <div class="inpText-content">
