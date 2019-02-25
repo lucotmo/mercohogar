@@ -281,9 +281,17 @@ if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 
 
 function ver_afiliado ($idAfiliado) {
-  $sql = "SELECT *
-    FROM afiliado
-    WHERE id = ?";
+  $sql = "SELECT *,
+    ci.nombre as nombreCiudad,
+    tp.nombre_tipo,
+    b.nombre_banco,
+    tc.nombre_tipo_cuenta
+    FROM afiliado as a
+    LEFT JOIN ciudades as ci ON a.ciudad = ci.ciudad_id
+    LEFT JOIN tipo_doc as tp ON a.tipo_doc = tp.nombre_tipo
+    LEFT JOIN banco as b ON a.banco = b.banco_id
+    LEFT JOIN tipo_cuenta as tc ON a.tipo_cuenta = tc.nombre_tipo_cuenta
+    WHERE a.id = ?";
 
   $data = array($idAfiliado);
 
@@ -312,7 +320,7 @@ function ver_afiliado ($idAfiliado) {
       <tr>
         <td>'.$row['celular'].'</td>
         <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
-        <td>'.$row['ciudad'].'</td>
+        <td>'.$row['nombreCiudad'].'</td>
         <td>'.$row['barrio'].'</td>
         <td>'.$row['direccion'].'</td>
       </tr>
@@ -340,11 +348,11 @@ function ver_afiliado ($idAfiliado) {
     foreach ($result as $row) {
     echo '<tbody>
       <tr>
-        <td>'.$row['tipo_doc'].'</td>
+        <td>'.$row['nombre_tipo'].'</td>
         <td>'.$row['documento'].'</td>
         <td>'.$row['cuenta_bancaria'].'</td>
-        <td>'.$row['banco'].'</td>
-        <td>'.$row['tipo_cuenta'].'</td>
+        <td>'.$row['nombre_banco'].'</td>
+        <td>'.$row['nombre_tipo_cuenta'].'</td>
         <td>'.$row['correo'].'</td>
       </tr>
     </tbody>';
@@ -359,8 +367,10 @@ if ( isset($_POST['id_afiliado']) )  ver_afiliado($_POST['id_afiliado']);
 
 
 function ver_cliente ($idCliente) {
-  $sql = "SELECT *
-    FROM cliente
+  $sql = "SELECT *,
+    ci.nombre as nombre_ciudad
+    FROM cliente as c
+    LEFT JOIN ciudades as ci ON c.id_ciudad = ci.nombre
     WHERE id_cliente = ?";
 
   $data = array($idCliente);
@@ -390,7 +400,7 @@ function ver_cliente ($idCliente) {
         <tr>
           <td>'.$row['celular'].'</td>
           <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
-          <td>'.$row['id_ciudad'].'</td>
+          <td>'.$row['nombre_ciudad'].'</td>
           <td>'.$row['barrio'].'</td>
           <td>'.$row['direccion'].'</td>
         </tr>
@@ -603,7 +613,7 @@ if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
 
 
 
-//Celular	Nombre	Ciudad	Barrio	Direccion
+
 
 function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $id) {
   $sql = "UPDATE cliente
