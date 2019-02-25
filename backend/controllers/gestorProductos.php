@@ -123,6 +123,7 @@ class GestorProductos{
 		}
   }
 
+
   # BORRAR PRODUCTO
   #-----------------------------------------------
   public function borrarProductoController(){
