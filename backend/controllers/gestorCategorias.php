@@ -16,7 +16,7 @@ class Categorias{
 		foreach ($respuesta as $row => $item){
       echo '<tr>
         <td class="tabla__item__categoria">'.$item["nombre_categoria"].'</td>
-        <td class="tabla__item__comision">'.$item["comision"].'</td>
+        <td class="tabla__item__comision comision">'.$item["comision"].'</td>
         <td>
           <a class="categoriaId" id="'.$item["categoria_id"].'" style="display:none;"></a>
           <a href="#" class="fa fa-edit btn__perfilDatos" id="btnEditarCategoria"></a>
