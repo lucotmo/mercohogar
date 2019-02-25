@@ -90,7 +90,7 @@
         valorProduct = padre.querySelector('.product__valor-actual').textContent,
         cantidadProduct = padre.querySelector('input').value
 
-
+        
       if ( e.target.className === 'icon-r fa fa-plus' ){
         let i = e.target.parentElement.querySelector('input').value;
         if ( i >= 0 ){
@@ -184,6 +184,32 @@
             updateInputProduct(newProduct)
             //console.log(4)
             precioTotalPedido()
+          }
+          
+          if(e.target.parentElement.querySelector('input').value == 0) {
+        	  let cantidadProduct = padre.querySelector('input').id;
+              let pedido = document.getElementById('pedido');
+              let all_input = pedido.querySelectorAll('.product-content input');
+              
+              let parent = null;
+              for (let input in all_input) {
+            	  if(all_input[input].id === cantidadProduct) {
+            		  parent= all_input[input];
+            		  break;
+            	  }
+              }
+              parent.parentNode.parentElement.parentElement.remove();
+              
+        	  let Products = JSON.parse(localStorage.getItem("pedido")) || [],
+              _idProduct = Products.findIndex( el => el.id === cantidadProduct);
+        	  Products.splice(_idProduct, 1);
+        	  localStorage.setItem("pedido", JSON.stringify(Products))
+        	  precioTotalPedido()
+        	  
+        	  if ( Products.length == 0 ){
+                  document.querySelector('.contenedor-total-pedido').style.display = "none"
+                  document.querySelector('.banner__promos').style.display = "block"
+        	  }
           }
         }
       }
