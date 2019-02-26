@@ -226,6 +226,42 @@ if( cel_inp !== null ) {
 	});
 }
 
+var masterCel = document.getElementById('masterCel');
+if(masterCel !== null) {
+  masterCel.addEventListener('keyup', function(e) {
+    var data = masterCel.value;
+    if(data.length >= 8) {
+      let post = new FormData();
+      post.append('cel', data);
+      fetch('views/pages/app.view.php', {
+        body: post,
+        method: 'post'
+      }).then(res => {
+          return (res.ok)
+            ? res.json()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        }).then(res => {
+          var res =  res.res;
+          if(res.ok && res.status == 200) {
+            document.getElementById('nom_inp').value=res.statusText.nombre;
+            document.getElementById('ape_inp').value=res.statusText.apellidos;
+            document.getElementById('ciudad').value=res.statusText.id_ciudad;
+            document.querySelector('.bar-inp').value=res.statusText.barrio;
+            document.getElementById('direccion').value =res.statusText.direccion;
+          } else {
+            document.getElementById('nom_inp').value='';
+            document.getElementById('ape_inp').value='';
+            document.getElementById('ciudad').value='';
+            document.querySelector('.bar-inp').value='';
+            document.getElementById('direccion').value ='';
+          }
+        }).catch(err => {    
+          console.log("Celular no encontrado...");
+        })
+    }
+  });
+}
+
 var codRef_inp =  document.querySelector('.codRef-inp');
 if( codRef_inp !== null ) {
 	codRef_inp.addEventListener('input', function () { 
