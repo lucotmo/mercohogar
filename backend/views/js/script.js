@@ -117,22 +117,41 @@ if ( btnCategoriasProductos ){
 
 }) */
 
-const btnAgregarProducto = document.getElementById('btnAgregarProducto')
 
-if ( btnAgregarProducto ){
-  btnAgregarProducto.addEventListener('click', function(e){
+
+/*=============================================
+=            FUNCIONES PARA PRODUCTOS            =
+=============================================*/
+
+function verFormulario(btn, idDato, respuesta){
+  btn.addEventListener('click', function(e){
     e.preventDefault()
-    let btnForm = document.getElementById('formModalNuevoProduct')
-    if ( btnForm.style.display == "none" ){
-      btnForm.style.display = "flex"
-    }else{
-      btnForm.style.display = "none"
-    }
+    let data = new FormData(),
+      id = e.target.dataset.id
+    data.append(idDato, id)
+
+    fetch('views/modules/app.php', {
+      body: data,
+      method: 'post'
+    })
+      .then(res =>{
+        return(res.ok)
+          ? res.text()
+          : Promise.reject({ status: res.status, statusText: res.statusText })
+      })
+      .then(res => {
+        //console.log(res)
+        //console.log('start')
+        respuesta.innerHTML = `${res}`
+      })
+      .catch(err =>{
+        let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+        console.log(mensaje)
+      })
   })
 }
 
-const containerFormulariosProducto = document.querySelector('.container-formularios')
-//console.log(document.querySelector('.container-formularios'))
+
 function formEventoSubmitProducto(resp){
   resp.addEventListener('submit', function(e) {
     if (e.target.matches('form')) {
@@ -152,7 +171,7 @@ function formEventoSubmitProducto(resp){
         })
         .then(res => {
           if (res.err) {
-            //mensaje_error(res.msg)
+            console.log(res)
           } else {
             location.reload()
           }
@@ -165,8 +184,38 @@ function formEventoSubmitProducto(resp){
   })
 }
 
-if ( containerFormulariosProducto ){
-  formEventoSubmitProducto(containerFormulariosProducto)
+/*=====  End of FUNCIONES PARA PRODUCTOS  ======*/
+
+
+
+const btnAgregarProducto = document.getElementById('btnAgregarProducto')
+
+if ( btnAgregarProducto ){
+  btnAgregarProducto.addEventListener('click', function(e){
+    e.preventDefault()
+    let btnForm = document.getElementById('formModalNuevoProduct')
+    if ( btnForm.style.display == "none" ){
+      btnForm.style.display = "flex"
+    }else{
+      btnForm.style.display = "none"
+    }
+  })
+}
+
+const containerFormulariosProducto = document.querySelector('.container-formularios')
+const containerProductos = document.querySelector('.list-product-exits')
+//console.log(document.querySelector('.container-formularios'))
+
+if ( containerProductos ){
+  let btnVerFormProductos = containerProductos.querySelectorAll("#btnEditarProducto")
+  btnVerFormProductos.forEach(function(btn){
+    verFormulario(btn, 'id_producto', containerFormulariosProducto)
+  })
+}
+
+
+if ( containerProductos ){
+  formEventoSubmitProducto(containerProductos)
 }
 
 //console.log(btnAgregarProducto)
@@ -224,7 +273,7 @@ $("#subirFoto").change(function(){
 Editar Producto
 =============================================*/
 
-if ( btnContentEditarProducto ){
+/* if ( btnContentEditarProducto ){
   btnContentEditarProducto.forEach( function(btn){
     btn.addEventListener('click', function(e){
       let base = e.target.parentElement.parentElement,
@@ -320,9 +369,9 @@ if ( btnContentEditarProducto ){
             else{
               $("#infoTamañoImagen").before('<div class="">El archivo debe ser formato JPG o PNG</div>')
             }
-            /*=============================================
-            Mostrar imagen con AJAX
-            =============================================*/
+            //=============================================
+            //Mostrar imagen con AJAX
+            //=============================================
             if(Number(imagenSize) < 2000000 && imagenType == "image/jpeg" || imagenType == "image/png"){
               var datos = new FormData();
               datos.append("imagen", imagen);
@@ -349,7 +398,7 @@ if ( btnContentEditarProducto ){
       }
     })
   })
-}
+} */
 //console.log('lucho')
 
 
@@ -501,8 +550,56 @@ if ( productContainer ){
   </div> */
 
 
-$("#cargarFoto").change(function(){
+if (  containerFormulariosProducto ){
+  containerFormulariosProducto.addEventListener('change', function(e){
+    imagen = e.target.files[0];
+    //console.log(imagen)
+
+    //Validar tamaño de la imagen
+    imagenSize = imagen.size;
+    if(Number(imagenSize) > 2000000){
+      $("#infoTamañoImagen").before('<div class="">El archivo excede el peso permitido, 200kb</div>')
+    }else{
+      $(".alerta").remove();
+    }
+
+    // Validar tipo de la imagen
+    imagenType = imagen.type;
+    if(imagenType == "image/jpeg" || imagenType == "image/png"){
+      $(".alerta").remove();
+    }
+    else{
+      $("#infoTamañoImagen").before('<div class="">El archivo debe ser formato JPG o PNG</div>')
+    }
+
+
+    if(Number(imagenSize) < 2000000 && imagenType == "image/jpeg" || imagenType == "image/png"){
+      var datos = new FormData();
+      datos.append("imagen", imagen);
+      $.ajax({
+        url:"views/ajax/gestorProductos.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta){
+          console.log(respuesta)
+          $("#status").remove();
+          if(respuesta == 0){
+            $("#infoTamañoImagen").before('<div class="">La imagen es inferior a 188px * 188px</div>')
+          }else{
+            $("#arrastrarImagenProducto").html('<img src="'+respuesta.slice(6)+'" class="img-thumbnail" style="width:48px; heigth: 48px"><i class="fa fa-camera icon-camera"></i>');
+          }
+        }
+      })
+    }
+  })
+}
+
+/* $("#cargarFoto").change(function(){
   imagen = this.files[0];
+  console.log('cargando')
 
   //Validar tamaño de la imagen
   imagenSize = imagen.size;
@@ -521,9 +618,9 @@ $("#cargarFoto").change(function(){
     $("#infoTamañoImagen").before('<div class="">El archivo debe ser formato JPG o PNG</div>')
   }
 
-  /*=============================================
-  Mostrar imagen con AJAX
-  =============================================*/
+  //=============================================
+  //Mostrar imagen con AJAX
+  //=============================================
   if(Number(imagenSize) < 2000000 && imagenType == "image/jpeg" || imagenType == "image/png"){
     var datos = new FormData();
     datos.append("imagen", imagen);
@@ -545,4 +642,7 @@ $("#cargarFoto").change(function(){
       }
     })
   }
-})
+}) */
+
+
+console.log('lucho')

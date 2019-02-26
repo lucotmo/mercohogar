@@ -103,20 +103,7 @@ function crear_producto($imagen, $titulo, $medida, $precio_viejo, $precio_actual
   if ($result) {
     $res = array(
       'err' => false,
-      'msg' => '<script>
-          swal({
-              title: "¡OK!",
-              text: "¡El Producto ha sido creado correctamente!",
-              type: "success",
-              confirmButtonText: "Cerrar",
-              closeOnConfirm: false
-          },
-          function(isConfirm){
-              if (isConfirm) {
-                  window.location = "productos";
-                }
-          });
-        </script>'
+      'msg' => 'el envio fue correcto'
     );
   } else {
     $res = array(
@@ -130,23 +117,27 @@ function crear_producto($imagen, $titulo, $medida, $precio_viejo, $precio_actual
 }
 
 if ( isset($_POST['tituloProducto']) ){
-  $imagen = $_FILES["imagenProducto"]["tmp_name"];
-  $name = $_FILES["imagenProducto"]["name"];
-  $imagedetails = getimagesize($_FILES['imagenProducto']['tmp_name']);
-  $width = $imagedetails[0];
-  $height = $imagedetails[1];
-  $resultname = explode('.',$name);
+  if ( isset($_FILES["imagenProducto"]["tmp_name"]) ){
+    $imagen = $_FILES["imagenProducto"]["tmp_name"];
+    $name = $_FILES["imagenProducto"]["name"];
+    $imagedetails = getimagesize($_FILES['imagenProducto']['tmp_name']);
+    $width = $imagedetails[0];
+    $height = $imagedetails[1];
+    $resultname = explode('.',$name);
 
-  $borrar = glob(dirname(__FILE__) ."/../../../backend/views/imagenes/productos/temp/*");
-  foreach($borrar as $file){
-    unlink($file);
+    $borrar = glob(dirname(__FILE__) ."/../../../backend/views/imagenes/productos/temp/*");
+    foreach($borrar as $file){
+      unlink($file);
+    }
+
+    $aleatorio = mt_rand(100, 999);
+    $rutaInicial = dirname(__FILE__) ."/../../../backend/views/imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
+    $ruta = explode("backend/",$rutaInicial)[1];
+    $origen = imagecreatefromjpeg($imagen);
+    $destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
+    imagejpeg($destino, $rutaInicial);
   }
-  $aleatorio = mt_rand(100, 999);
-  $rutaInicial = dirname(__FILE__) ."/../../../backend/views/imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
-  $ruta = explode("backend/",$rutaInicial)[1];
-  $origen = imagecreatefromjpeg($imagen);
-  $destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
-  imagejpeg($destino, $rutaInicial);
+
   crear_producto(
     $ruta,
     $_POST['tituloProducto'],
@@ -159,7 +150,187 @@ if ( isset($_POST['tituloProducto']) ){
   );
 }
 
+function ver_form_editar_producto ($idProducto) {
+  $sql = "SELECT *
+    FROM producto
+    WHERE producto_id = ?";
 
+  $data = array($idProducto);
+
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idProducto";
+  }else{
+    foreach ($result as $row) {
+      echo '
+    <div class="formModal-container" id="formModalEditarProduct">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <div class="" style="width: 100%">
+          <div class="inpText-container" style="display:flex; justify-content:space-between; align-items:center">
+            <div class="content-subirFoto" style="margin-left:.5em">
+              <input type="file" name="imagenEditarProducto" value="'.$row['imagen'].'" class="imagenProducto" id="cargarFoto">
+              <label for="cargarFoto" class="input" id="arrastrarImagenProducto" >
+                <img src="'.$row['imagen'].'" alt="" style="width:60px; heigth: 60px;">
+                <i class="fa fa-camera icon-camera"></i>
+              </label>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="">Titulo</label>
+              <input type="hidden"  name="idEditarProducto" value="'.$row['producto_id'].'" >
+              <input class="inpText" name="tituloEditarProducto" value="'.$row['titulo'].'" type="text" placeholder="Título..." class="formTitle" required></div>
+            <div class="inpText-content">
+              <label class="labelText" for="">Medida</label>
+              <select class="inpSelect" type="text" name="medidaEditarProducto" required>
+                <option value="">Seleccion</option>';
+                $m = select_medidas();
+                foreach($m as $medida){
+                  echo '<option ';
+                  echo ( ( $medida['nombre_medida'] == $row['medida'] ) ? 'selected' : '' );
+                  echo ' value="'.$medida['nombre_medida'].'">';
+                  echo ( ucwords(strtolower($medida['nombre_medida'])) );
+                  echo '</option>';
+                }
+          echo '</select>
+              </div>
+            </div>
+            <div class="inpText-container">
+              <div class="inpText-content">
+                <label class="labelText" for="">Precio Viejo</label>
+                <input class="inpText" name="precioEditarProductoViejo" value="'.$row['precio_viejo'].'" type="text" placeholder="Precio Viejo..." class="formPrecioViejo">
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Precio</label>
+                <input class="inpText" name="precioEditarProductoActual" value="'.$row['precio_actual'].'" type="text" placeholder="Precio..." class="formPrecioActual" required>
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Promocion</label>
+                <select class="inpSelect" type="text" name="promocionEditarProducto">
+                  <option value="">promo...</option>
+                  <option '; echo ( ($row['promocion'] == 'oferta') ? 'selected' : '' ); echo ' value="oferta">Oferta</option>
+                  <option '; echo ( ($row['promocion'] == 'nuevo') ? 'selected' : '' ); echo ' value="nuevo">Nuevo</option>
+
+                </select>
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Ciudad</label>
+                <select class="inpSelect" type="text" required name="ciudadEditarProducto">
+                  <option value="">Ciudad...</option>';
+                  $cn = select_ciudad_negocio();
+                  foreach($cn as $ciudad){
+                    echo '<option ';
+                    echo ( ( $ciudad['id_ciudad_negocio'] == $row['id_ciudad'] ) ? 'selected' : '' );
+                    echo ' value="'.$ciudad['id_ciudad_negocio'].'">';
+                    echo ( ucwords(strtolower($ciudad['nombre_ciudad'])) );
+                    echo '</option>';
+                  }
+            echo '</select>
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Categoria</label>
+                <select class="inpText" type="text" required name="categoriaEditarProducto">
+                  <option value="">Categoria</option>';
+                  $categorias = select_categorias();
+                  foreach($categorias as $categoria){
+                    echo '<option ';
+                    echo ( ( $categoria['categoria_id'] == $row['id_categoria'] ) ? 'selected' : '' );
+                    echo ' value="'.$categoria['categoria_id'].'">';
+                    echo ( ucwords(strtolower($categoria['nombre_categoria'])) );
+                    echo '</option>';
+                  }
+            echo '</select>
+              </div>
+            </div>
+            <div class="inpSubmit-content">
+              <input name="fotoAntigua" type="hidden" value="'.$row['imagen'].'">
+              <input class="inpSubmit" type="submit" id="guardarProducto" value="Guardar" >
+            </div>
+          </div>
+          <div id="infoTamañoImagen"></div>
+        </form>
+      </div>';
+    }
+  }
+}
+
+if ( isset($_POST['id_producto']) )  ver_form_editar_producto($_POST['id_producto']);
+
+
+function editar_form_producto ( $imagen, $titulo, $medida, $precio_viejo, $precio_actual, $promocion, $id_ciudad, $id_categoria, $idProducto){
+  $sql = "UPDATE producto
+  SET imagen = ?, titulo = ?, medida = ?, precio_viejo = ?, precio_actual = ?, promocion = ?, id_ciudad = ?, id_categoria = ?
+  WHERE producto_id = $idProducto";
+  $data = array(
+    $imagen,
+    $titulo,
+    $medida,
+    $precio_viejo,
+    $precio_actual,
+    $promocion,
+    $id_ciudad,
+    $id_categoria
+  );
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito'
+    );
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  //echo json_encode($res);
+}
+
+if ( isset($_POST['idEditarProducto'])) {
+
+  if ( isset($_POST['tituloEditarProducto']) ){
+    $ruta = "views/imagenes/producto.jpg";
+    if ( isset($_FILES["imagenEditarProducto"]["tmp_name"]) ){
+      $imagen = $_FILES["imagenEditarProducto"]["tmp_name"];
+      $imagedetails = getimagesize($_FILES['imagenEditarProducto']['tmp_name']);
+      $width = $imagedetails[0];
+      $height = $imagedetails[1];
+      $name = $_FILES["imagenEditarProducto"]["name"];
+      $resultname = explode('.',$name);
+      $aleatorio = mt_rand(100, 999);
+      $rutaInicial = dirname(__FILE__) ."/../../../backend/views/imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
+      $ruta = explode("backend/",$rutaInicial);
+
+      $origen = imagecreatefromjpeg($imagen);
+      $destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
+      imagejpeg($destino, $rutaInicial);
+      //Imagedestroy($destino, $ruta);
+      $borrar = glob(dirname(__FILE__) ."/../../../backend/views/imagenes/productos/temp/*");
+      foreach($borrar as $file){
+        unlink($file);
+      }
+    }
+    /* if ( $ruta == "views/imagenes/producto.jpg" || $ruta == $_POST["fotoAntigua"] ){
+      $ruta = $_POST["fotoAntigua"];
+    }else{
+      unlink($_POST["fotoAntigua"]);
+    } */
+    editar_form_producto(
+      $ruta,
+      $_POST['tituloEditarProducto'],
+      $_POST['medidaEditarProducto'],
+      $_POST['precioEditarProductoViejo'],
+      $_POST['precioEditarProductoActual'],
+      $_POST['promocionEditarProducto'],
+      $_POST['ciudadEditarProducto'],
+      $_POST['categoriaEditarProducto'],
+      $_POST['idEditarProducto']
+    );
+  }
+}
 
 
 function obtener_pedido ($idPedido) {
