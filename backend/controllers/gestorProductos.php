@@ -110,7 +110,7 @@ class GestorProductos{
             }
            echo '
             <div>
-              <a class="fa fa-edit btnEditarProducto" id="btnEditarProducto"></a>
+              <a class="fa fa-edit btnEditarProducto" data-id="'.$item["producto_id"].'" id="btnEditarProducto"></a>
               <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
             </div>
 
