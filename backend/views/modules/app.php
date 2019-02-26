@@ -5,7 +5,7 @@ require_once (dirname(__FILE__) ."/../../../backend/models/conexion.php");
 /* funciones generales */
 
 function db_query ( $sql, $data = array(), $is_search = false, $search_one = false ) {
-  
+
 	//echo "<pre>".print_r($data,1)."</pre>";exit;
 	$db = Conexion::conectar();
   $mysql = $db->prepare( $sql );
@@ -99,7 +99,7 @@ function crear_producto($imagen, $titulo, $medida, $precio_viejo, $precio_actual
     $promocion,
     $id_ciudad,
     $id_categoria);
-  
+
 
   $result = db_query($sql, $data);
 
@@ -116,7 +116,7 @@ function crear_producto($imagen, $titulo, $medida, $precio_viejo, $precio_actual
   }
 
   //header( 'Content-type: application/json' );
-  echo json_encode($res);
+  //echo json_encode($res);
 }
 
 if ( isset($_POST['tituloProducto']) ){
@@ -261,20 +261,25 @@ if ( isset($_POST['id_producto']) )  ver_form_editar_producto($_POST['id_product
 
 
 function editar_form_producto ( $imagen, $titulo, $medida, $precio_viejo, $precio_actual, $promocion, $id_ciudad, $id_categoria, $idProducto){
-  $sql = "UPDATE producto
-  SET  imagen = ?, titulo = ?, medida = ?, precio_viejo = ?, precio_actual = ?, promocion = ?, id_ciudad = ?, id_categoria = ?
+  $sql= "UPDATE producto
+	SET  titulo = ?, medida = ?, precio_viejo = ?, precio_actual = ?, promocion = ?, id_ciudad = ?, id_categoria = ?
   WHERE producto_id = $idProducto";
-
-  $data = array(
-    $imagen,
-    $titulo,
-    $medida,
-    $precio_viejo,
-    $precio_actual,
-    $promocion,
-    $id_ciudad,
-    $id_categoria
-  );
+  if( !is_null($imagen) ) {
+		$sql= "UPDATE producto
+		SET  imagen = ?, titulo = ?, medida = ?, precio_viejo = ?, precio_actual = ?, promocion = ?, id_ciudad = ?, id_categoria = ?
+		WHERE producto_id = $idProducto";
+  }
+  $data =  array();
+	if(!is_null(    $imagen )) {
+		$data[] = $imagen;
+	}
+	$data[] = $titulo;
+	$data[] = $medida;
+	$data[] = $precio_viejo;
+	$data[] = $precio_actual;
+	$data[] = $promocion;
+	$data[] = $id_ciudad;
+	$data[] = $id_categoria;
   //echo "<pre>".print_r($data,1)."</pre>";
   //exit;
   $result = db_query($sql, $data);
@@ -284,7 +289,7 @@ function editar_form_producto ( $imagen, $titulo, $medida, $precio_viejo, $preci
       'err' => false,
       'msg' => 'Tu registro se efectuó con éxito'
     );
-  } else {
+  } else
     $res = array(
       'err' => true,
       'msg' => 'Ocurrió un error'
@@ -292,50 +297,58 @@ function editar_form_producto ( $imagen, $titulo, $medida, $precio_viejo, $preci
   }
   //header( 'Content-type: application/json' );
   //echo json_encode($res);
-}
+
 
 if ( isset($_POST['idEditarProducto'])) {
 
   if ( isset($_POST['tituloEditarProducto']) ){
-  	
-  	ini_set("memory_limit","256M");
-  	
-    $ruta = "views/imagenes/producto.jpg";
-    if ( isset($_FILES["imagenEditarProducto"]["tmp_name"]) ){
+
+    $ruta = null;
+    if ( !empty($_FILES["imagenEditarProducto"]["tmp_name"]) ){
       $imagen = $_FILES["imagenEditarProducto"]["tmp_name"];
       $imagedetails = getimagesize($_FILES['imagenEditarProducto']['tmp_name']);
-     
+
       $width = $imagedetails[0];
       $height = $imagedetails[1];
       $name = $_FILES["imagenEditarProducto"]["name"];
-     
+
       $resultname = explode('.',$name);
-      
+
       $aleatorio = mt_rand(100, 999);
-     
-      $rutaInicial = dirname(__FILE__) ."/../imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
-      //$rutaInicial = dirname(__FILE__) ."/../imagenes/productos/agraz402139.jpg";
-      /*if (file_exists($rutaInicial)) {
+      //$rutaInicial = dirname(__FILE__) ."/../backend/views/imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
+      $rutaInicial = dirname(dirname(__FILE__)) ."/imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
+      //echo $rutaInicial;
+      //$rutaInicial = dirname(dirname(__FILE__)) ."/imagenes/productos/agraz402139.jpg";
+      /* if (file_exists($rutaInicial)) {
       	echo "El fichero $nombre_fichero existe";
       } else {
       	echo "El fichero $nombre_fichero no existe";
-      }*/
+      } */
       //exit;
-     
-      $ruta = explode("backend/",$rutaInicial);
+      if ( strpos($rutaInicial, 'backend\\' ) !== false) {
+      	$ruta = explode("backend\\",$rutaInicial);
+      } else {
+      	$ruta = explode("backend/",$rutaInicial);
+      }
+      //echo $ruta;
+      //print_r($ruta);
+      //exit;
       $ruta = $ruta[count($ruta)-1];
-      
+      //echo $ruta;
+      //exit;
+
       $origen = imagecreatefromjpeg($imagen);
       $destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
-      
+
       imagejpeg($destino, $rutaInicial);
       //Imagedestroy($destino, $ruta);
       //$borrar = glob(dirname(__FILE__) ."/../../../backend/views/imagenes/productos/temp/*");
-      $borrar = glob(dirname(__FILE__) ."/../backend/views/imagenes/productos/temp/*");
+      $borrar = glob(dirname(dirname(__FILE__)) . "/imagenes/productos/temp/*");
       foreach($borrar as $file){
         unlink($file);
       }
     }
+
     /* if ( $ruta == "views/imagenes/producto.jpg" || $ruta == $_POST["fotoAntigua"] ){
       $ruta = $_POST["fotoAntigua"];
     }else{
