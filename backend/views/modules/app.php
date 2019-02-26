@@ -303,8 +303,6 @@ if ( isset($_POST['idEditarProducto'])) {
 
   if ( isset($_POST['tituloEditarProducto']) ){
 
-  	ini_set("memory_limit","256M");
-
     $ruta = null;
     if ( !empty($_FILES["imagenEditarProducto"]["tmp_name"]) ){
       $imagen = $_FILES["imagenEditarProducto"]["tmp_name"];
@@ -327,8 +325,11 @@ if ( isset($_POST['idEditarProducto'])) {
       	echo "El fichero $nombre_fichero no existe";
       } */
       //exit;
-
-      $ruta = explode("backend\\",$rutaInicial);
+      if ( strpos($rutaInicial, 'backend\\' ) !== false) {
+      	$ruta = explode("backend\\",$rutaInicial);
+      } else {
+      	$ruta = explode("backend/",$rutaInicial);
+      }
       //echo $ruta;
       //print_r($ruta);
       //exit;
