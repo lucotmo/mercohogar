@@ -23,7 +23,7 @@ class PedidosModels{
       $estado = 5;
     }
 
-    $sql .= " WHERE estado_pedido = $estado ORDER BY fecha ASC";
+    $sql .= " WHERE estado_pedido = $estado ORDER BY fecha ASC ";
 
     $stmt = Conexion::conectar()->prepare($sql);
     $stmt->execute();

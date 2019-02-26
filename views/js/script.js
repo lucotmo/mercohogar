@@ -320,3 +320,49 @@ document.addEventListener('submit', e => {
 })
 
 console.log('pro fin')
+
+
+/* slider */
+
+$(document).ready(function() {
+  var SliderModule = (function(){
+    var ob = {};
+    ob.el = $('#slider-banner');
+    ob.items = {
+      panels: ob.el.find('.slider-content > li')
+    }
+
+    var SliderInterval,
+      currentSlider = 0,
+      nextSlider = 1,
+      lengthSlider = ob.items.panels.length;
+    // Initia
+    ob.init = function(settings){
+      //activamos nuestro slider
+      SliderInit();
+    }
+    var SliderInit = function(){
+      SliderInterval = setInterval(ob.startSlider, 3000);
+    }
+    ob.startSlider = function(){
+      var panels = ob.items.panels;
+
+      if ( nextSlider >= lengthSlider ){
+        nextSlider = 0;
+        currentSlider = lengthSlider-1;
+      }
+      console.log(nextSlider)
+
+      panels.eq(currentSlider).fadeOut('slow');
+      panels.eq(nextSlider).fadeIn('slow');
+
+      currentSlider = nextSlider;
+      nextSlider += 1;
+    }
+
+    return ob;
+  }());
+  SliderModule.init();
+});
+
+console.log('lucooo')
