@@ -48,6 +48,25 @@ function existe_cliente($celularCliente){
 }
 
 
+if(isset( $_POST['cel'] ) ) {
+  $cel = $_POST['cel'];
+  $sql = "SELECT * FROM cliente WHERE celular = ?";
+  $data = array($cel);
+  
+  $result =  array();
+  $result['res']['ok'] = true;
+  $result['res']['status'] = 200;
+
+  $r = db_query($sql, $data, true, true);
+  $result['res']['statusText'] = $r;
+
+  if(!$r) {
+    $result['res']['ok'] = false;
+    $result['res']['status'] = 400;
+  }
+
+  echo json_encode($result);
+}
 /* function registrar_cliente($celular, $nombre, $apellidos, $id_referido, $id_ciudad, $id_ciudad2, $barrio, $barrio2, $direccion, $direccion2){
   $registrado = existe_cliente($celular);
   if ( !$registrado ){
