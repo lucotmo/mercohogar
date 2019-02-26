@@ -7,7 +7,6 @@ class EnlacesModels{
        $enlaces == "clientes" ||
        $enlaces == "inicio" ||
        $enlaces == "datos" ||
-       $enlaces == "app" ||
 		   $enlaces == "salir"){
 
 			$module = "views/modules/".$enlaces.".php";

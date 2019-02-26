@@ -1,10 +1,13 @@
 <?php
-require_once "../../models/conexion.php";
+//require_once "../../models/conexion.php";
+require_once (dirname(__FILE__) ."/../../../backend/models/conexion.php");
 
-
+/* funciones generales */
 
 function db_query ( $sql, $data = array(), $is_search = false, $search_one = false ) {
-  $db = Conexion::conectar();
+  
+	//echo "<pre>".print_r($data,1)."</pre>";exit;
+	$db = Conexion::conectar();
   $mysql = $db->prepare( $sql );
   $mysql->execute( $data );
   if ( $is_search ) {
@@ -20,6 +23,340 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
     return true;
   }
 }
+
+
+function select_ciudades(){
+	$ciudades = "SELECT
+	* FROM ciudades";
+
+	$r_ciudades= db_query($ciudades, array(), true);
+	return $r_ciudades;
+}
+
+function select_ciudad_negocio(){
+	$ciudades_negocio = "SELECT
+	* FROM ciudad_negocio";
+
+	$r_ciudades_negocio= db_query($ciudades_negocio, array(), true);
+	return $r_ciudades_negocio;
+}
+
+function select_categorias(){
+	$categorias = "SELECT
+	* FROM categoria";
+
+	$r_categorias= db_query($categorias, array(), true);
+	return $r_categorias;
+}
+
+function select_medidas(){
+	$medidas = "SELECT
+	* FROM medidas";
+
+	$r_medidas= db_query($medidas, array(), true);
+	return $r_medidas;
+}
+
+function select_tdoc(){
+	$doc = "SELECT
+	* FROM tipo_doc";
+
+	$r_doc= db_query($doc, array(), true);
+	return $r_doc;
+}
+
+function select_banco(){
+	$banco = "SELECT
+	* FROM banco";
+
+	$r_banco= db_query($banco, array(), true);
+	return $r_banco;
+}
+
+function select_tcuenta(){
+	$tcuenta = "SELECT
+	* FROM tipo_cuenta";
+
+	$r_tcuenta= db_query($tcuenta, array(), true);
+	return $r_tcuenta;
+}
+
+/* fin de funciones generales */
+
+
+
+function crear_producto($imagen, $titulo, $medida, $precio_viejo, $precio_actual, $promocion, $id_ciudad, $id_categoria) {
+  $sql = "INSERT INTO producto
+  (imagen, titulo, medida, precio_viejo, precio_actual, promocion, id_ciudad, id_categoria)
+  VALUES( ?, ?, ?, ?, ?, ?, ?, ? )";
+
+  $data = array(
+    $imagen,
+    $titulo,
+    $medida,
+    $precio_viejo,
+    $precio_actual,
+    $promocion,
+    $id_ciudad,
+    $id_categoria);
+  
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'el envio fue correcto'
+    );
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error al crear el producto.'
+    );
+  }
+
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['tituloProducto']) ){
+  if ( isset($_FILES["imagenProducto"]["tmp_name"]) ){
+    $imagen = $_FILES["imagenProducto"]["tmp_name"];
+    $name = $_FILES["imagenProducto"]["name"];
+    $imagedetails = getimagesize($_FILES['imagenProducto']['tmp_name']);
+    $width = $imagedetails[0];
+    $height = $imagedetails[1];
+    $resultname = explode('.',$name);
+
+    $borrar = glob(dirname(__FILE__) ."/../../../backend/views/imagenes/productos/temp/*");
+    foreach($borrar as $file){
+      unlink($file);
+    }
+
+    $aleatorio = mt_rand(100, 999);
+    $rutaInicial = dirname(__FILE__) ."/../../../backend/views/imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
+    $ruta = explode("backend/",$rutaInicial)[1];
+    $origen = imagecreatefromjpeg($imagen);
+    $destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
+    imagejpeg($destino, $rutaInicial);
+  }
+
+  crear_producto(
+    $ruta,
+    $_POST['tituloProducto'],
+    $_POST['medidaProducto'],
+    $_POST['precioProductoViejo'],
+    $_POST['precioProductoActual'],
+    $_POST['promocionProducto'],
+    $_POST['ciudadProducto'],
+    $_POST['categoriaProducto']
+  );
+}
+
+function ver_form_editar_producto ($idProducto) {
+  $sql = "SELECT *
+    FROM producto
+    WHERE producto_id = ?";
+
+  $data = array($idProducto);
+
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idProducto";
+  }else{
+    foreach ($result as $row) {
+      echo '
+    <div class="formModal-container" id="formModalEditarProduct">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <div class="" style="width: 100%">
+          <div class="inpText-container" style="display:flex; justify-content:space-between; align-items:center">
+            <div class="content-subirFoto" style="margin-left:.5em">
+              <input type="file" name="imagenEditarProducto" value="'.$row['imagen'].'" class="imagenProducto" id="cargarFoto">
+              <label for="cargarFoto" class="input" id="arrastrarImagenProducto" >
+                <img src="'.$row['imagen'].'" alt="" style="width:60px; heigth: 60px;">
+                <i class="fa fa-camera icon-camera"></i>
+              </label>
+            </div>
+            <div class="inpText-content">
+              <label class="labelText" for="">Titulo</label>
+              <input type="hidden"  name="idEditarProducto" value="'.$row['producto_id'].'" >
+              <input class="inpText" name="tituloEditarProducto" value="'.$row['titulo'].'" type="text" placeholder="Título..." class="formTitle" required></div>
+            <div class="inpText-content">
+              <label class="labelText" for="">Medida</label>
+              <select class="inpSelect" type="text" name="medidaEditarProducto" required>
+                <option value="">Seleccion</option>';
+                $m = select_medidas();
+                foreach($m as $medida){
+                  echo '<option ';
+                  echo ( ( $medida['nombre_medida'] == $row['medida'] ) ? 'selected' : '' );
+                  echo ' value="'.$medida['nombre_medida'].'">';
+                  echo ( ucwords(strtolower($medida['nombre_medida'])) );
+                  echo '</option>';
+                }
+          echo '</select>
+              </div>
+            </div>
+            <div class="inpText-container">
+              <div class="inpText-content">
+                <label class="labelText" for="">Precio Viejo</label>
+                <input class="inpText" name="precioEditarProductoViejo" value="'.$row['precio_viejo'].'" type="text" placeholder="Precio Viejo..." class="formPrecioViejo">
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Precio</label>
+                <input class="inpText" name="precioEditarProductoActual" value="'.$row['precio_actual'].'" type="text" placeholder="Precio..." class="formPrecioActual" required>
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Promocion</label>
+                <select class="inpSelect" type="text" name="promocionEditarProducto">
+                  <option value="">promo...</option>
+                  <option '; echo ( ($row['promocion'] == 'oferta') ? 'selected' : '' ); echo ' value="oferta">Oferta</option>
+                  <option '; echo ( ($row['promocion'] == 'nuevo') ? 'selected' : '' ); echo ' value="nuevo">Nuevo</option>
+
+                </select>
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Ciudad</label>
+                <select class="inpSelect" type="text" required name="ciudadEditarProducto">
+                  <option value="">Ciudad...</option>';
+                  $cn = select_ciudad_negocio();
+                  foreach($cn as $ciudad){
+                    echo '<option ';
+                    echo ( ( $ciudad['id_ciudad_negocio'] == $row['id_ciudad'] ) ? 'selected' : '' );
+                    echo ' value="'.$ciudad['id_ciudad_negocio'].'">';
+                    echo ( ucwords(strtolower($ciudad['nombre_ciudad'])) );
+                    echo '</option>';
+                  }
+            echo '</select>
+              </div>
+              <div class="inpText-content">
+                <label class="labelText" for="">Categoria</label>
+                <select class="inpText" type="text" required name="categoriaEditarProducto">
+                  <option value="">Categoria</option>';
+                  $categorias = select_categorias();
+                  foreach($categorias as $categoria){
+                    echo '<option ';
+                    echo ( ( $categoria['categoria_id'] == $row['id_categoria'] ) ? 'selected' : '' );
+                    echo ' value="'.$categoria['categoria_id'].'">';
+                    echo ( ucwords(strtolower($categoria['nombre_categoria'])) );
+                    echo '</option>';
+                  }
+            echo '</select>
+              </div>
+            </div>
+            <div class="inpSubmit-content">
+              <input name="fotoAntigua" type="hidden" value="'.$row['imagen'].'">
+              <input class="inpSubmit" type="submit" id="guardarProducto" value="Guardar" >
+            </div>
+          </div>
+          <div id="infoTamañoImagen"></div>
+        </form>
+      </div>';
+    }
+  }
+}
+
+if ( isset($_POST['id_producto']) )  ver_form_editar_producto($_POST['id_producto']);
+
+
+function editar_form_producto ( $imagen, $titulo, $medida, $precio_viejo, $precio_actual, $promocion, $id_ciudad, $id_categoria, $idProducto){
+  $sql = "UPDATE producto
+  SET  imagen = ?, titulo = ?, medida = ?, precio_viejo = ?, precio_actual = ?, promocion = ?, id_ciudad = ?, id_categoria = ?
+  WHERE producto_id = $idProducto";
+
+  $data = array(
+    $imagen,
+    $titulo,
+    $medida,
+    $precio_viejo,
+    $precio_actual,
+    $promocion,
+    $id_ciudad,
+    $id_categoria
+  );
+  //echo "<pre>".print_r($data,1)."</pre>";
+  //exit;
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito'
+    );
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  //echo json_encode($res);
+}
+
+if ( isset($_POST['idEditarProducto'])) {
+
+  if ( isset($_POST['tituloEditarProducto']) ){
+  	
+  	ini_set("memory_limit","256M");
+  	
+    $ruta = "views/imagenes/producto.jpg";
+    if ( isset($_FILES["imagenEditarProducto"]["tmp_name"]) ){
+      $imagen = $_FILES["imagenEditarProducto"]["tmp_name"];
+      $imagedetails = getimagesize($_FILES['imagenEditarProducto']['tmp_name']);
+     
+      $width = $imagedetails[0];
+      $height = $imagedetails[1];
+      $name = $_FILES["imagenEditarProducto"]["name"];
+     
+      $resultname = explode('.',$name);
+      
+      $aleatorio = mt_rand(100, 999);
+     
+      $rutaInicial = dirname(__FILE__) ."/../imagenes/productos/".$resultname[0]."".$aleatorio.".jpg";
+      //$rutaInicial = dirname(__FILE__) ."/../imagenes/productos/agraz402139.jpg";
+      /*if (file_exists($rutaInicial)) {
+      	echo "El fichero $nombre_fichero existe";
+      } else {
+      	echo "El fichero $nombre_fichero no existe";
+      }*/
+      //exit;
+     
+      $ruta = explode("backend/",$rutaInicial);
+      $ruta = $ruta[count($ruta)-1];
+      
+      $origen = imagecreatefromjpeg($imagen);
+      $destino = imagecrop($origen, ["x"=>($width - 188) / 2, "y"=>($height - 188) / 2, "width"=>188, "height"=>188]);
+      
+      imagejpeg($destino, $rutaInicial);
+      //Imagedestroy($destino, $ruta);
+      //$borrar = glob(dirname(__FILE__) ."/../../../backend/views/imagenes/productos/temp/*");
+      $borrar = glob(dirname(__FILE__) ."/../backend/views/imagenes/productos/temp/*");
+      foreach($borrar as $file){
+        unlink($file);
+      }
+    }
+    /* if ( $ruta == "views/imagenes/producto.jpg" || $ruta == $_POST["fotoAntigua"] ){
+      $ruta = $_POST["fotoAntigua"];
+    }else{
+      unlink($_POST["fotoAntigua"]);
+    } */
+    //echo "<pre>".print_r($ruta,1)."</pre>";
+    //exit;
+    editar_form_producto(
+      $ruta,
+      $_POST['tituloEditarProducto'],
+      $_POST['medidaEditarProducto'],
+      $_POST['precioEditarProductoViejo'],
+      $_POST['precioEditarProductoActual'],
+      $_POST['promocionEditarProducto'],
+      $_POST['ciudadEditarProducto'],
+      $_POST['categoriaEditarProducto'],
+      $_POST['idEditarProducto']
+    );
+  }
+}
+
 
 function obtener_pedido ($idPedido) {
   $sql = "SELECT p.id,
@@ -138,7 +475,7 @@ function obtener_perfil ($idPerfil){
     echo "No existen pedidos para $idPerfil";
   }else{
     foreach ($result as $row) {
-      $html= '
+      echo '
       <div class="formModal-container" id="formModalEditarMiembros">
         <form class="formModal-content" method="post" enctype="multipart/form-data">
           <a class="btnCerrarFormModal" href="" id="intento45">X</a>
@@ -166,10 +503,16 @@ function obtener_perfil ($idPerfil){
           </div>
           <div class="inpSelect-content">
             <select type="text" class="inpSelect" name="editarCiudad">
-              <option value="">Ciudad</option>
-              <option '. ($row['id_ciudad'] == '1' ? 'selected' : '')  .' value="1">Bucaramanga</option>
-              <option '. ($row['id_ciudad'] == '2' ? 'selected' : '')  .' value="2">Bogota</option>
-            </select>
+              <option value="">Ciudad</option>';
+              $cn = select_ciudad_negocio();
+              foreach($cn as $ciudad){
+                echo '<option ';
+                echo ( ( $ciudad['id_ciudad_negocio'] == $row['id_ciudad'] ) ? 'selected' : '' );
+                echo ' value="'.$ciudad['id_ciudad_negocio'].'">';
+                echo ( ucwords(strtolower($ciudad['nombre_ciudad'])) );
+                echo '</option>';
+              }
+      echo '</select>
           </div>
           <div class="inpText-content">
             <label for="editarEmailNuevo" class="labelText">Email</label>
@@ -180,8 +523,6 @@ function obtener_perfil ($idPerfil){
           </div>
         </form>
       </div>';
-
-      echo $html;
     }
   }
 }
@@ -214,9 +555,17 @@ if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 
 
 function ver_afiliado ($idAfiliado) {
-  $sql = "SELECT *
-    FROM afiliado
-    WHERE id = ?";
+  $sql = "SELECT *,
+    ci.nombre as nombreCiudad,
+    tp.nombre_tipo,
+    b.nombre_banco,
+    tc.nombre_tipo_cuenta
+    FROM afiliado as a
+    LEFT JOIN ciudades as ci ON a.ciudad = ci.ciudad_id
+    LEFT JOIN tipo_doc as tp ON a.tipo_doc = tp.nombre_tipo
+    LEFT JOIN banco as b ON a.banco = b.banco_id
+    LEFT JOIN tipo_cuenta as tc ON a.tipo_cuenta = tc.nombre_tipo_cuenta
+    WHERE a.id = ?";
 
   $data = array($idAfiliado);
 
@@ -245,7 +594,7 @@ function ver_afiliado ($idAfiliado) {
       <tr>
         <td>'.$row['celular'].'</td>
         <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
-        <td>'.$row['ciudad'].'</td>
+        <td>'.$row['nombreCiudad'].'</td>
         <td>'.$row['barrio'].'</td>
         <td>'.$row['direccion'].'</td>
       </tr>
@@ -273,11 +622,11 @@ function ver_afiliado ($idAfiliado) {
     foreach ($result as $row) {
     echo '<tbody>
       <tr>
-        <td>'.$row['tipo_doc'].'</td>
+        <td>'.$row['nombre_tipo'].'</td>
         <td>'.$row['documento'].'</td>
         <td>'.$row['cuenta_bancaria'].'</td>
-        <td>'.$row['banco'].'</td>
-        <td>'.$row['tipo_cuenta'].'</td>
+        <td>'.$row['nombre_banco'].'</td>
+        <td>'.$row['nombre_tipo_cuenta'].'</td>
         <td>'.$row['correo'].'</td>
       </tr>
     </tbody>';
@@ -292,8 +641,10 @@ if ( isset($_POST['id_afiliado']) )  ver_afiliado($_POST['id_afiliado']);
 
 
 function ver_cliente ($idCliente) {
-  $sql = "SELECT *
-    FROM cliente
+  $sql = "SELECT *,
+    ci.nombre as nombre_ciudad
+    FROM cliente as c
+    LEFT JOIN ciudades as ci ON c.id_ciudad = ci.nombre
     WHERE id_cliente = ?";
 
   $data = array($idCliente);
@@ -323,7 +674,7 @@ function ver_cliente ($idCliente) {
         <tr>
           <td>'.$row['celular'].'</td>
           <td>'.$row['nombre'].' '.$row['apellidos'].'</td>
-          <td>'.$row['id_ciudad'].'</td>
+          <td>'.$row['nombre_ciudad'].'</td>
           <td>'.$row['barrio'].'</td>
           <td>'.$row['direccion'].'</td>
         </tr>
@@ -341,46 +692,6 @@ function ver_cliente ($idCliente) {
 if ( isset($_POST['id_cliente']) )  ver_cliente($_POST['id_cliente']);
 
 
-
-
-/* funciones generales */
-
-function select_ciudades(){
-	$ciudades = "SELECT
-	* FROM ciudades";
-
-	$r_ciudades= db_query($ciudades, array(), true);
-	return $r_ciudades;
-}
-
-function select_tdoc(){
-	$doc = "SELECT
-	* FROM tipo_doc";
-
-	$r_doc= db_query($doc, array(), true);
-	return $r_doc;
-}
-
-function select_banco(){
-	$banco = "SELECT
-	* FROM banco";
-
-	$r_banco= db_query($banco, array(), true);
-	return $r_banco;
-}
-
-function select_tcuenta(){
-	$tcuenta = "SELECT
-	* FROM tipo_cuenta";
-
-	$r_tcuenta= db_query($tcuenta, array(), true);
-	return $r_tcuenta;
-}
-
-/* fin de funciones generales */
-
-
-
 function form_afiliado ($idAfiliado) {
   $sql = "SELECT *
     FROM afiliado
@@ -395,10 +706,10 @@ function form_afiliado ($idAfiliado) {
   }else{
     foreach ($result as $row) {
       echo '
-      <div class="formModal-container" id="formModalEditarCliente">
+      <div class="formModal-container" id="formModalEditarAfiliado">
         <form class="formModal-content" method="post">
           <a class="btnCerrarFormModal" href="" >X</a>
-          <h3 class="form-titulo">Editar Cliente</h3>
+          <h3 class="form-titulo">Editar Afiliado</h3>
           <div class="inpText-container">
             <div class="inpText-content">
               <label class="labelText" for="celular">Celular</label>
@@ -414,14 +725,14 @@ function form_afiliado ($idAfiliado) {
             <div class="inpSelect-content">
               <select type="text" class="inpSelect" name="ciudadAfiliado" id="ciudad" placeholder="Ciudad">
                 <option value="">Seleciona una ciudad</option>';
-        $c = select_ciudades();
-        foreach($c as $ciudad){
-          echo '<option ';
-          echo ( ( $ciudad['ciudad_id'] == $row['ciudad'] ) ? 'selected' : '' );
-          echo ' value="'.$ciudad['ciudad_id'].'">';
-          echo ( ucwords(strtolower($ciudad['nombre'])) );
-          echo '</option>';
-        }
+            $c = select_ciudades();
+            foreach($c as $ciudad){
+              echo '<option ';
+              echo ( ( $ciudad['ciudad_id'] == $row['ciudad'] ) ? 'selected' : '' );
+              echo ' value="'.$ciudad['ciudad_id'].'">';
+              echo ( ucwords(strtolower($ciudad['nombre'])) );
+              echo '</option>';
+            }
         echo '</select>
             </div>
             <div class="inpText-content">
@@ -519,8 +830,8 @@ function form_cliente ($idCliente) {
     echo "No existen pedidos para $idCliente";
   }else{
     foreach ($result as $row) {
-      echo '<div class="formModal-container" id="formModalEditarCliente">
-      <form class="formModal-content" method="post">
+      echo '<div class="formModal-container">
+      <form class="formModal-content" id="formModalEditarCliente" method="post">
         <a class="btnCerrarFormModal" href="" >X</a>
         <h3 class="form-titulo">Editar Cliente</h3>
         <div class="inpText-content">
@@ -576,7 +887,7 @@ if ( isset($_POST['id_editCliente']) )  form_cliente($_POST['id_editCliente']);
 
 
 
-//Celular	Nombre	Ciudad	Barrio	Direccion
+
 
 function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $id) {
   $sql = "UPDATE cliente
@@ -612,6 +923,7 @@ function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $
 }
 
 if ( isset($_POST['idCliente']) )
+
   update_form_clientes(
     $_POST['celularCliente'],
     $_POST['nombreCliente'],
@@ -623,56 +935,179 @@ if ( isset($_POST['idCliente']) )
   );
 
 
-  function update_form_afiliados($celular, $nombre, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
-    $sql = "UPDATE afiliado
-    SET celular = ?, nombre = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
-    WHERE id = $id";
-    $data = array(
-      $celular,
-      $nombre,
-      $ciudad,
-      $barrio,
-      $direccion,
-      $tipoDoc,
-      $documento,
-      $cuentaBancaria,
-      $banco,
-      $tipoCuenta,
-      $correo
-   );
+function update_form_afiliados($celular, $nombre, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
+  $sql = "UPDATE afiliado
+  SET celular = ?, nombre = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
+  WHERE id = $id";
+  $data = array(
+    $celular,
+    $nombre,
+    $ciudad,
+    $barrio,
+    $direccion,
+    $tipoDoc,
+    $documento,
+    $cuentaBancaria,
+    $banco,
+    $tipoCuenta,
+    $correo
+  );
 
-    $result = db_query($sql, $data);
+  $result = db_query($sql, $data);
 
-    if ($result) {
-      $res = array(
-        'err' => false,
-        'msg' => 'Tu registro se efectuó con éxito. En breve recibirás un email con la agenda del bloque que elegiste.'
-      );
-
-      //$registro = existe_registro($email);
-      //enviar_email($registro);
-    } else {
-      $res = array(
-        'err' => true,
-        'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
-      );
-    }
-    //header( 'Content-type: application/json' );
-    echo json_encode($res);
-  }
-
-  if ( isset($_POST['idAfiliado']) )
-    update_form_afiliados(
-      $_POST['celularAfiliado'],
-      $_POST['nombreAfiliado'],
-      $_POST['ciudadAfiliado'],
-      $_POST['barrioAfiliado'],
-      $_POST['direccionAfiliado'],
-      $_POST['tipoDocAfiliado'],
-      $_POST['documentoAfiliado'],
-      $_POST['cuentaBancariaAfiliado'],
-      $_POST['bancoAfiliado'],
-      $_POST['tipoCuentaAfiliado'],
-      $_POST['correoAfiliado'],
-      $_POST['idAfiliado']
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito. En breve recibirás un email con la agenda del bloque que elegiste.'
     );
+
+    //$registro = existe_registro($email);
+    //enviar_email($registro);
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['idAfiliado']) )
+  update_form_afiliados(
+    $_POST['celularAfiliado'],
+    $_POST['nombreAfiliado'],
+    $_POST['ciudadAfiliado'],
+    $_POST['barrioAfiliado'],
+    $_POST['direccionAfiliado'],
+    $_POST['tipoDocAfiliado'],
+    $_POST['documentoAfiliado'],
+    $_POST['cuentaBancariaAfiliado'],
+    $_POST['bancoAfiliado'],
+    $_POST['tipoCuentaAfiliado'],
+    $_POST['correoAfiliado'],
+    $_POST['idAfiliado']
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* <div class="formModal-container" id="formModalEditarProducto">
+  <form class="formModal-content" method="post">
+    <a class="btnCerrarFormModal" href="" >X</a>
+    <h3 class="form-titulo">Editar Producto</h3>
+    <div class="inpText-container">
+      <div class="inpText-content">
+        <label class="labelText" for="celular">Celular</label>
+        <input type="hidden" class="inpText" name="idProducto" value="'.$row['producto_id'].'">
+        <input type="text" class="inpText" name="celularAfiliado" value="'.$row['celular'].'" id="celular" placeholder="Celular">
+      </div>
+      <div class="inpText-content">
+        <label class="labelText" for="nombre">Nombre</label>
+        <input type="text" class="inpText" name="nombreAfiliado" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
+      </div>
+    </div>
+    <div class="inpText-container">
+      <div class="inpSelect-content">
+        <select type="text" class="inpSelect" name="ciudadAfiliado" id="ciudad" placeholder="Ciudad">
+          <option value="">Seleciona una ciudad</option>';
+      $c = select_ciudades();
+      foreach($c as $ciudad){
+        echo '<option ';
+        echo ( ( $ciudad['ciudad_id'] == $row['ciudad'] ) ? 'selected' : '' );
+        echo ' value="'.$ciudad['ciudad_id'].'">';
+        echo ( ucwords(strtolower($ciudad['nombre'])) );
+        echo '</option>';
+      }
+  echo '</select>
+      </div>
+      <div class="inpText-content">
+        <label class="labelText" for="barrio">Barrio</label>
+        <input type="text" class="inpText" name="barrioAfiliado" value="'.$row['barrio'].'" id="barrio" placeholder="Barrio">
+      </div>
+    </div>
+    <div class="inpText-container">
+      <div class="inpText-content">
+        <label class="labelText" for="direccion">Direccion</label>
+        <input type="text" class="inpText" name="direccionAfiliado" value="'.$row['direccion'].'" id="direccion" placeholder="Direccion">
+      </div>
+    </div>
+    <div class="inpText-container">
+      <div class="inpSelect-content">
+        <select class="inpSelect" name="tipoDocAfiliado">
+          <option value="">Seleccion</option>';
+          $doc = select_tdoc();
+          foreach ($doc as $do){
+            echo '<option ';
+            echo ( ( $do['tipo_doc_id'] == $row['tipo_doc'] ) ? 'selected' : '' );
+            echo ' value="'.$do['tipo_doc_id'].'">';
+            echo ( $do['nombre_tipo'] );
+            echo '</option>';
+          }
+        echo '</select>
+      </div>
+      <div class="inpText-content">
+        <label class="labelText" for="documento">Documento</label>
+        <input type="text" class="inpText" name="documentoAfiliado" value="'.$row['documento'].'" id="documento" placeholder="Documento">
+      </div>
+      <div class="inpText-content">
+        <label class="labelText" for="cuenta_bancaria">Cuenta Bancaria</label>
+        <input type="text" class="inpText" name="cuentaBancariaAfiliado" value="'.$row['cuenta_bancaria'].'" id="cuenta_bancaria" placeholder="Cuenta Bancaria">
+      </div>
+    </div>
+    <div class="inpText-container">
+      <div class="inpText-content">
+        <label class="labelText" >Banco</label>
+        <select class="inpSelect" name="bancoAfiliado" >
+          <option value="">Seleccion</option>';
+          $bancos = select_banco();
+          foreach ($bancos as $banco){
+            echo '<option ';
+            echo ( ( $banco['banco_id'] == $row['banco'] ) ? 'selected' : '' );
+            echo ' value="'.$banco['banco_id'].'">';
+            echo ( ucwords(strtolower($banco['nombre_banco'])) );
+            echo '</option>';
+          }
+        echo '</select>
+      </div>
+      <div class="inpText-content">
+        <label class="labelText" >Tipo de cuenta</label>
+        <select class="inpSelect" name="tipoCuentaAfiliado" >
+          <option value="">Seleccion</option>';
+          $tcuentas = select_tcuenta();
+          foreach ($tcuentas as $tcuenta){
+            echo '<option ';
+            echo ( ( $tcuenta['tipo_id'] == $row['tipo_cuenta'] ) ? 'selected' : '' );
+            echo ' value="'.$tcuenta['tipo_id'].'">';
+            echo ( ucwords(strtolower($tcuenta['nombre_tipo_cuenta'])) );
+            echo '</option>';
+          }
+    echo '</select>
+    </div>
+    <div class="inpText-content">
+      <label class="labelText" for="correo">Correo</label>
+      <input type="text" class="inpText" name="correoAfiliado" value="'.$row['correo'].'" id="correo" placeholder="Correo">
+    </div>
+    <div class="inpText-container">
+      <div class="inpSubmit-content">
+        <input type="submit" class="inpSubmit" value="Guardar">
+      </div>
+    </div>
+
+  </form>
+</div> */
+
+
+
+
+

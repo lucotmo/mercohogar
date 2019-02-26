@@ -84,7 +84,21 @@ const tableAfiliados = document.querySelector('.afiliados-content'),
 /*=====  End of constantes  ======*/
 
 
+const mensaje_error = msg => `
+    <p class="section center  red  darken-1  white-text  Messages" >
+      ${msg}
+      <br>
+      <i class="material-icons">no hecho</i>
+    </p>
+  `
 
+const mensaje_ok = msg => `
+    <p class="section center  green  darken-1  white-text  Messages" >
+      ${msg}
+      <br>
+      <i class="material-icons">hecho</i>
+    </p>
+  `
 
 /*=============================================
 =            funciones            =
@@ -117,6 +131,41 @@ function tableVer(btn, idDato, respuesta){
   })
 }
 
+function formEventoSubmit(resp){
+  resp.addEventListener('submit', function(e) {
+    if (e.target.matches('form')) {
+      e.preventDefault()
+      let data = new FormData(e.target)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res => {
+          //c(res)
+          return (res.ok)
+            ? res.json()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          //console.log(res)
+          //let mensaje
+
+          if (res.err) {
+            //mensaje_error(res.msg)
+          } else {
+            //mensaje = console.log(res)
+            //mensaje_ok(res.msg)
+            location.reload()
+          }
+        })
+        .catch(err => {
+          let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+        })
+    }
+  })
+}
+
 /*=====  End of funciones  ======*/
 
 
@@ -137,6 +186,10 @@ if ( tableAfiliados ){
   btnVerAfiliados.forEach(function(btn){
     tableVer(btn, 'id_editAfiliado', respuestaAfiliados)
   })
+}
+
+if ( respuestaAfiliados ){
+  formEventoSubmit(respuestaAfiliados)
 }
 
 /*=====  End of mostrar Afiliados  ======*/
@@ -162,64 +215,16 @@ if ( tableClientes ){
   })
 }
 
+if ( respuestaClientes ){
+  formEventoSubmit(respuestaClientes)
+}
 
 /*=====  End of mostrar Cliente  ======*/
 
-const respuestaEnvio = document.querySelector('.respuestaEnvioForm')
 
-const mensaje_error = msg => `
-    <p class="section center  red  darken-1  white-text  Messages" >
-      ${msg}
-      <br>
-      <i class="material-icons">no hecho</i>
-    </p>
-  `
 
-const mensaje_ok = msg => `
-    <p class="section center  green  darken-1  white-text  Messages" >
-      ${msg}
-      <br>
-      <i class="material-icons">hecho</i>
-    </p>
-  `
 
-document.addEventListener('submit', e => {
-  if (e.target.matches('form')) {
-    e.preventDefault()
-    alert('Guardando Cambios...')
 
-    let data = new FormData(e.target)
 
-    fetch('views/modules/app.php', {
-      body: data,
-      method: 'post'
-    })
-      .then(res => {
-        //c(res)
-        return (res.ok)
-          ? res.json()
-          : Promise.reject({ status: res.status, statusText: res.statusText })
-      })
-      .then(res => {
-        //console.log(res)
-        //let mensaje
 
-        if (res.err) {
-          //mensaje_error(res.msg)
-        } else {
-          mensaje = console.log(res)
-          mensaje_ok(res.msg)
-          location.reload()
-        }
 
-        //respuestaEnvio.innerHTML = mensaje
-      })
-      .catch(err => {
-        let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
-        //console.log(mensaje)
-        //respuesta.innerHTML = mensaje
-      })
-  }
-})
-
-//console.log('lucho')

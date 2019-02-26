@@ -23,6 +23,8 @@ require "views/modules/navegacionEnd.php";
   </div>
   <div class="containerDatosClientesReferido">
     <?php obtener_clientes_referido($_SESSION["celular"]); ?>
+
+    <div class="respuestaPedido"></div>
     <!-- <div class="datosCliente-container">
       <div class="datosCliente-content">
         <table class="table-responsive">
