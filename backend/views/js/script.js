@@ -550,7 +550,7 @@ if ( productContainer ){
   </div> */
 
 
-if (  containerFormulariosProducto ){
+/* if (  containerFormulariosProducto ){
   containerFormulariosProducto.addEventListener('change', function(e){
     imagen = e.target.files[0];
     //console.log(imagen)
@@ -595,9 +595,11 @@ if (  containerFormulariosProducto ){
       })
     }
   })
-}
+} */
 
-/* $("#cargarFoto").change(function(){
+
+
+$(document).on('change', '.imagenProducto', function() {
   imagen = this.files[0];
   console.log('cargando')
 
@@ -642,7 +644,7 @@ if (  containerFormulariosProducto ){
       }
     })
   }
-}) */
+})
 
 
-console.log('lucho')
+console.log('luchoooo')
