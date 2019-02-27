@@ -2,12 +2,12 @@
   <nav class="menu">
     <div class="info">
       <div class="info-name">
-        <h5>Aliados del Campo - Central Mayorista -  </h5>
-        <select name="" id="">
+        <h5>Aliados del Campo - Central Mayorista - Bucaramanga </h5>
+        <!-- <select name="" id="">
           <option value="1">Bucaramanga</option>
           <option value="2">Bogota</option>
           <option value="3">Barrancabermeja</option>
-        </select>
+        </select> -->
       </div>
       <h5>Tel&eacute;fonos: (7) 6314762 | 318 222 0604</h5>
     </div><a class="cerrar-menu" href="#" id="cerrar"></a>

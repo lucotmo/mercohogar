@@ -14,14 +14,16 @@ class Categorias{
   public function mostrarCategoriasController(){
 		$respuesta = CategoriasModels::seleccionarCategoriasModel("categoria");
 		foreach ($respuesta as $row => $item){
-      echo '<tr>
+      echo '<tbody data-item="'.$item["nombre_categoria"].'">
+      <tr>
         <td class="tabla__item__categoria">'.$item["nombre_categoria"].'</td>
         <td class="tabla__item__comision comision">'.$item["comision"].'</td>
         <td>
           <a class="categoriaId" id="'.$item["categoria_id"].'" style="display:none;"></a>
           <a href="#" class="fa fa-edit btn__perfilDatos" id="btnEditarCategoria"></a>
         </td>
-      </tr>';
+      </tr>
+      </tbody>';
       /* echo '<tr>
         <td class="tabla__item__categoria">'.$item["nombre_categoria"].'</td>
         <td class="tabla__item__comision">'.$item["comision"].'</td>
