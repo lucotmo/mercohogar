@@ -5,11 +5,18 @@
 
 
 .banner__promos{
-  padding: .5em .5 0 .5;
+  /* padding: .5em .5 0 .5;
   margin: 0;
   border: 2px solid var(--alternate-color);
   border-radius: 5px;
-  overflow: hidden;
+  overflow: hidden; */
+}
+
+.slider-container{
+  display: none;
+  .slider-content{
+    display: none;
+  }
 }
 
 .banner__promos__img{
@@ -20,6 +27,8 @@
   display: block;
   opacity: .7;
 }
+
+
 
 
 
@@ -49,6 +58,12 @@
 
 
 @include mq(m){
+  .slider-container{
+    display: block;
+    .slider-content{
+      display: block;
+    }
+  }
   .banner__promos__img{
     max-height: 640px;
     width: 100%;
@@ -102,10 +117,7 @@
 }
 
 @include mq(xl){
-
-  margin: 0;
-  padding: 0;
-  max-height: 640px;
+  
 }
 
 
@@ -140,18 +152,19 @@
 } */
 
 
-.slider-container{
+.slider-container, .slider-derecho-container{
   width: 100%;
   max-height: 250px;
   
 }
-.slider-content{
+.slider-content, .slider-derecho-content{
   display: flex;
   position: relative;
   justify-content: center;
   justify-items: center;
 }
 .slider-items{
+  list-style: none;
   border-radius: 5px;
   border: 2px solid red;
   position: absolute;
