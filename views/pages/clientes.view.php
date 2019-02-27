@@ -17,10 +17,10 @@ CONTENT
 ======================================-->
 
 <main class="main-clientes">
-  <div class="nuestros-clientes">
+  <!-- <div class="nuestros-clientes">
     <div class="nuestros-clientes-container">
       <div class="nuestros-clientes-content">
-        <h6 class="clientes__title">Nuestros Clientes</h6>
+        <h6 class="clientes__title">nuestros clientes</h6>
         <p class="nuestros__parrafo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum minus placeat ex quasi excepturi, asperiores non impedit veritatis dolore quod fugit consequuntur nostrum vitae? Aliquam deleniti amet optio quibusdam saepe.</p>
       </div>
       <div class="nuestros-clientes-video">
@@ -32,7 +32,7 @@ CONTENT
     </div>
     <div class="nuestros-clientes-container">
       <div class="nuestros-clientes-content">
-        <h6 class="clientes__title">Nuestro grupo</h6>
+        <h6 class="clientes__title">nuestro grupo</h6>
         <p class="nuestros__parrafo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum minus placeat ex quasi excepturi, asperiores non impedit veritatis dolore quod fugit consequuntur nostrum vitae? Aliquam deleniti amet optio quibusdam saepe.</p>
       </div>
       <div class="nuestros-clientes-video">
@@ -54,21 +54,24 @@ CONTENT
         </a>
       </div>
     </div>
+  </div> -->
+  <div class="nuestros-clientes">
+    <?php
+
+      $nuestrosClientes = new NuestrosClientes();
+      $nuestrosClientes -> seleccionarNuestrosClientesController();
+
+    ?>
   </div>
+
   <section id="slider-derecho-banner" class="banner__promos-pedir slider-derecho-container">
     <ul class="slider-derecho-content">
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/1.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/2.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/3.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/4.png" alt="">
-      </li>
+      <?php
+
+      $slidesDerecha = new SlidersDerecha();
+      $slidesDerecha -> seleccionarSlidersDerechaController();
+
+      ?>
     </ul>
   </section>
 </main>

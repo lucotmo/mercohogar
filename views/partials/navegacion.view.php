@@ -12,18 +12,12 @@
   </nav>
   <section id="slider-banner" class="slider-container">
     <ul class="slider-content">
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/p-1.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/p-2.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/p-3.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/p-4.png" alt="">
-      </li>
+      <?php
+
+        $slidesIzquierda = new SlidersIzquierda();
+        $slidesIzquierda -> seleccionarSlidersIzquierdaController();
+
+      ?>
     </ul>
   </section>
 

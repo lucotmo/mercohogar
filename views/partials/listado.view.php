@@ -37,22 +37,16 @@
       </div>
 
     </div>
-    
+
   </section> -->
   <section id="slider-derecho-banner" class="banner__promos slider-derecho-container">
     <ul class="slider-derecho-content">
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/1.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/2.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/3.png" alt="">
-      </li>
-      <li class="slider-items">
-        <img class="slider__img" src="views/imagenes/slides/4.png" alt="">
-      </li>
+      <?php
+
+      $slidesDerecha = new SlidersDerecha();
+      $slidesDerecha -> seleccionarSlidersDerechaController();
+
+      ?>
     </ul>
   </section>
 
