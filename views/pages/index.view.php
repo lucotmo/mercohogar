@@ -62,6 +62,7 @@ FOOTER
 
 <!--====  Fin de FOOTER  ====-->
 
+<script src="views/js/jquery.js"></script>
 <script src="views/js/index.js"></script>
 <script src="views/js/script.js"></script>
 </body>
