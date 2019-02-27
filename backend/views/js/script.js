@@ -647,4 +647,75 @@ $(document).on('change', '.imagenProducto', function() {
 })
 
 
-console.log('luchoooo')
+const searchPedido = document.getElementById('search-item-pedido');
+(function(){
+  if ( searchPedido ){
+    searchPedido.addEventListener('keyup', function(){
+    	var tableReg =document.querySelector('.responsivePedido-table');
+    	var searchText = searchPedido.value.toLowerCase().trim();
+    	
+		var cellsOfRow="";
+		var found=false;
+		var compareWith="";
+
+		// Recorremos todas las filas con contenido de la tabla
+		for (var i = 1; i < tableReg.rows.length; i++) {
+			cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+			found = false;
+			// Recorremos todas las celdas
+			for (var j = 0; j < cellsOfRow.length && !found; j++){
+				compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+				// Buscamos el texto en el contenido de la celda
+				if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)){
+					found = true;
+				}
+			}
+
+			if(found){
+				tableReg.rows[i].style.display = '';
+			} else {
+				// si no ha encontrado ninguna coincidencia, esconde la
+				// fila de la tabla
+				tableReg.rows[i].style.display = 'none';
+			}
+		}
+    })
+  }
+})();
+
+
+const searchCategoria = document.getElementById('search-item-categorias');
+(function(){
+  if ( searchCategoria ){
+    searchCategoria.addEventListener('keyup', function(){
+    	var tableReg =document.querySelector('.responsive-table');
+    	var searchText = searchCategoria.value.toLowerCase().trim();
+    	
+		var cellsOfRow="";
+		var found=false;
+		var compareWith="";
+
+		// Recorremos todas las filas con contenido de la tabla
+		for (var i = 1; i < tableReg.rows.length; i++) {
+			cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+			found = false;
+			// Recorremos todas las celdas
+			for (var j = 0; j < cellsOfRow.length && !found; j++){
+				compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+				// Buscamos el texto en el contenido de la celda
+				if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1)){
+					found = true;
+				}
+			}
+
+			if(found){
+				tableReg.rows[i].style.display = '';
+			} else {
+				// si no ha encontrado ninguna coincidencia, esconde la
+				// fila de la tabla
+				tableReg.rows[i].style.display = 'none';
+			}
+		}
+    })
+  }
+})();

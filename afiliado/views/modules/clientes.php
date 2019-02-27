@@ -17,7 +17,7 @@ require "views/modules/navegacionEnd.php";
   <div class="title-content">
     <h1 class="title__titulo"><?php echo $_GET["action"]; ?></h1>
     <form class="buscar" name="titulo" action="" method="get">
-      <input class="filtro" type="text" placeholder="Cliente..." id="search-item">
+      <input class="filtro" type="text" placeholder="Celular cliente..." id="search-item">
       <button type="submit" class="icono fa fa-search"></button>
     </form>
   </div>

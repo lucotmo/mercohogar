@@ -87,11 +87,14 @@ if ( tablePedido ){
 	          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
 	          console.log(mensaje)
 	        })
-		} 
+		}
     })
   })
 }
 
 
 /*=====  End of Aprobar pedido  ======*/
+
+
+
 
