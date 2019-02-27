@@ -274,7 +274,7 @@ function db_query ( $sql, $data = array(), $is_search = false, $search_one = fal
 function obtener_clientes_referido($idPedido) {
 	$sql = "SELECT p.id, p.celular_cliente, p.celular_referido,
 	(SELECT count(*) FROM producto_pedido as pp WHERE pp.id_pedido = p.id) as total,
-    cl.nombre as nombreCliente
+    cl.nombre as nombreCliente, p.pago, p.fecha_pago
     FROM pedido as p
     INNER JOIN cliente as cl ON p.celular_cliente = cl.celular
     WHERE celular_referido = ? AND p.estado_pedido = 5";
@@ -288,6 +288,8 @@ function obtener_clientes_referido($idPedido) {
 	} else {
 		foreach ($result as $row){
 			$totalGeneral = 0;
+			$pago = ($row['pago']) ? 'Pagado' :  'Pendiente';
+			$fecha_pago = (empty($row['fecha_pago'])) ? '--': date("d-m-Y H:i:s", strtotime($row['fecha_pago']));
 
 			$sql2 = "SELECT p.id, p.celular_cliente,
 		pp.precio_total, pp.id_producto,
@@ -300,6 +302,7 @@ function obtener_clientes_referido($idPedido) {
 	    WHERE celular_referido = ? AND p.celular_cliente = ?
 		AND p.id  = ?
 	    GROUP BY pr.id_categoria";
+			//echo $row['celular_referido']. ", " .$row['celular_cliente'] . ", " .$row['id'];
 		$result2 = db_query($sql2, array($row['celular_referido'], $row['celular_cliente'], $row['id']), true);
 
 		echo '<div class="datosCliente-container" data-item="'.$row['celular_cliente'].' '.$row['nombreCliente'].'">
@@ -310,6 +313,8 @@ function obtener_clientes_referido($idPedido) {
                 <th>Celular</th>
                 <th>Cliente</th>
                 <th>No. Ventas</th>
+				<th>Estatus</th>
+				<th>Fecha</th>
                 <th>Acciones</th>
                 <th></th>
               </tr>
@@ -319,6 +324,8 @@ function obtener_clientes_referido($idPedido) {
               <td>'.$row['celular_cliente'].'</td>
               <td>'.$row['nombreCliente'].'</td>
               <td>'.$row['total'].'</td>
+			  <td>'.$pago.'</td>
+			  <td>'.$fecha_pago.'</td>
               <td>
                 <a href="#" class="fa fa-eye btn__perfilDatos" data-id="'.$row['id'].'" id="verPedido"></a>
               </td>
