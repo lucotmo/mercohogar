@@ -226,6 +226,42 @@ if( cel_inp !== null ) {
 	});
 }
 
+var masterCel = document.getElementById('masterCel');
+if(masterCel !== null) {
+  masterCel.addEventListener('keyup', function(e) {
+    var data = masterCel.value;
+    if(data.length >= 8) {
+      let post = new FormData();
+      post.append('cel', data);
+      fetch('views/pages/app.view.php', {
+        body: post,
+        method: 'post'
+      }).then(res => {
+          return (res.ok)
+            ? res.json()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        }).then(res => {
+          var res =  res.res;
+          if(res.ok && res.status == 200) {
+            document.getElementById('nom_inp').value=res.statusText.nombre;
+            document.getElementById('ape_inp').value=res.statusText.apellidos;
+            document.getElementById('ciudad').value=res.statusText.id_ciudad;
+            document.querySelector('.bar-inp').value=res.statusText.barrio;
+            document.getElementById('direccion').value =res.statusText.direccion;
+          } else {
+            document.getElementById('nom_inp').value='';
+            document.getElementById('ape_inp').value='';
+            document.getElementById('ciudad').value='';
+            document.querySelector('.bar-inp').value='';
+            document.getElementById('direccion').value ='';
+          }
+        }).catch(err => {    
+          console.log("Celular no encontrado...");
+        })
+    }
+  });
+}
+
 var codRef_inp =  document.querySelector('.codRef-inp');
 if( codRef_inp !== null ) {
 	codRef_inp.addEventListener('input', function () { 
@@ -236,26 +272,30 @@ if( codRef_inp !== null ) {
 
 
 var click_direccion = document.getElementById('ch_otra_direccion');
-click_direccion.addEventListener('click', e => {
+
+if ( click_direccion ){
+  click_direccion.addEventListener('click', e => {
     var ciudad2 = document.getElementById('ciudad2'),
-    barrio2 = document.getElementById('barrio2'),
-    direccion2 = document.getElementById('direccion2');
-	ciudad2.value="";
-	barrio2.value="";
-	direccion2.value="";
-	
-    if(e.target.checked) {
-    	e.target.value=1;
-    	ciudad2.required = true;
-    	barrio2.required = true;
-    	direccion2.required = true; 
-    } else {
-    	e.target.value=0;
-    	ciudad2.required = false; 
-    	barrio2.required = false; 
-    	direccion2.required = false;
-    }
-});
+      barrio2 = document.getElementById('barrio2'),
+      direccion2 = document.getElementById('direccion2');
+    ciudad2.value="";
+    barrio2.value="";
+    direccion2.value="";
+    
+      if(e.target.checked) {
+        e.target.value=1;
+        ciudad2.required = true;
+        barrio2.required = true;
+        direccion2.required = true; 
+      } else {
+        e.target.value=0;
+        ciudad2.required = false; 
+        barrio2.required = false; 
+        direccion2.required = false;
+      }
+  });
+}
+
 
 document.addEventListener('submit', e => {
   if (e.target.matches('form')) {
@@ -320,3 +360,88 @@ document.addEventListener('submit', e => {
 })
 
 console.log('pro fin')
+
+
+/* slider */
+
+$(document).ready(function() {
+  var SliderModule = (function(){
+    var ob = {};
+    ob.el = $('#slider-banner');
+    ob.items = {
+      panels: ob.el.find('.slider-content > li')
+    }
+
+    var SliderInterval,
+      currentSlider = 0,
+      nextSlider = 1,
+      lengthSlider = ob.items.panels.length;
+    // Initia
+    ob.init = function(){
+      //activamos nuestro slider
+      SliderInit();
+    }
+    var SliderInit = function(){
+      SliderInterval = setInterval(ob.startSlider, 3000);
+    }
+    ob.startSlider = function(){
+      var panels = ob.items.panels;
+
+      if ( nextSlider >= lengthSlider ){
+        nextSlider = 0;
+        currentSlider = lengthSlider-1;
+      }
+      //console.log(nextSlider)
+
+      panels.eq(currentSlider).fadeOut('slow');
+      panels.eq(nextSlider).fadeIn('slow');
+
+      currentSlider = nextSlider;
+      nextSlider += 1;
+    }
+
+    return ob;
+  }());
+
+  var SliderDerechoModule = (function(){
+    var ob = {};
+    ob.el = $('#slider-derecho-banner');
+    ob.items = {
+      panels: ob.el.find('.slider-derecho-content > li')
+    }
+
+    var SliderInterval,
+      currentSlider = 0,
+      nextSlider = 1,
+      lengthSlider = ob.items.panels.length;
+    // Initia
+    ob.init = function(settings){
+      //activamos nuestro slider
+      SliderInit();
+    }
+    var SliderInit = function(){
+      SliderInterval = setInterval(ob.startSlider, 3000);
+    }
+    ob.startSlider = function(){
+      var panels = ob.items.panels;
+
+      if ( nextSlider >= lengthSlider ){
+        nextSlider = 0;
+        currentSlider = lengthSlider-1;
+      }
+      //console.log(nextSlider)
+
+      panels.eq(currentSlider).fadeOut('slow');
+      panels.eq(nextSlider).fadeIn('slow');
+
+      currentSlider = nextSlider;
+      nextSlider += 1;
+    }
+
+    return ob;
+  }());
+  SliderModule.init();
+  SliderDerechoModule.init();
+});
+
+console.log('lucooo')

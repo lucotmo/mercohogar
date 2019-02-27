@@ -5,7 +5,7 @@
       <div class="celCod">
         <div class="celular">
           <label for="" class="cel-title">Celular</label>
-          <input type="text" name="celular" class="cel-inp" placeholder="Celular" required >
+          <input type="text" name="celular" id="masterCel" class="cel-inp" placeholder="Celular" required >
         </div>
         <div class="codigo-referido">
           <label for="" class="codRef-title">Codigo de referido (opcional)</label>
@@ -15,11 +15,11 @@
       <div class="nomApell">
         <div class="nombre">
           <label for="" class="nom-title">Nombre</label>
-          <input type="text" name="nombre" class="nom-inp" placeholder="Nombre" required >
+          <input type="text" name="nombre" class="nom-inp" id="nom_inp" placeholder="Nombre" required >
         </div>
         <div class="apellidos">
           <label for="" class="ape-title">Apellidos</label>
-          <input type="text" name="apellidos"  class="ape-inp" placeholder="Apellidos" required >
+          <input type="text" name="apellidos"  class="ape-inp" id="ape_inp" placeholder="Apellidos" required >
         </div>
       </div>
       <div class="ciuBarr">

@@ -221,8 +221,8 @@ require "views/modules/navegacionEnd.php";
       <div class="afiliados-content" id="clientes-content">
         <table class="responsive-table">
           <tr>
-            <th>Cliente</th>
             <th>Celular</th>
+            <th>Cliente</th>
             <th>No. Ventas</th>
             <th>Acciones</th>
             <th></th>
