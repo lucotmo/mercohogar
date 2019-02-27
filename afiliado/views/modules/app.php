@@ -302,7 +302,7 @@ function obtener_clientes_referido($idPedido) {
 	    GROUP BY pr.id_categoria";
 		$result2 = db_query($sql2, array($row['celular_referido'], $row['celular_cliente'], $row['id']), true);
 
-		echo '<div class="datosCliente-container">
+		echo '<div class="datosCliente-container" data-item="'.$row['celular_cliente'].' '.$row['nombreCliente'].'">
         <div class="datosCliente-content">
           <table class="table-responsive">
             <thead>
