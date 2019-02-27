@@ -60,23 +60,15 @@ CONTENT
 
     </div>
   </div>
-  <section class="banner__promos-pedir">
-    <!-- <h3 class="banner__promos-title">banner de promos</h3> -->
+  <section id="slider-derecho-banner" class="banner__promos-pedir slider-derecho-container">
+    <ul class="slider-derecho-content">
+      <?php
 
-    <div class="banner__promos__img-content">
-      <div class="banner__promos__img-item">
-        <img class="banner__promos__img" src="views/imagenes/slides/1.png" alt="">
-      </div>
-      <div class="banner__promos__img-item">
-        <img class="banner__promos__img" src="views/imagenes/slides/2.png" alt="">
-      </div>
-      <div class="banner__promos__img-item">
-        <img class="banner__promos__img" src="views/imagenes/slides/3.png" alt="">
-      </div>
-      <div class="banner__promos__img-item">
-        <img class="banner__promos__img" src="views/imagenes/slides/4.png" alt="">
-      </div>
-    </div>
+      $slidesDerecha = new SlidersDerecha();
+      $slidesDerecha -> seleccionarSlidersDerechaController();
+
+      ?>
+    </ul>
   </section>
 </main>
 
