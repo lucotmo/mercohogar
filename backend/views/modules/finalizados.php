@@ -20,8 +20,8 @@ require "views/modules/navegacionEnd.php";
   <div class="title-content">
     <h1 class="title__titulo"><?php echo $_GET["action"]; ?></h1>
     <form class="buscar" name="titulo" action="" method="get">
-      <input class="filtro" type="text" placeholder="Producto..." id="search-item">
-      <button type="submit" class="icono fa fa-search"></button>
+      <input class="filtro" type="text" placeholder="No. Pedido..." id="search-item-pedido">
+      <button type="submit" class="icono fa fa-search" style="pointer-events:none"></button>
     </form>
   </div>
   <div class="respuestaPedido"></div>

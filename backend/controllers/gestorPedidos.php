@@ -16,7 +16,9 @@ class Pedidos{
       $btn = "";
     }
 
-    echo '<tr>
+    echo '
+    <thead>
+    <tr>
       <th>No. Pedido</th>
       <th>Cliente</th>
       <th>Celular</th>
@@ -25,11 +27,12 @@ class Pedidos{
       <th>Precio</th>
       <th>Acciones</th>
       <th></th>
-    </tr>';
+    </tr></thead>';
 
     foreach ($respuesta as $row => $item){
       if ( $item["estado_pedido"] == 1 || $item["estado_pedido"] == 2 || $item["estado_pedido"] == 3 || $item["estado_pedido"] == 4 ){
         echo '
+        <tbody class="contentPedido" data-item="'.$item["id"].'">
         <tr>
           <td id="pedidoId">'.$item["id"].'</td>
           <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
@@ -41,20 +44,22 @@ class Pedidos{
             <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
             <a href="#" class="btnRealizadoPedido" data-id="'.$item["id"].'">'.$btn.'</a>
           </td>
-        </tr>';
+        </tr></tbody>';
       }else{
         echo '
-        <tr>
-          <td id="pedidoId">'.$item["id"].'</td>
-          <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
-          <td>'.$item["celular_cliente"].'</td>
-          <td>'.$item["fecha"].'</td>
-          <td>'.$item["ciudad"].'</td>
-          <td>$'.$item["total_valor_pedido"].'</td>
-          <td>
-            <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
-          </td>
-        </tr>';
+        <tbody class="contentPedido" data-item="'.$item["id"].'">
+          <tr >
+            <td id="pedidoId">'.$item["id"].'</td>
+            <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
+            <td>'.$item["celular_cliente"].'</td>
+            <td>'.$item["fecha"].'</td>
+            <td>'.$item["ciudad"].'</td>
+            <td>$'.$item["total_valor_pedido"].'</td>
+            <td>
+              <a href="#" class="fa fa-eye btn__perfilDatos" id="verPedido"></a>
+            </td>
+          </tr>
+        </tbody>';
       }
 
     }
