@@ -35,6 +35,41 @@ class GestorAfiliadosModel{
 		$stmt -> close();
 
 	}
+	
+	public function getPagado($celular_afiliado){
+		$stmt = Conexion::conectar()->prepare("SELECT
+				(sum(pp.precio_total)*ca.comision/100) as pagado
+				FROM pedido as p
+				INNER JOIN producto_pedido as pp ON p.id = pp.id_pedido
+				INNER JOIN producto as pr ON pr.producto_id = pp.id_producto
+				INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
+				WHERE
+				p.celular_referido = $celular_afiliado
+				AND p.pago is true
+				AND p.estado_pedido = 5
+				GROUP BY pr.id_categoria");
+		$stmt -> execute();
+		return $stmt -> fetchAll();
+		$stmt -> close();
+	}
+	
+	public function getNoPagado($celular_afiliado){
+		$stmt = Conexion::conectar()->prepare("SELECT
+		p.id,
+		(sum(pp.precio_total)*ca.comision/100) as nopagado
+		FROM pedido as p
+		INNER JOIN producto_pedido as pp ON p.id = pp.id_pedido
+		INNER JOIN producto as pr ON pr.producto_id = pp.id_producto
+		INNER JOIN categoria as ca ON pr.id_categoria = ca.categoria_id
+		WHERE
+		p.celular_referido = $celular_afiliado
+		AND p.pago is false
+		AND p.estado_pedido = 5
+		GROUP BY pr.id_categoria");
+		$stmt -> execute();
+		return $stmt -> fetchAll();
+		$stmt -> close();
+	}
 
 	#ACTUALIZAR PERFIL
 	#---------------------------------------------------
