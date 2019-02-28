@@ -201,6 +201,8 @@ require "views/modules/navegacionEnd.php";
         <tr>
           <th>Afiliado</th>
           <th>Celular</th>
+          <th>Pagado</th>
+          <th>Adeudo</th>
           <th>Acciones</th>
           <th></th>
         </tr>

@@ -719,3 +719,29 @@ const searchCategoria = document.getElementById('search-item-categorias');
     })
   }
 })();
+
+
+var pagoAfiliado = document.querySelectorAll('.pagoAfiliado');
+(function(){
+	if( pagoAfiliado ){
+		pagoAfiliado.forEach(function(btn){
+		    btn.addEventListener('click', function(e){
+		    	e.preventDefault()
+		      	$.ajax({
+			      url:"views/ajax/gestorProductos.php",
+			      method: "POST",
+			      data:{p:btn.getAttribute('data-id')},
+			      success: function(data){
+			        if(data) {
+			        	alert("Pedidos pagados.");
+			        	location.reload(); 
+			        } else {
+			        	alert("Hubo un problema al realizar la solicitud y algunos pedidos no se pudieron pagar.")
+			        	location.reload(); 
+			        }
+			      }
+			    })
+		    })
+	   })
+	}
+})();

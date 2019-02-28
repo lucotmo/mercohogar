@@ -56,6 +56,17 @@ CONTENT
     </div>
   </div> -->
   <div class="nuestros-clientes">
+    <!-- <div class="nuestros-clientes-container">
+      <div class="nuestros-clientes-content">
+        <h6 class="clientes__title">nuestros clientes</h6>
+        <p class="nuestros__parrafo">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum minus placeat ex quasi excepturi, asperiores non impedit veritatis dolore quod fugit consequuntur nostrum vitae? Aliquam deleniti amet optio quibusdam saepe.</p>
+      </div>
+      <div class="nuestros-clientes-video">
+        <div class="video-responsive">
+        <iframe src="https://player.vimeo.com/video/90791304" frameborder="0" allowfullscreen="allowfullscreen" ></iframe>
+        </div>
+      </div>
+    </div> -->
     <?php
 
       $nuestrosClientes = new NuestrosClientes();
@@ -63,7 +74,6 @@ CONTENT
 
     ?>
   </div>
-
   <section id="slider-derecho-banner" class="banner__promos-pedir slider-derecho-container">
     <ul class="slider-derecho-content">
       <?php
@@ -74,6 +84,9 @@ CONTENT
       ?>
     </ul>
   </section>
+  <pre>
+
+  <pre>
 </main>
 
 <!--====  Fin de CONTENT  ====-->

@@ -52,7 +52,7 @@ if(isset( $_POST['cel'] ) ) {
   $cel = $_POST['cel'];
   $sql = "SELECT * FROM cliente WHERE celular = ?";
   $data = array($cel);
-  
+
   $result =  array();
   $result['res']['ok'] = true;
   $result['res']['status'] = 200;
@@ -216,15 +216,15 @@ var_dump(registrar_cliente('3163800888', 'luis manuel', 'otero diaz', '31688', 1
 echo '</pre>'; */
 
 if ( isset($_POST["celular"]) ){
-	
+
 	//echo "<pre>".print_r($_POST,1)."</pre>";
 	//exit;
-	
+
   $celular = $_POST["celular"];
   $nombre = $_POST["nombre"];
   $apellidos = $_POST["apellidos"];
   $referido = $_POST["referido"];
-  
+
   $valorPedido = $_POST["valorPedido"];
   $domicilio = $_POST["domicilio"];
   $valorTotal = $_POST["valorTotal"];
@@ -233,7 +233,7 @@ if ( isset($_POST["celular"]) ){
   $valor_product = $_POST["valor_product"];
   $cantidad_product = $_POST["cantidad_product"];
   $precio_total = $_POST["precio_total"];
-  
+
   if( !empty( $_POST['checkedOtro']) ) {
   	$ciudad = $_POST["ciudad2"];
   	$barrio = $_POST["barrio2"];
@@ -243,7 +243,7 @@ if ( isset($_POST["celular"]) ){
   	$barrio = $_POST["barrio"];
   	$direccion = $_POST["direccion"];
   }
-  
+
   /*secho $ciudad;
   echo "<br>";
   echo $barrio;
@@ -251,7 +251,7 @@ if ( isset($_POST["celular"]) ){
   echo $direccion;
   echo "<br>";
   exit;*/
-  
+
   $json = registrar_cliente(
   		$celular,
   		$nombre,
@@ -267,15 +267,15 @@ if ( isset($_POST["celular"]) ){
 
   if( !$json['cliente'] ) {
 	  $pedido = "INSERT INTO pedido (id, fecha,	celular_cliente, celular_referido, valor_pedido, id_ciudad,	barrio,	direccion, valor_domicilio, total_valor_pedido, estado_pedido) VALUES";
-	
+
 	  $pedido .="('null', NOW(), '".$celular."', '".$referido."', '".$valorPedido."', '".$ciudad."', '".$barrio."', '".$direccion."', '".$domicilio."', '".$valorTotal."', 1 )";
 	  /* if ( isset($ciudad2) && isset($barrio2) && isset($direccion2) ){
 	    $pedido .="('null', NOW(), '".$celular."', '".$referido."', '".$valorPedido."', '".$ciudad2."', '".$barrio2."', '".$direccion2."', '".$domicilio."', '".$valorTotal."', 0, 0, 0, 0 )";
 	  }else{
 	    $pedido .="('null', NOW(), '".$celular."', '".$referido."', '".$valorPedido."', '".$ciudad."', '".$barrio."', '".$direccion."', '".$domicilio."', '".$valorTotal."', 0, 0, 0, 0 )";
 	  } */
-	
-	
+
+
 	  if ( $mysqli->query($pedido) ){
 	    $numPedido = $mysqli->insert_id;
 	    $cadena = "INSERT INTO producto_pedido (id_producto, id_pedido, precio_actual, cantidad, precio_total) VALUES ";
@@ -290,9 +290,9 @@ if ( isset($_POST["celular"]) ){
 	  }else{
 	  	$json['pedido'] = true;
 	  }
-	
+
 	  $mysqli->close();
-	  
+
 	  echo json_encode($json);
   }
 }
