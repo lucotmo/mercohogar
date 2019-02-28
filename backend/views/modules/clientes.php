@@ -39,12 +39,12 @@ require "views/modules/navegacionEnd.php";
           </div>
         </div>
         <div class="contentTitleContCliente">
-          <div class="inpClienteContenidoNuevo-content">
+          <!-- <div class="inpClienteContenidoNuevo-content">
             <label for="imagenNuestroClienteNuevo" >Imagen (opcional)</label>
             <input type="file" id="titleNuestroClienteNuevo" name="imagenNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="imagen">
-          </div>
+          </div> -->
           <div class="inpClienteContenidoNuevo-content">
-            <label for="videoClienteNuevo" >Video (opcional)</label>
+            <label for="videoClienteNuevo" >Video</label>
             <textarea type="text" id="videoClienteNuevo" name="videoNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="url video"></textarea>
           </div>
         </div>
@@ -85,21 +85,8 @@ require "views/modules/navegacionEnd.php";
     $nuestrosClientes -> seleccionarNuestrosClientesController();
 
     ?>
-    <!-- <div class="containerPaginaCliente">
-      <div class="videoPaginaCliente-content">
-        <div class="video-responsive">
-        <iframe src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
-        </div>
-      </div>
-      <div class="imagenPaginaCliente-content">
-        <img class="imagenPaginaCliente" src="" alt="">
-      </div>
-      <div class="tituloPaginaCliente-content">
-        <h6 class="tituloPaginaCliente">fjfsfjfj</h6>
-      </div>
-      <div class="contenidoPaginaCliente-content">
-        <p class="contenidoPaginaCliente">fjsdfjsldfjlksfj</p>
-      </div>
-    </div> -->
+  </div>
+  <div class="vistaFormEditarNuestrosClientes">
+
   </div>
 </div>

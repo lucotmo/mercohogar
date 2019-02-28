@@ -7,7 +7,7 @@ class Afiliate{
 		foreach ($respuesta as $row => $item){
       echo '
       <div class="containerAccionesPaginaAfiliate">
-        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarProducto"></a>
+        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliatePortada"></a>
         <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <img src="'.$item['imagen'].'" alt="" class="afilitate__img">
@@ -24,7 +24,7 @@ class Afiliate{
 		foreach ($respuesta as $row => $item){
       echo '
       <div class="containerAccionesPaginaAfiliate">
-        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarProducto"></a>
+        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliateContenido"></a>
         <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <div class="afiliate__info-video">
@@ -47,7 +47,7 @@ class Afiliate{
 		foreach ($respuesta as $row => $item){
       echo '
       <div class="containerAccionesPaginaAfiliate">
-        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarProducto"></a>
+        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliatePreguntas"></a>
         <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <h5>'.$item['titulo'].'</h5>';
@@ -68,7 +68,7 @@ class Afiliate{
 		foreach ($respuesta as $row => $item){
       echo '
       <div class="containerAccionesPaginaAfiliate">
-        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarProducto"></a>
+        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliateBeneficios"></a>
         <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <h5>'.$item['titulo'].'</h5>';

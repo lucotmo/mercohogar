@@ -148,11 +148,11 @@ function formEventoSubmit(resp){
             : Promise.reject({ status: res.status, statusText: res.statusText })
         })
         .then(res => {
-          //console.log(res)
+          console.log(res)
           //let mensaje
 
           if (res.err) {
-            //mensaje_error(res.msg)
+            mensaje_error(res.msg)
           } else {
             //mensaje = console.log(res)
             //mensaje_ok(res.msg)
@@ -161,6 +161,7 @@ function formEventoSubmit(resp){
         })
         .catch(err => {
           let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+          console.log(mensaje)
         })
     }
   })
@@ -224,7 +225,99 @@ if ( respuestaClientes ){
 
 
 
+/*=============================================
+=            Nuestros clientes            =
+=============================================*/
+
+const contentFormEditarNuestroCliente = document.querySelector('.vistaContenidosPaginaClientes')
+const respuestaFormEditarNuestroCliente = document.querySelector('.vistaFormEditarNuestrosClientes')
+
+if ( contentFormEditarNuestroCliente ){
+  let btnVerform = contentFormEditarNuestroCliente.querySelectorAll("#btnEditarNuestrosClientes")
+  btnVerform.forEach(function(btn){
+    tableVer(btn, 'id_editNuestroCliente', respuestaFormEditarNuestroCliente)
+  })
+}
+
+if ( respuestaFormEditarNuestroCliente ){
+  formEventoSubmit(respuestaFormEditarNuestroCliente)
+}
+
+/*=====  End of Nuestros clientes  ======*/
+
+
+
+/*=============================================
+=            Como pedir            =
+=============================================*/
+
+const contentFormEditarComoPedir = document.querySelector('.pedir-content')
+const respuestaFormEditarComoPedir = document.querySelector('.containerFormComoPedir')
+
+if ( contentFormEditarComoPedir ){
+  let btnVerform = contentFormEditarComoPedir.querySelectorAll("#btnEditarComoPedir")
+  btnVerform.forEach(function(btn){
+    tableVer(btn, 'id_editComoPedir', respuestaFormEditarComoPedir)
+  })
+}
+
+/* if ( respuestaFormEditarNuestroCliente ){
+  formEventoSubmit(respuestaFormEditarNuestroCliente)
+} */
+
+/*=====  End of Como pedir  ======*/
 
 
 
 
+/*=============================================
+=            Pagina Afiliate            =
+=============================================*/
+const respuestaFormFormulariosAfiliate = document.querySelector('.respuestaFormulariosAfiliate')
+const contentFormEditarAfiliatePortada = document.querySelector('.containerPortadaAfiliate')
+const contentFormEditarAfiliateContenido = document.querySelector('.containerContenidoAfiliate')
+const contentFormEditarAfiliatePreguntas = document.querySelector('.containerPreguntasAfiliate')
+const contentFormEditarAfiliateBeneficios = document.querySelector('.containerBeneficiosAfiliate')
+
+
+/* btnEditarAfiliatePortada
+btnEditarAfiliateContenido
+btnEditarAfiliatePreguntas
+btnEditarAfiliateBeneficios */
+
+
+if ( contentFormEditarAfiliatePortada ){
+  let btnVerform = contentFormEditarAfiliatePortada.querySelectorAll("#btnEditarAfiliatePortada")
+  btnVerform.forEach(function(btn){
+    tableVer(btn, 'id_afiliate_portada', respuestaFormFormulariosAfiliate)
+  })
+}
+
+if ( contentFormEditarAfiliateContenido ){
+  let btnVerform = contentFormEditarAfiliateContenido.querySelectorAll("#btnEditarAfiliateContenido")
+  btnVerform.forEach(function(btn){
+    tableVer(btn, 'id_afiliate_contenido', respuestaFormFormulariosAfiliate)
+  })
+}
+
+if ( contentFormEditarAfiliatePreguntas ){
+  let btnVerform = contentFormEditarAfiliatePreguntas.querySelectorAll("#btnEditarAfiliatePreguntas")
+  btnVerform.forEach(function(btn){
+    tableVer(btn, 'id_afiliate_preguntas', respuestaFormFormulariosAfiliate)
+  })
+}
+if ( contentFormEditarAfiliateBeneficios ){
+  let btnVerform = contentFormEditarAfiliateBeneficios.querySelectorAll("#btnEditarAfiliateBeneficios")
+  btnVerform.forEach(function(btn){
+    tableVer(btn, 'id_afiliate_beneficios', respuestaFormFormulariosAfiliate)
+  })
+}
+
+
+
+/*=====  End of Pagina Afiliate  ======*/
+
+
+
+
+console.log('luc')

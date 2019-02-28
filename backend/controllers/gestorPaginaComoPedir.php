@@ -9,7 +9,7 @@ class ComoPedir{
       echo '
       <div class="pedir-content" data-id="'.$item['id'].'">
         <div class="containerAccionesPaginaAfiliate">
-          <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarProducto"></a>
+          <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarComoPedir"></a>
           <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
         </div>
         <div class="pedir__video-container">

@@ -140,4 +140,8 @@ require "views/modules/navegacionEnd.php";
     ?>
   </div>
 
+  <div class="respuestaFormulariosAfiliate">
+
+  </div>
+
 </div>

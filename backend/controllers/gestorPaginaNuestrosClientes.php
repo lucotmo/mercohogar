@@ -7,16 +7,13 @@ class NuestrosClientes{
       echo '
       <div class="containerPaginaCliente">
         <div class="containerAccionesPaginaCliente">
-          <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarProducto"></a>
+          <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarNuestrosClientes"></a>
           <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
         </div>
         <div class="videoPaginaCliente-content">
           <div class="video-responsive">
           <iframe src="'.$item['video'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
           </div>
-        </div>
-        <div class="imagenPaginaCliente-content">
-          <img class="imagenPaginaCliente" src="'.$item['imagen'].'" alt="">
         </div>
         <div class="containerTituloContenidoPaginaCliente">
           <div class="tituloPaginaCliente-content">
