@@ -53,7 +53,7 @@ class GestorAfiliados{
 			
 			$nopagado = GestorAfiliadosModel::getNoPagado($item["celular"]);
 			$n_total = 0;
-			$n_total_id = 0;
+			$n_total_id = null;
 			foreach ($nopagado as $np){
 				$n_total += $np['nopagado'];
 				$n_total_id.= ','.$np['id'];
@@ -74,13 +74,14 @@ class GestorAfiliados{
           <td>
             <a href="#" class="fa fa-eye btn__perfilDatos" data-id="'.$item["id"].'" id="verAfiliado"></a>
             <a href="#" class="fa fa-edit btn__perfilDatos" data-id="'.$item["id"].'" id="editAfiliado"></a>
-            <a href="#" style="'.$disabled.'" class="fa fa-money btn__perfilDatos" data-id="'.$n_implode.'" id="pagoAfiliado"></a>
+            <a href="#" style="'.$disabled.'" class="fa fa-money btn__perfilDatos pagoAfiliado" data-id="'.trim($n_implode, ',').'" id="pagoAfiliado"></a>
           </td>
         </tr>';
       //<a href="index.php?action=perfil&idBorrarAfiliado='.$item["id"].'" class="fa fa-trash btn__perfilDatos"></a>
 		}
 
 	}
+	
 	#EDITAR PERFIL
 	#------------------------------------------------------------
 	/* public function editarPerfilController(){
