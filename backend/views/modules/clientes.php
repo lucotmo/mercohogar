@@ -78,4 +78,28 @@ require "views/modules/navegacionEnd.php";
       </div>
     </form> -->
   </div>
+  <div class="vistaContenidosPaginaClientes">
+    <?php
+
+    $nuestrosClientes = new NuestrosClientes();
+    $nuestrosClientes -> seleccionarNuestrosClientesController();
+
+    ?>
+    <!-- <div class="containerPaginaCliente">
+      <div class="videoPaginaCliente-content">
+        <div class="video-responsive">
+        <iframe src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+        </div>
+      </div>
+      <div class="imagenPaginaCliente-content">
+        <img class="imagenPaginaCliente" src="" alt="">
+      </div>
+      <div class="tituloPaginaCliente-content">
+        <h6 class="tituloPaginaCliente">fjfsfjfj</h6>
+      </div>
+      <div class="contenidoPaginaCliente-content">
+        <p class="contenidoPaginaCliente">fjsdfjsldfjlksfj</p>
+      </div>
+    </div> -->
+  </div>
 </div>
