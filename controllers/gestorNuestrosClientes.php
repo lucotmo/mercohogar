@@ -12,10 +12,11 @@ class NuestrosClientes{
         </div>
         <div class="nuestros-clientes-video">
           <div class="video-responsive">
-          <iframe src="'.$item['video'].'" frameborder="0" allowfullscreen="allowfullscreen" ></iframe>
+          <iframe src="'.$item['video'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
           </div>
         </div>
       </div>';
+
 
      /*  echo '<div class="nuestros-clientes-video">
       <div class="video-responsive">

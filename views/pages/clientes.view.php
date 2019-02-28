@@ -74,7 +74,6 @@ CONTENT
 
     ?>
   </div>
-
   <section id="slider-derecho-banner" class="banner__promos-pedir slider-derecho-container">
     <ul class="slider-derecho-content">
       <?php
