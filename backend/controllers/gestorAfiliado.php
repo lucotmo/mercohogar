@@ -44,14 +44,37 @@ class GestorAfiliados{
 	public function verAfiliadoController(){
 		$respuesta = GestorAfiliadosModel::verAfiliadosModel("afiliado");
 		foreach($respuesta as $row => $item){
+			
+			$pagado = GestorAfiliadosModel::getPagado($item["celular"]);
+			$p_total = 0;
+			foreach ($pagado as $p){
+				$p_total +=$p['pagado'];
+			}
+			
+			$nopagado = GestorAfiliadosModel::getNoPagado($item["celular"]);
+			$n_total = 0;
+			$n_total_id = 0;
+			foreach ($nopagado as $np){
+				$n_total += $np['nopagado'];
+				$n_total_id.= ','.$np['id'];
+			}
+			
+			$n_explode = explode(',',$n_total_id);
+			$n_result = array_unique($n_explode);
+			$n_implode  = implode(",",$n_result);
+			
+			$disabled= (empty($n_implode)) ? 'pointer-events:none;background-color:gray' : '';
+			
       echo '
         <tr>
           <td>'.$item["nombre"].' '.$item["apellidos"].'</td>
           <td>'.$item["celular"].'</td>
+		  <td>'.$p_total.'</td>
+		  <td>'.$n_total.'</td>
           <td>
             <a href="#" class="fa fa-eye btn__perfilDatos" data-id="'.$item["id"].'" id="verAfiliado"></a>
             <a href="#" class="fa fa-edit btn__perfilDatos" data-id="'.$item["id"].'" id="editAfiliado"></a>
-            <a href="#" class="fa fa-money btn__perfilDatos" data-id="'.$item["id"].'" id="pagoAfiliado"></a>
+            <a href="#" style="'.$disabled.'" class="fa fa-money btn__perfilDatos" data-id="'.$n_implode.'" id="pagoAfiliado"></a>
           </td>
         </tr>';
       //<a href="index.php?action=perfil&idBorrarAfiliado='.$item["id"].'" class="fa fa-trash btn__perfilDatos"></a>
