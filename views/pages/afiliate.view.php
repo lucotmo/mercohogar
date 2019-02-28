@@ -21,14 +21,22 @@ CONTENT
 <main class="main-afiliate">
   <div class="afiliate-container">
     <div class="afiliate-presentacion">
-      <img src="views/imagenes/presentacion.png" alt="" class="afilitate__img">
+      <?php
+        $afiliate = new Afiliate();
+        $afiliate -> PortadaAfiliateController();
+      ?>
+      <!-- <img src="views/imagenes/presentacion.png" alt="" class="afilitate__img">
       <div class="presentacion-content">
         <h6 class="presentacion__title">¡Bienvenido al programa!</h6>
         <p class="presentacion__subtitle">sembrador de mercohogar</p>
-      </div>
+      </div> -->
     </div>
     <section class="afilitate-info">
-      <div class="afilitate-info__content">
+      <?php
+        $afiliate = new Afiliate();
+        $afiliate -> mostrarContenidoAfiliateController();
+      ?>
+      <!-- <div class="afilitate-info__content">
         <h1 class="afilitate-title">Mercohogar</h1>
         <p class="afilitate-info__parrafo">Con sembrador de Mercohogar puedes tener
         comisión por compras referidas de clientes o tuyas. </p>
@@ -41,11 +49,15 @@ CONTENT
           <img src="views/imagenes/video.png" alt="">
           <i class="fa fa-play-circle"></i>
         </a>
-      </div>
+      </div> -->
     </section>
     <section class="benefPreguntas">
       <div class="preguntas">
-        <h5>Preguntas frecuentes</h5>
+        <?php
+          $afiliate2 = new Afiliate();
+          $afiliate2 -> mostrarPreguntasAfiliateController();
+        ?>
+        <!-- <h5>Preguntas frecuentes</h5>
         <h6>¿Cómo son las comisiones obtenidas por ventas referidas en mercohogar?</h6>
         <p>Las comisiones son por la categoría del producto vendido:
         frutas 5%, verduras 10% y emprendedores 10% </p>
@@ -55,13 +67,17 @@ CONTENT
         <h6>¿Cómo vendo en mercohogar?</h6>
         <p>Ofreciendo los productos, ofertas y descuentos a clientes con mi código referido</p>
         <h6>¿Cuánto debo vender?</h6>
-        <p>Sin limites</p>
+        <p>Sin limites</p> -->
       </div>
       <div class="beneficios">
-        <h6>Beneficios</h6>
+        <?php
+          $afiliate = new Afiliate();
+          $afiliate -> mostrarBeneficiosAfiliateController();
+        ?>
+        <!-- <h6>Beneficios</h6>
         <p>Recibes comisión de compras referidas por clientes o tuyas.</p>
         <h6>Entérate y comparte</h6>
-        <p>Entérate de las ofertas y descuentos de nuestros productos para compartir a tus clientes. Al ser afiliado contaras con piezas digitales de las ofertas y promociones en los productos actualmente para compartir en tus medios de comunicación con el cliente.</p>
+        <p>Entérate de las ofertas y descuentos de nuestros productos para compartir a tus clientes. Al ser afiliado contaras con piezas digitales de las ofertas y promociones en los productos actualmente para compartir en tus medios de comunicación con el cliente.</p> -->
       </div>
     </section>
   </div>

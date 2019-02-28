@@ -87,5 +87,6 @@ FOOTER
 <script src="views/js/categorias.js"></script>
 <script src="views/js/pedidos.js"></script>
 <script src="views/js/perfil.js"></script>
+<script src="views/js/nuestros.js"></script>
 </body>
 </html>
