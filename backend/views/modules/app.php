@@ -1346,7 +1346,7 @@ if ( isset($_POST['id_afiliate_preguntas']) )  form_afiliate_preguntas($_POST['i
           foreach ($result2 as $row2){
             echo '<div class="contentInputsPasos" style="display:flex">
             <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="numeroSubtituloAfiliateBeneficios">No.</label>
+              <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
               <input class="inpText" name="numeroSubtituloAfiliateBeneficios" id="numeroSubtituloAfiliateBeneficios" value="'.$row2['subtitulo'].'" cols="1" rows="" placeholder="Subtitulo">
             </div>
             <div class="inpSelect-content" style="display:flex; flex-direction:column">

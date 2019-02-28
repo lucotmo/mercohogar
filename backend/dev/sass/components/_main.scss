@@ -764,16 +764,21 @@
   background: white;
   width: 100%;
   max-width: 60em;
+  max-height: 85vh;
   padding: .5em;
   border-radius: 5px;
+  overflow: auto;
 }
 .btnCerrarVistaPedido{
   text-align: end;
-  position: absolute;
+  position: fixed;
   color: white;
+  margin: 0 auto;
   width: calc(100% - 1em);
-  top: -1.5em;
-  font-size: 1.5em;
+  top: .5em;
+  right: .5em;
+  padding-right: .5em;
+  font-size: 1.8em;
 }
 
 /*=====  End of productos  ======*/

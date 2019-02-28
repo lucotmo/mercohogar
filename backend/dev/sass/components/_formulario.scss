@@ -238,13 +238,18 @@
   padding: .5em;
   border-radius: 5px;
   min-width: 300px;
+  max-height: 85vh;
+  overflow: auto;
 }
 .btnCerrarFormModal{
-  position: absolute;
+  margin: 0 auto;
+  position: fixed;
   width: calc(100% - 1em);
   text-align: end;
-  top: -1.5em;
-  font-size: 1.5em;
+  padding-right: .5em;
+  top: .5em;
+  right: .5em;
+  font-size: 1.8em;
   color: white;
   &:hover{
     color: red;
@@ -305,7 +310,6 @@
 }
 
 /*=====  End of formulario Modal  ======*/
-
 
 
 
