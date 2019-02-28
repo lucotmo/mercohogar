@@ -81,9 +81,64 @@
   }
 }
 
+.vistaContenidosPaginaClientes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .containerPaginaCliente{
+    position: relative;
+    display: flex;
+    box-shadow: 2px 5px 15px #ccc;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    margin: .5em 0;
+    .containerAccionesPaginaCliente{
+      position: absolute;
+      top: .5em;
+      right: .5em;
+    }
+  }
 
 
+  .videoPaginaCliente-content{
+    margin: 0.5em;;
+    flex-basis: 25%;
+    //border: 2px solid #aaaaaa;
+    padding: 0;
+  }
+  .video-responsive{
+  }
+  .imagenPaginaCliente-content{
+    flex-basis: 25%;
+    //border: 2px solid #aaaaaa;
+    margin: auto .5em;
+  }
+  .imagenPaginaCliente{
+    width: 100%;
+    display: block;
+  }
 
-
-
+  .containerTituloContenidoPaginaCliente{
+    //border: 2px solid #aaaaaa;
+   display: flex;
+   flex-direction: column;
+   flex-basis: 50%;
+  }
+  .tituloPaginaCliente-content{
+    margin: .5em;
+    padding: .5em;
+  }
+  .tituloPaginaCliente{
+    text-transform: capitalize;
+    font-size: 1em;
+    color: #aaaaaa;
+  }
+  .contenidoPaginaCliente{
+    font-size: .8em;
+    color: #aaa;
+    padding:0 .5em;
+  }
+}
 

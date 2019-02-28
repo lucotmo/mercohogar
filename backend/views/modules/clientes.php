@@ -39,12 +39,12 @@ require "views/modules/navegacionEnd.php";
           </div>
         </div>
         <div class="contentTitleContCliente">
-          <div class="inpClienteContenidoNuevo-content">
+          <!-- <div class="inpClienteContenidoNuevo-content">
             <label for="imagenNuestroClienteNuevo" >Imagen (opcional)</label>
             <input type="file" id="titleNuestroClienteNuevo" name="imagenNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="imagen">
-          </div>
+          </div> -->
           <div class="inpClienteContenidoNuevo-content">
-            <label for="videoClienteNuevo" >Video (opcional)</label>
+            <label for="videoClienteNuevo" >Video</label>
             <textarea type="text" id="videoClienteNuevo" name="videoNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="url video"></textarea>
           </div>
         </div>
@@ -77,5 +77,16 @@ require "views/modules/navegacionEnd.php";
         <input class="btnInputGuardar" type="submit" value="Guardar">
       </div>
     </form> -->
+  </div>
+  <div class="vistaContenidosPaginaClientes">
+    <?php
+
+    $nuestrosClientes = new NuestrosClientes();
+    $nuestrosClientes -> seleccionarNuestrosClientesController();
+
+    ?>
+  </div>
+  <div class="vistaFormEditarNuestrosClientes">
+
   </div>
 </div>
