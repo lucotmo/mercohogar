@@ -83,3 +83,90 @@
     background: var(--alternate-modal-color);
   }
 }
+
+
+.containerPortadaAfiliate{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5em;
+  border-radius: 5px;
+  box-shadow: 2px 5px 15px #ccc;
+  img{
+    width: 50%;
+    display: block;
+  }
+  .presentacion-content{
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: .5em;
+  }
+  .presentacion__title{
+    font-size: 1.2em;
+    color: #aaaaaa;
+  }
+  .presentacion__subtitle{
+    font-size: .8em;
+    color: #aaaaaa;
+  }
+}
+.containerContenidoAfiliate{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5em;
+  border-radius: 5px;
+  box-shadow: 2px 5px 15px #ccc;
+  .afilitate-info__content{
+
+  }
+  .afilitate-title{
+
+  }
+  .afilitate-info__parrafo{
+
+  }
+  .afiliate__info-video{
+
+  }
+  .video-responsive{
+
+  }
+}
+.containerBeneficiosAfiliate, .containerPreguntasAfiliate{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: .5em;
+  border-radius: 5px;
+  box-shadow: 2px 5px 15px #ccc;
+  h5{
+    font-size: 1.5em;
+    color: #aaaaaa;
+  }
+
+  p{
+    font-size: .8em;
+    color: #333;
+
+  }
+}
+.containerPreguntasAfiliate{
+  .contentPreguntasSubtitle{
+    h6{
+      font-size: 1.1em;
+      color: #aaaaaa;
+    }
+  }
+}
+
+.containerAccionesPaginaAfiliate{
+  position: absolute;
+  top: .5em;
+  right: .5em;
+}

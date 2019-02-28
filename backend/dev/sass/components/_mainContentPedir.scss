@@ -107,3 +107,56 @@
   color: #aaa;
 }
 
+.pedir-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .pedir-content{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 5px 15px #ccc;
+    border-radius: 5px;
+    padding: .5em;
+  }
+  .pedir__video-container{
+    flex-basis: 25%;
+  }
+  .pedir__video{
+
+  }
+  .pedir__title-content{
+    flex-basis: 25%;
+  }
+  .pedir__title{
+    font-size: 1em;
+    color: #aaa;
+  }
+  .pedir__pasos-content{
+
+  }
+  .pedir__pasos__title-content{
+
+  }
+  .pedir__pasos__title{
+    font-size: 1.5em;
+    color: #aaa;
+  }
+  .pedir__pasos__parrafo-container{
+    flex-basis: 50%;
+
+  }
+  .pedir__pasos__parrafo-content{
+    display: flex;
+  }
+  .pedir__pasos__number{
+    font-size: 1.2em;
+    color: #777;
+    padding: .2em;
+  }
+  .pedir__pasos__parrafo{
+    font-size: .8em;
+    color: #666;
+  }
+}
