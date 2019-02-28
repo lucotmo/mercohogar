@@ -18,7 +18,13 @@ CONTENT
 <main class="main-pedir">
   <div class="pedir-container">
     <h6 class="pedir__subtitle">Como pedir</h6>
-    <div class="pedir-content">
+    <?php
+
+      $comoPedir = new ComoPedir();
+      $comoPedir -> seleccionarComoPedirController();
+
+    ?>
+    <!-- <div class="pedir-content">
       <div class="pedir__video-container">
         <div class="pedir__title-content">
           <h1 class="pedir__title">Hacer tu pedido ya es facil</h1>
@@ -58,7 +64,7 @@ CONTENT
         </div>
       </div>
 
-    </div>
+    </div> -->
   </div>
   <section id="slider-derecho-banner" class="banner__promos-pedir slider-derecho-container">
     <ul class="slider-derecho-content">

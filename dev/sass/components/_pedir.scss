@@ -28,6 +28,7 @@
   border-radius: 5px;
   overflow: hidden;
   height: 100%;
+  background: red;
 }
   margin: 0 1em;
 }
@@ -45,6 +46,7 @@
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
   img{
     width: 100%;
     display: block;
@@ -57,32 +59,17 @@
 }
 .pedir__title{
   text-align: end;
-  font-size: 3.5em;
   line-height: 1em;
   color: #aaa;
   padding-right: .5em;
   //border-right: 2px solid #aaa;
 }
 .pedir__video{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  margin: auto;
   flex-basis: 60%;
-  margin: .5em;
-  border: 2px solid #aaa;
+  position: relative;
   border-radius: 5px;
-  i{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 6em;
-    color: rgba(255,255,255,.7);
-    &:hover{
-      color: rgba(255,255,255,1);
-    }
-  }
+  border: 2px solid #aaaaaa;
 }
 .pedir__pasos-content{
   display: flex;

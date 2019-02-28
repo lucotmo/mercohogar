@@ -21,31 +21,43 @@ require "views/modules/navegacionEnd.php";
     <h1 class="title__titulo">Nuestros <?php echo $_GET["action"]; ?></h1>
   </div>
   <div class="btnAgregar-content">
-    <button class="btnAgregar">Nuevo Contenido</button>
+    <button class="btnAgregar" id="btnAgregarNuevoCliente">Nuevo Contenido</button>
   </div>
   <div class="formsResets">
 
-    <form action="" class="formGuardar-content">
-      <h3 class="title-form">Nuevo contenido</h3>
-      <div class="contentTitleContCliente">
-        <div class="inpClienteTitleNuevo-content">
-          <label for="titleClienteNuevo" >Titulo</label>
-          <input type="text" id="titleClienteNuevo" name="titulo" class="inpClienteTitleNuevo" placeholder="Titulo">
+    <div class="formGuardarNuestrosClientes" style="display:none">
+      <form action="" class="formGuardar-content">
+        <h3 class="title-form">Nuevo contenido</h3>
+        <div class="contentTitleContCliente">
+          <div class="inpClienteTitleNuevo-content">
+            <label for="titleNuestroClienteNuevo" >Titulo</label>
+            <input type="text" id="titleNuestroClienteNuevo" name="titleNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="Titulo">
+          </div>
+          <div class="inpClienteContenidoNuevo-content">
+            <label for="contenidoClienteNuevo" >Contenido</label>
+            <textarea type="text" id="contenidoClienteNuevo" name="contenidoNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="contenido"></textarea>
+          </div>
         </div>
-        <div class="inpClienteContenidoNuevo-content">
-          <label for="contenidoClienteNuevo" >Contenido</label>
-          <textarea type="text" id="contenidoClienteNuevo" name="titulo" class="inpClienteTitleNuevo" placeholder="contenido"></textarea>
+        <div class="contentTitleContCliente">
+          <div class="inpClienteContenidoNuevo-content">
+            <label for="imagenNuestroClienteNuevo" >Imagen (opcional)</label>
+            <input type="file" id="titleNuestroClienteNuevo" name="imagenNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="imagen">
+          </div>
+          <div class="inpClienteContenidoNuevo-content">
+            <label for="videoClienteNuevo" >Video (opcional)</label>
+            <textarea type="text" id="videoClienteNuevo" name="videoNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="url video"></textarea>
+          </div>
         </div>
-      </div>
+        <br>
+        <div class="btnInputGuardar-content">
+          <input class="btnInputGuardar" type="submit" value="Guardar">
+        </div>
+      </form>
+    </div>
 
-      <div class="inpClienteVideoNuevo-content">
-        <input type="file">
-      </div>
-      <div class="btnInputGuardar-content">
-        <input class="btnInputGuardar" type="submit" value="Guardar">
-      </div>
-    </form>
-    <form action="" class="formGuardar-content">
+
+
+    <!-- <form action="" class="formGuardar-content" id="formEditarNuestrosClientes">
       <h3 class="title-form">Editar contenido</h3>
       <div class="contentTitleContCliente">
         <div class="inpClienteTitleEditar-content">
@@ -64,6 +76,6 @@ require "views/modules/navegacionEnd.php";
       <div class="btnInputGuardar-content">
         <input class="btnInputGuardar" type="submit" value="Guardar">
       </div>
-    </form>
+    </form> -->
   </div>
 </div>
