@@ -24,7 +24,6 @@ require "views/modules/navegacionEnd.php";
     <button class="btnAgregar" id="btnAgregarNuevoCliente">Nuevo Contenido</button>
   </div>
   <div class="formsResets">
-
     <div class="formGuardarNuestrosClientes" style="display:none">
       <form action="" class="formGuardar-content">
         <h3 class="title-form">Nuevo contenido</h3>
@@ -45,7 +44,7 @@ require "views/modules/navegacionEnd.php";
           </div> -->
           <div class="inpClienteContenidoNuevo-content">
             <label for="videoClienteNuevo" >Video</label>
-            <textarea type="text" id="videoClienteNuevo" name="videoNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="url video"></textarea>
+            <textarea type="url" id="videoClienteNuevo" name="videoNuestroClienteNuevo" class="inpClienteTitleNuevo" placeholder="url video"></textarea>
           </div>
         </div>
         <br>
@@ -54,9 +53,6 @@ require "views/modules/navegacionEnd.php";
         </div>
       </form>
     </div>
-
-
-
     <!-- <form action="" class="formGuardar-content" id="formEditarNuestrosClientes">
       <h3 class="title-form">Editar contenido</h3>
       <div class="contentTitleContCliente">

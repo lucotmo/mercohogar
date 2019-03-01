@@ -231,6 +231,7 @@ if ( respuestaClientes ){
 
 const contentFormEditarNuestroCliente = document.querySelector('.vistaContenidosPaginaClientes')
 const respuestaFormEditarNuestroCliente = document.querySelector('.vistaFormEditarNuestrosClientes')
+const formGuardarNuestrosClientes = document.querySelector('.formGuardarNuestrosClientes')
 
 if ( contentFormEditarNuestroCliente ){
   let btnVerform = contentFormEditarNuestroCliente.querySelectorAll("#btnEditarNuestrosClientes")
@@ -242,6 +243,12 @@ if ( contentFormEditarNuestroCliente ){
 if ( respuestaFormEditarNuestroCliente ){
   formEventoSubmit(respuestaFormEditarNuestroCliente)
 }
+
+if ( formGuardarNuestrosClientes ){
+  formEventoSubmit(formGuardarNuestrosClientes)
+}
+
+//console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
 /*=====  End of Nuestros clientes  ======*/
 
@@ -486,3 +493,4 @@ if ( btnAgregarNuevoContenidoComoPedir ){
 
 
 console.log('lubbccfjfjfj')
+

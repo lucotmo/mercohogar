@@ -1014,6 +1014,44 @@ if ( isset($_POST['idCliente']) )
 
 /* Nuestros clientes */
 
+function crear_nuestros_clientes($titulo, $contenido, $video) {
+  $sql = "INSERT INTO nuestros_clientes
+  (titulo, contenido, video)
+  VALUES( ?, ?, ? )";
+
+  $data = array(
+    $titulo,
+    $contenido,
+    $video);
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'el envio fue correcto'
+    );
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error al crear el producto.'
+    );
+  }
+
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['titleNuestroClienteNuevo']) ){
+  crear_nuestros_clientes(
+    $_POST['titleNuestroClienteNuevo'],
+    $_POST['contenidoNuestroClienteNuevo'],
+    $_POST['videoNuestroClienteNuevo']
+  );
+}
+
+
+
 function form_nuestros_clientes ($idNuestroCliente) {
   $sql = "SELECT *
     FROM nuestros_clientes
@@ -1078,9 +1116,6 @@ function update_form_nuestros_clientes($titulo, $contenido, $video, $id) {
       'err' => false,
       'msg' => 'Tu registro se efectuó con éxito.'
     );
-
-    //$registro = existe_registro($email);
-    //enviar_email($registro);
   } else {
     $res = array(
       'err' => true,
@@ -1098,6 +1133,7 @@ if ( isset($_POST['idNuestrosClientes']) )
     $_POST['videoNuestrosClientes'],
     $_POST['idNuestrosClientes']
   );
+
 
 /* fin Nuestros clientes */
 
