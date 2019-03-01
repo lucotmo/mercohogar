@@ -142,13 +142,13 @@ function formEventoSubmit(resp){
         method: 'post'
       })
         .then(res => {
-          //c(res)
+          console.log(res)
           return (res.ok)
             ? res.json()
             : Promise.reject({ status: res.status, statusText: res.statusText })
         })
         .then(res => {
-          console.log(res)
+          //console.log(res)
           //let mensaje
 
           if (res.err) {
@@ -231,6 +231,7 @@ if ( respuestaClientes ){
 
 const contentFormEditarNuestroCliente = document.querySelector('.vistaContenidosPaginaClientes')
 const respuestaFormEditarNuestroCliente = document.querySelector('.vistaFormEditarNuestrosClientes')
+const formGuardarNuestrosClientes = document.querySelector('.formGuardarNuestrosClientes')
 
 if ( contentFormEditarNuestroCliente ){
   let btnVerform = contentFormEditarNuestroCliente.querySelectorAll("#btnEditarNuestrosClientes")
@@ -242,6 +243,12 @@ if ( contentFormEditarNuestroCliente ){
 if ( respuestaFormEditarNuestroCliente ){
   formEventoSubmit(respuestaFormEditarNuestroCliente)
 }
+
+if ( formGuardarNuestrosClientes ){
+  formEventoSubmit(formGuardarNuestrosClientes)
+}
+
+//console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
 /*=====  End of Nuestros clientes  ======*/
 
@@ -279,13 +286,6 @@ const contentFormEditarAfiliateContenido = document.querySelector('.containerCon
 const contentFormEditarAfiliatePreguntas = document.querySelector('.containerPreguntasAfiliate')
 const contentFormEditarAfiliateBeneficios = document.querySelector('.containerBeneficiosAfiliate')
 
-
-/* btnEditarAfiliatePortada
-btnEditarAfiliateContenido
-btnEditarAfiliatePreguntas
-btnEditarAfiliateBeneficios */
-
-
 if ( contentFormEditarAfiliatePortada ){
   let btnVerform = contentFormEditarAfiliatePortada.querySelectorAll("#btnEditarAfiliatePortada")
   btnVerform.forEach(function(btn){
@@ -313,11 +313,184 @@ if ( contentFormEditarAfiliateBeneficios ){
   })
 }
 
+if ( respuestaFormFormulariosAfiliate ){
+  formEventoSubmit(respuestaFormFormulariosAfiliate)
+}
+/* agregado de nuevas preguntas o beneficios */
 
+const btnAgregarNuevaPregunta = document.querySelector('.btnAgregarNuevaPregunta')
+
+if ( respuestaFormFormulariosAfiliate ){
+  respuestaFormFormulariosAfiliate.addEventListener('click', function(e){
+    if ( e.target.className === 'btnAgregar btnAgregarNuevaPregunta' ){
+      e.preventDefault()
+      let listaDePreguntas = document.querySelector('.listaDePreguntas'),
+        templatePreguntas = `<div class="contentInputsPasos">
+        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPregunta" ></a>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="subtituloAfiliatePreguntas">Subtitulo</label>
+          <input type="hidden" name="idSubtituloAfiliatePreguntas[]" value="">
+          <input class="inpText" name="subtituloAfiliatePreguntas[]" id="subtituloAfiliatePreguntas" value="" rows="" placeholder="Subtitulo">
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidoSubtituloAfiliatePreguntas">Contenido</label>
+          <textarea class="inpText" name="contenidoSubtituloAfiliatePreguntas[]" id="contenidoSubtituloAfiliatePreguntas" cols="30" rows="" placeholder="Contenido"></textarea>
+        </div>
+      </div>`
+      listaDePreguntas.insertAdjacentHTML( 'beforeend', templatePreguntas)
+    }
+
+    if ( e.target.className === 'btnAgregar btnAgregarNuevoBeneficio' ){
+      e.preventDefault()
+      //console.log(e.target)
+      let listaDeBeneficios = document.querySelector('.listaDeBeneficios'),
+      templateBeneficios = `<div class="contentInputsPasos" style="display:flex">
+        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarBeneficios"></a>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
+          <input type="hidden" name="idSubtituloAfiliateBeneficios[]" value="">
+          <input class="inpText" name="numeroSubtituloAfiliateBeneficios[]" id="numeroSubtituloAfiliateBeneficios" value="" cols="1" rows="" placeholder="Subtitulo">
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidoSubtituloAfiliateBeneficios">Contenido</label>
+          <textarea class="inpText" name="contenidoSubtituloAfiliateBeneficios[]" id="contenidoSubtituloAfiliateBeneficios" cols="30" rows="" placeholder="Contenido"></textarea>
+        </div>
+      </div>`
+      listaDeBeneficios.insertAdjacentHTML( 'beforeend', templateBeneficios)
+    }
+
+    if ( e.target.className === 'fa fa-trash btnEliminarProducto btnEliminarPregunta' ){
+      if(e.target.dataset.id != undefined) {
+        let seElimina = confirm(`¿Estás seguro de eliminar ${e.target.dataset.id}?`)
+        if (seElimina) {
+          let data = new FormData()
+          data.append('id_eliminar_pregunta', e.target.dataset.id )
+
+          fetch('views/modules/app.php', {
+            body: data,
+            method: 'post'
+          })
+            .then(res => {
+              if(res.ok) {
+                return res.json()
+              } else {
+                  throw "Error en la llamada Ajax";
+              }
+
+            })
+            .then(res => {
+              console.log(res)
+              if (res.err) {
+                console.log('ya casi')
+              } else {
+                e.target.parentElement.remove()
+              }
+
+            })
+            .catch(err => {
+              let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+              console.log(mensaje)
+            })
+        } else {
+          return false
+        }
+      } else {
+        e.target.parentElement.remove()
+      }
+    }
+    if ( e.target.className === 'fa fa-trash btnEliminarProducto btnEliminarBeneficios' ){
+      if(e.target.dataset.id != undefined) {
+        let seElimina = confirm(`¿Estás seguro de eliminar ${e.target.dataset.id}?`)
+        if (seElimina) {
+          let data = new FormData()
+          data.append('id_eliminar_beneficio', e.target.dataset.id )
+
+          fetch('views/modules/app.php', {
+            body: data,
+            method: 'post'
+          })
+            .then(res => {
+              if(res.ok) {
+                return res.json()
+              } else {
+                  throw "Error en la llamada Ajax";
+              }
+            })
+            .then(res => {
+              console.log(res)
+              if (res.err) {
+                console.log('ya casi')
+              } else {
+                e.target.parentElement.remove()
+              }
+            })
+            .catch(err => {
+              let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+              console.log(mensaje)
+            })
+        } else {
+          return false
+        }
+      } else {
+        e.target.parentElement.remove()
+      }
+
+    }
+  })
+}
+
+/* Fin agregado de nuevas preguntas o beneficios */
 
 /*=====  End of Pagina Afiliate  ======*/
 
 
+//console.log(document.querySelector('.btnAgregarNuevoContenidoComoPedir'))
+const btnAgregarNuevoContenidoComoPedir = document.querySelector('.btnAgregarNuevoContenidoComoPedir')
+if ( btnAgregarNuevoContenidoComoPedir ){
+  btnAgregarNuevoContenidoComoPedir.addEventListener('click', function(e){
+    console.log(e.target)
+    respuestaFormEditarComoPedir.innerHTML = `
+    <div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Contenido</h3>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="tituloNuevoPasosComoPedir">Titulo</label>
+            <input type="text" class="inpText" name="tituloNuevoPasosComoPedir" value="" id="tituloNuevoPasosComoPedir" placeholder="Titulo">
+          </div>
+        </div>
+        <div class="inpText-content">
+          <label class="labelText" for="videoNuevoPasosComoPedir">Url Video</label>
+          <input type="url" class="inpText" name="videoNuevoPasosComoPedir" value="" id="videoNuevoPasosComoPedir" placeholder="url video">
+        </div>
+        <h3 class="form-titulo">Pasos</h3>
+        <div class="containerInputsPasos ListaDePasos">
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso" ></a>
+          <div class="contentInputsPasos" style="display:flex">
+            <div class="inpSelect-content" style="display:flex; flex-direction:column">
+              <label class="labelText" for="numeroNuevoPasosComoPedir">No.</label>
+              <input class="inpText" name="numeroNuevoPasosComoPedir[]" id="numeroNuevoPasosComoPedir" value="" cols="1" rows="" placeholder="No." style="width:20%">
+            </div>
+            <div class="inpSelect-content" style="display:flex; flex-direction:column">
+              <label class="labelText" for="contenidosNuevoPasosComoPedir">Contenido</label>
+              <textarea class="inpText" name="contenidoNuevoPasosComoPedir[]" id="contenidoNuevoPasosComoPedir" cols="30" rows="" placeholder="Contenido"></textarea>
+            </div>
+          </div>
+          </div>
+          <div class="inpText-container">
+            <div class="inpSubmit-content">
+              <input type="submit" class="inpSubmit" value="Guardar">
+            </div>
+          </div>
+
+        </form>
+      </div>
+    `
+
+  })
+}
 
 
-console.log('luc')
+console.log('lubbccfjfjfj')
+

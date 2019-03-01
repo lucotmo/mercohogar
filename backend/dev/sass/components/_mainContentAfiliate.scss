@@ -170,3 +170,18 @@
   top: .5em;
   right: .5em;
 }
+
+.contentInputsPasos{
+  position:relative;
+  display:flex;
+  padding:.5em;
+  box-shadow: 2px 5px 15px #ccc;
+  border-radius: 5px;
+  margin-bottom:.5em;
+
+  .btnEliminarPregunta, .btnEliminarBeneficios{
+    position:absolute;
+    top:.2em;
+    right:.2em;
+  }
+}
