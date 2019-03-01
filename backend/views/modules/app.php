@@ -1141,11 +1141,11 @@ function form_como_pedir ($idComoPedir) {
           echo '<div class="contentInputsPasos" style="display:flex">
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="numeroPasosComoPedir">No.</label>
-            <input class="inpText" name="numeroPasosComoPedir" id="numeroPasosComoPedir" value="'.$row2['numero_paso'].'" cols="1" rows="" placeholder="No." style="width:20%">
+            <input class="inpText" name="numeroPasosComoPedir[]" id="numeroPasosComoPedir" value="'.$row2['numero_paso'].'" cols="1" rows="" placeholder="No." style="width:20%">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="contenidoPasosComoPedir">Contenido</label>
-            <textarea class="inpText" name="contenidoPasosComoPedir" id="contenidoPasosComoPedir" cols="30" rows="" placeholder="Contenido">'.$row2['contenido_paso'].'</textarea>
+            <textarea class="inpText" name="contenidoPasosComoPedir[]" id="contenidoPasosComoPedir" cols="30" rows="" placeholder="Contenido">'.$row2['contenido_paso'].'</textarea>
           </div>
         </div>';
         }
@@ -1293,19 +1293,20 @@ function form_afiliate_preguntas ($idAfiliatePreguntas) {
           </div>
         </div>
         <h3 class="form-titulo">Preguntas</h3>
-        <div class="containerInputsPasos">
+        <div class="containerInputsPasos listaDePreguntas" >
           <div class="btnAgregar-content">
-            <button class="btnAgregar" style="width:50%">Nueva Pregunta</button>
+            <button class="btnAgregar btnAgregarNuevaPregunta" style="width:50%">Nueva Pregunta</button>
           </div>';
         foreach ($result2 as $row2){
-          echo '<div class="contentInputsPasos" style="display:flex">
+          echo '<div class="contentInputsPasos">
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPregunta" ></a>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="subtituloAfiliatePreguntas">Subtitulo</label>
-            <input class="inpText" name="subtituloAfiliatePreguntas" id="subtituloAfiliatePreguntas" value="'.$row2['subtitulo'].'" rows="" placeholder="Subtitulo">
+            <input class="inpText" name="subtituloAfiliatePreguntas[]" id="subtituloAfiliatePreguntas" value="'.$row2['subtitulo'].'" rows="" placeholder="Subtitulo">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="contenidoSubtituloAfiliatePreguntas">Contenido</label>
-            <textarea class="inpText" name="contenidoSubtituloAfiliatePreguntas" id="contenidoSubtituloAfiliatePreguntas" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
+            <textarea class="inpText" name="contenidoSubtituloAfiliatePreguntas[]" id="contenidoSubtituloAfiliatePreguntas" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
           </div>
         </div>';
         }
@@ -1354,19 +1355,20 @@ function form_afiliate_beneficios ($idAfiliateBeneficios) {
           </div>
         </div>
         <h3 class="form-titulo">Beneficios</h3>
-        <div class="containerInputsPasos">
+        <div class="containerInputsPasos listaDeBeneficios">
           <div class="btnAgregar-content">
-            <button class="btnAgregar" style="width:50%">Nuevo Beneficio</button>
+            <button class="btnAgregar btnAgregarNuevoBeneficio" style="width:50%">Nuevo Beneficio</button>
           </div>';
         foreach ($result2 as $row2){
           echo '<div class="contentInputsPasos" style="display:flex">
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarBeneficios"></a>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
-            <input class="inpText" name="numeroSubtituloAfiliateBeneficios" id="numeroSubtituloAfiliateBeneficios" value="'.$row2['subtitulo'].'" cols="1" rows="" placeholder="Subtitulo">
+            <input class="inpText" name="numeroSubtituloAfiliateBeneficios[]" id="numeroSubtituloAfiliateBeneficios" value="'.$row2['subtitulo'].'" cols="1" rows="" placeholder="Subtitulo">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="contenidoSubtituloAfiliateBeneficios">Contenido</label>
-            <textarea class="inpText" name="contenidoSubtituloAfiliateBeneficios" id="contenidoSubtituloAfiliateBeneficios" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
+            <textarea class="inpText" name="contenidoSubtituloAfiliateBeneficios[]" id="contenidoSubtituloAfiliateBeneficios" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
           </div>
         </div>';
         }

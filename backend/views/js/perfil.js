@@ -317,7 +317,45 @@ if ( contentFormEditarAfiliateBeneficios ){
 
 /*=====  End of Pagina Afiliate  ======*/
 
+const btnAgregarNuevaPregunta = document.querySelector('.btnAgregarNuevaPregunta')
 
+if ( respuestaFormFormulariosAfiliate ){
+  respuestaFormFormulariosAfiliate.addEventListener('click', function(e){
+    if ( e.target.className === 'btnAgregar btnAgregarNuevaPregunta' ){
+      e.preventDefault()
+      let listaDePreguntas = document.querySelector('.listaDePreguntas'),
+        templatePreguntas = `<div class="contentInputsPasos">
+        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPregunta" ></a>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="subtituloAfiliatePreguntas">Subtitulo</label>
+          <input class="inpText" name="subtituloAfiliatePreguntas[]" id="subtituloAfiliatePreguntas" value="" rows="" placeholder="Subtitulo">
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidoSubtituloAfiliatePreguntas">Contenido</label>
+          <textarea class="inpText" name="contenidoSubtituloAfiliatePreguntas[]" id="contenidoSubtituloAfiliatePreguntas" cols="30" rows="" placeholder="Contenido"></textarea>
+        </div>
+      </div>`
+      listaDePreguntas.insertAdjacentHTML( 'beforeend', templatePreguntas)
+    }
 
+    if ( e.target.className === 'btnAgregar btnAgregarNuevoBeneficio' ){
+      e.preventDefault()
+      //console.log(e.target)
+      let listaDeBeneficios = document.querySelector('.listaDeBeneficios'),
+      templateBeneficios = `<div class="contentInputsPasos" style="display:flex">
+        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarBeneficios"></a>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
+          <input class="inpText" name="numeroSubtituloAfiliateBeneficios[]" id="numeroSubtituloAfiliateBeneficios" value="" cols="1" rows="" placeholder="Subtitulo">
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidoSubtituloAfiliateBeneficios">Contenido</label>
+          <textarea class="inpText" name="contenidoSubtituloAfiliateBeneficios[]" id="contenidoSubtituloAfiliateBeneficios" cols="30" rows="" placeholder="Contenido"></textarea>
+        </div>
+      </div>`
+      listaDeBeneficios.insertAdjacentHTML( 'beforeend', templateBeneficios)
+    }
+  })
+}
 
-console.log('luc')
+console.log('lubbcc')
