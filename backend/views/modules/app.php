@@ -1088,7 +1088,7 @@ function update_form_nuestros_clientes($titulo, $contenido, $video, $id) {
     );
   }
   //header( 'Content-type: application/json' );
-  //echo json_encode($res);
+  echo json_encode($res);
 }
 
 if ( isset($_POST['idNuestrosClientes']) )
@@ -1299,9 +1299,10 @@ function form_afiliate_preguntas ($idAfiliatePreguntas) {
           </div>';
         foreach ($result2 as $row2){
           echo '<div class="contentInputsPasos">
-          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPregunta" ></a>
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPregunta" data-id="'.$row2['id'].'"></a>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="subtituloAfiliatePreguntas">Subtitulo</label>
+            <input type="hidden" name="idSubtituloAfiliatePreguntas[]" value="'.$row2['id'].'">
             <input class="inpText" name="subtituloAfiliatePreguntas[]" id="subtituloAfiliatePreguntas" value="'.$row2['subtitulo'].'" rows="" placeholder="Subtitulo">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
@@ -1325,6 +1326,9 @@ function form_afiliate_preguntas ($idAfiliatePreguntas) {
 }
 
 if ( isset($_POST['id_afiliate_preguntas']) )  form_afiliate_preguntas($_POST['id_afiliate_preguntas']);
+/* fin Afiliate Preguntas */
+
+/* Afiliate Beneficios */
 
 function form_afiliate_beneficios ($idAfiliateBeneficios) {
   $sql = "SELECT *
@@ -1361,9 +1365,10 @@ function form_afiliate_beneficios ($idAfiliateBeneficios) {
           </div>';
         foreach ($result2 as $row2){
           echo '<div class="contentInputsPasos" style="display:flex">
-          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarBeneficios"></a>
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarBeneficios" data-id="'.$row2['id'].'"></a>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
+            <input type="hidden" name="idSubtituloAfiliateBeneficios[]" value="'.$row2['id'].'">
             <input class="inpText" name="numeroSubtituloAfiliateBeneficios[]" id="numeroSubtituloAfiliateBeneficios" value="'.$row2['subtitulo'].'" cols="1" rows="" placeholder="Subtitulo">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
@@ -1388,33 +1393,59 @@ function form_afiliate_beneficios ($idAfiliateBeneficios) {
 
 if ( isset($_POST['id_afiliate_beneficios']) )  form_afiliate_beneficios($_POST['id_afiliate_beneficios']);
 
-function update_form_afiliate_beneficios($titulo, $id) {
-  $sql = " UPDATE afiliate_beneficios
-  SET titulo = ?
-  WHERE id = $id ";
 
-  $sql2 = " UPDATE afiliate_beneficios_subtitulos
-  SET subtitulo = ?, contenido = ?
-  WHERE id = $id ";
+function update_form_afiliate_preguntas($tituloAfiliatePreguntas, $subtituloAfiliatePreguntas,
+  $contenidoSubtituloAfiliatePreguntas, $idAfiliatePreguntas, $idSubtituloAfiliatePreguntas) {
+
+  $sql = "UPDATE afiliate_preguntas
+    SET titulo = ?
+    WHERE id = $idAfiliatePreguntas ";
 
   $data = array(
-    $titulo
+    $tituloAfiliatePreguntas
   );
-  $data2 = array(
-    $subtitulo,
-    $contenido
-  );
+
+  $respuesta = false;
+  for($i=0;  $i<count($idSubtituloAfiliatePreguntas); $i++ ) {
+    if(!empty($idSubtituloAfiliatePreguntas[$i] )){
+      $sql2 = " UPDATE afiliate_preguntas_subtitulos
+      SET subtitulo = ?, contenido = ?
+      WHERE id = $idSubtituloAfiliatePreguntas[$i] ";
+
+      $data2 = array(
+        $subtituloAfiliatePreguntas[$i],
+        $contenidoSubtituloAfiliatePreguntas[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+    }  else {
+      $sql2 = "INSERT INTO afiliate_preguntas_subtitulos ( subtitulo, contenido )
+      VALUE ( ?, ? )";
+      //echo "inserto los neuvos"
+      $data2 = array(
+        $subtituloAfiliatePreguntas[$i],
+        $contenidoSubtituloAfiliatePreguntas[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+
+    }
+  }
 
   $result = db_query($sql, $data);
 
-  if ($result) {
+  if ($result && $respuesta) {
     $res = array(
       'err' => false,
       'msg' => 'Tu registro se efectuó con éxito.'
     );
 
-    //$registro = existe_registro($email);
-    //enviar_email($registro);
   } else {
     $res = array(
       'err' => true,
@@ -1422,16 +1453,150 @@ function update_form_afiliate_beneficios($titulo, $id) {
     );
   }
   //header( 'Content-type: application/json' );
-  //echo json_encode($res);
+  echo json_encode($res);
 }
 
-if ( isset($_POST['idAfiliateBeneficios']) )
-  update_form_afiliate_beneficios(
+if ( isset($_POST['idAfiliatePreguntas']) ){
+  update_form_afiliate_preguntas(
+    $_POST['tituloAfiliatePreguntas'],
+    $_POST['subtituloAfiliatePreguntas'],
+    $_POST['contenidoSubtituloAfiliatePreguntas'],
+    $_POST['idAfiliatePreguntas'],
+    $_POST['idSubtituloAfiliatePreguntas']
+  );
+}
+
+
+function update_form_afiliate_beneficios($tituloAfiliateBeneficios, $numeroSubtituloAfiliateBeneficios,
+  $contenidoSubtituloAfiliateBeneficios, $idAfiliateBeneficios, $idSubtituloAfiliateBeneficios) {
+
+  $sql = "UPDATE afiliate_beneficios
+    SET titulo = ?
+    WHERE id = $idAfiliateBeneficios ";
+
+  $data = array(
+    $tituloAfiliateBeneficios
+  );
+
+  $respuesta = false;
+  for($i=0;  $i<count($idSubtituloAfiliateBeneficios); $i++ ) {
+    if(!empty($idSubtituloAfiliateBeneficios[$i] )){
+      $sql2 = " UPDATE afiliate_beneficios_subtitulos
+      SET subtitulo = ?, contenido = ?
+      WHERE id = $idSubtituloAfiliateBeneficios[$i] ";
+
+      $data2 = array(
+        $numeroSubtituloAfiliateBeneficios[$i],
+        $contenidoSubtituloAfiliateBeneficios[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+    }  else {
+      $sql2 = "INSERT INTO afiliate_beneficios_subtitulos ( subtitulo, contenido )
+      VALUE ( ?, ? )";
+      //echo "inserto los neuvos"
+      $data2 = array(
+        $numeroSubtituloAfiliateBeneficios[$i],
+        $contenidoSubtituloAfiliateBeneficios[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+
+    }
+  }
+
+  $result = db_query($sql, $data);
+
+  if ($result && $respuesta) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito.'
+    );
+
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['idAfiliateBeneficios']) ){
+   update_form_afiliate_beneficios(
     $_POST['tituloAfiliateBeneficios'],
     $_POST['numeroSubtituloAfiliateBeneficios'],
     $_POST['contenidoSubtituloAfiliateBeneficios'],
-    $_POST['idAfiliateBeneficios']
+    $_POST['idAfiliateBeneficios'],
+    $_POST['idSubtituloAfiliateBeneficios']
   );
+}
 
+
+function id_eliminar_pregunta($id_eliminar_pregunta){
+  $sql = "DELETE FROM afiliate_preguntas_subtitulos WHERE id = $id_eliminar_pregunta";
+
+  $data = array( $id_eliminar_pregunta );
+
+  $respuesta = db_query($sql, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_pregunta']) ) {
+  id_eliminar_pregunta( $_POST['id_eliminar_pregunta'] );
+}
+
+
+function id_eliminar_beneficio($id_eliminar_beneficio){
+  $sql = "DELETE FROM afiliate_beneficios_subtitulos WHERE id = $id_eliminar_beneficio";
+
+  $data = array( $id_eliminar_beneficio );
+
+  $respuesta = db_query($sql, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_beneficio']) ) {
+  id_eliminar_beneficio( $_POST['id_eliminar_beneficio'] );
+}
+
+/* Fin Afiliate Beneficios */
 
 /* fin pagina afiliate */

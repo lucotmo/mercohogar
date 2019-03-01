@@ -24,7 +24,7 @@ require "views/modules/navegacionEnd.php";
     <h1 class="title__titulo">¿Como <?php echo $_GET["action"]; ?>?</h1>
   </div>
   <div class="btnAgregar-content">
-    <button class="btnAgregar">Nuevo Contenido</button>
+    <button class="btnAgregar btnAgregarNuevoContenidoComoPedir">Nuevo Contenido</button>
   </div>
   <!-- <div class="formsResets">
     <div class="formGuardar-content">
