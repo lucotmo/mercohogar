@@ -4,18 +4,23 @@ class GestorAfiliados{
 	#------------------------------------------------------------
 	public function guardarAfiliadoController(){
 		$ruta = "";
-		if(isset($_POST["celularAfiliadoNuevo"])){
-
+		if(isset($_POST["celularAfiliadoNuevo"])) {
+			
 			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["celularAfiliadoNuevo"]) &&
-         preg_match('/^[a-zA-Z0-9]+$/', $_POST["nombreAfiliadoNuevo"]) &&
-         preg_match('/^[a-zA-Z0-9]+$/', $_POST["apellidosAfiliadoNuevo"]) &&
+         preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$/', $_POST["nombreAfiliadoNuevo"]) &&
+         preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$/', $_POST["apellidosAfiliadoNuevo"]) &&
          preg_match('/^[a-zA-Z0-9]+$/', $_POST["passAfiliadoNuevo"])){
+				
 				$encriptar = crypt($_POST["passAfiliadoNuevo"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-				$datosController = array("celular"=>$_POST["celularAfiliadoNuevo"],
-                     "nombre"=> $_POST["nombreAfiliadoNuevo"],
-										 "apellidos"=>$_POST["apellidosAfiliadoNuevo"],
-										 "password"=>$encriptar);
-        $respuesta = GestorAfiliadosModel::guardarAfiliadoModel($datosController, "afiliado");
+				$datosController = array(
+					"celular"=>$_POST["celularAfiliadoNuevo"],
+                    "nombre"=> $_POST["nombreAfiliadoNuevo"],
+					"apellidos"=>$_POST["apellidosAfiliadoNuevo"],
+					"password"=>$encriptar
+				);
+        		
+				$respuesta = GestorAfiliadosModel::guardarAfiliadoModel($datosController, "afiliado");
+				
 				if($respuesta == "ok"){
 					echo'<script>
 						swal({
@@ -32,8 +37,7 @@ class GestorAfiliados{
 						});
 					</script>';
 				}
-			}
-			else{
+			} else{
 				echo '<div class="alert alert-warning"><b>¡ERROR!</b> No ingrese caracteres especiales</div>';
 			}
 		}

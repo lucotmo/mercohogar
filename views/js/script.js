@@ -246,14 +246,34 @@ if(masterCel !== null) {
             document.getElementById('nom_inp').value=res.statusText.nombre;
             document.getElementById('ape_inp').value=res.statusText.apellidos;
             document.getElementById('ciudad').value=res.statusText.id_ciudad;
+            let data = new FormData()
+            data.append('ciudad_id', res.statusText.id_ciudad)
+            fetch('./views/pages/app.view.php', {
+              body: data,
+              method: 'post'
+            }).then(res => {
+                return (res.ok)
+                  ? res.text()
+                  : Promise.reject({ status: res.status, statusText: res.statusText })
+            }).then(res => {
+            	inpDomi.innerHTML = `${res}`
+                let valorPedido = document.querySelector('.prec-valor').value,
+                  domiValor = document.querySelector('.domi-valor').value
+                document.querySelector('.total-valor').value = parseInt(valorPedido) + parseInt(domiValor)
+            }).catch(err => {
+            	 let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+                 inpDomi.innerHTML = mensaje
+            })
             document.querySelector('.bar-inp').value=res.statusText.barrio;
             document.getElementById('direccion').value =res.statusText.direccion;
           } else {
             document.getElementById('nom_inp').value='';
             document.getElementById('ape_inp').value='';
             document.getElementById('ciudad').value='';
+            document.querySelector('.domi-valor').value =0;
+            document.querySelector('.total-valor').value =0;
             document.querySelector('.bar-inp').value='';
-            document.getElementById('direccion').value ='';
+            document.getElementById('direccion').value='';
           }
         }).catch(err => {    
           console.log("Celular no encontrado...");
