@@ -20,9 +20,9 @@ require "views/modules/navegacionEnd.php";
   <div class="title-content">
     <h1 class="title__titulo"><?php echo $_GET["action"]; ?></h1>
   </div>
-  <div class="btnAgregar-content">
+  <!-- <div class="btnAgregar-content">
     <button class="btnAgregar">Nuevo Portada</button>
-  </div>
+  </div> -->
   <h1 style="color:#aaa">Portada</h1>
   <div class="containerPortadaAfiliate">
       <?php
@@ -45,9 +45,9 @@ require "views/modules/navegacionEnd.php";
   <div class="title-content">
     <h1 class="title__titulo">Preguntas</h1>
   </div>
-  <div class="btnAgregar-content">
+  <!-- <div class="btnAgregar-content">
     <button class="btnAgregar">Nueva Pregunta</button>
-  </div>
+  </div> -->
   <div class="containerPreguntasAfiliate">
     <?php
       $afiliate2 = new Afiliate();
@@ -129,9 +129,9 @@ require "views/modules/navegacionEnd.php";
   <div class="title-content">
     <h1 class="title__titulo">Beneficios</h1>
   </div>
-  <div class="btnAgregar-content">
+  <!-- <div class="btnAgregar-content">
     <button class="btnAgregar">Nueva Beneficio</button>
-  </div>
+  </div> -->
 
   <div class="containerBeneficiosAfiliate">
     <?php

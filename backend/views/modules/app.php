@@ -1099,205 +1099,156 @@ if ( isset($_POST['idNuestrosClientes']) )
     $_POST['idNuestrosClientes']
   );
 
-  function form_como_pedir ($idComoPedir) {
-    $sql = "SELECT *
-      FROM como_pedir
-      WHERE id = ?";
-    $sql2 = "SELECT *
-      FROM pasos
-      WHERE id_como_pedir = ?";
+/* fin Nuestros clientes */
 
-    $data = array($idComoPedir);
+/* como Pedir */
 
-    $result = db_query($sql, $data, true);
-    $result2 = db_query($sql2, $data, true);
+function form_como_pedir ($idComoPedir) {
+  $sql = "SELECT *
+    FROM como_pedir
+    WHERE id = ?";
+  $sql2 = "SELECT *
+    FROM pasos
+    WHERE id_como_pedir = ?";
 
-    if ( count($result) == 0 ){
-      echo "No existen pedidos para $idComoPedir";
-    }else{
-      foreach ($result as $row) {
-        echo '<div class="formModal-container">
-        <form class="formModal-content" method="post" enctype="multipart/form-data">
-          <a class="btnCerrarFormModal" href="" >X</a>
-          <h3 class="form-titulo">Editar Contenido</h3>
-          <div class="inpText-container">
-            <div class="inpText-content">
-              <label class="labelText" for="tituloComoPedir">Titulo</label>
-              <input type="hidden" class="inpText" name="idComoPedir" value="'.$row['id'].'">
-              <input type="text" class="inpText" name="tituloComoPedir" value="'.$row['titulo'].'" id="tituloComoPedir" placeholder="Titulo">
-            </div>
-          </div>
+  $data = array($idComoPedir);
+
+  $result = db_query($sql, $data, true);
+  $result2 = db_query($sql2, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idComoPedir";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Contenido</h3>
+        <div class="inpText-container">
           <div class="inpText-content">
-            <label class="labelText" for="videoComoPedir">Url Video</label>
-            <input type="url" class="inpText" name="videoComoPedir" value="'.$row['video'].'" id="videoComoPedir" placeholder="url video">
+            <label class="labelText" for="tituloComoPedir">Titulo</label>
+            <input type="hidden" class="inpText" name="idComoPedir" value="'.$row['id'].'">
+            <input type="text" class="inpText" name="tituloComoPedir" value="'.$row['titulo'].'" id="tituloComoPedir" placeholder="Titulo">
           </div>
-          <h3 class="form-titulo">Pasos</h3>
-          <div class="containerInputsPasos">';
-          foreach ($result2 as $row2){
-            echo '<div class="contentInputsPasos" style="display:flex">
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="numeroPasosComoPedir">No.</label>
-              <input class="inpText" name="numeroPasosComoPedir" id="numeroPasosComoPedir" value="'.$row2['numero_paso'].'" cols="1" rows="" placeholder="No." style="width:20%">
-            </div>
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="contenidoPasosComoPedir">Contenido</label>
-              <textarea class="inpText" name="contenidoPasosComoPedir" id="contenidoPasosComoPedir" cols="30" rows="" placeholder="Contenido">'.$row2['contenido_paso'].'</textarea>
-            </div>
-          </div>';
-          }
-          echo '
+        </div>
+        <div class="inpText-content">
+          <label class="labelText" for="videoComoPedir">Url Video</label>
+          <input type="url" class="inpText" name="videoComoPedir" value="'.$row['video'].'" id="videoComoPedir" placeholder="url video">
+        </div>
+        <h3 class="form-titulo">Pasos</h3>
+        <div class="containerInputsPasos">';
+        foreach ($result2 as $row2){
+          echo '<div class="contentInputsPasos" style="display:flex">
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="numeroPasosComoPedir">No.</label>
+            <input class="inpText" name="numeroPasosComoPedir" id="numeroPasosComoPedir" value="'.$row2['numero_paso'].'" cols="1" rows="" placeholder="No." style="width:20%">
           </div>
-          <div class="inpText-container">
-            <div class="inpSubmit-content">
-              <input type="submit" class="inpSubmit" value="Guardar">
-            </div>
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="contenidoPasosComoPedir">Contenido</label>
+            <textarea class="inpText" name="contenidoPasosComoPedir" id="contenidoPasosComoPedir" cols="30" rows="" placeholder="Contenido">'.$row2['contenido_paso'].'</textarea>
           </div>
+        </div>';
+        }
+        echo '
+        </div>
+        <div class="inpText-container">
+          <div class="inpSubmit-content">
+            <input type="submit" class="inpSubmit" value="Guardar">
+          </div>
+        </div>
 
-        </form>
-      </div>';
-      }
+      </form>
+    </div>';
     }
   }
+}
 
-  if ( isset($_POST['id_editComoPedir']) )  form_como_pedir($_POST['id_editComoPedir']);
+if ( isset($_POST['id_editComoPedir']) )  form_como_pedir($_POST['id_editComoPedir']);
+
+/* fin como pedir */
 
 
-  function form_afiliate_portada ($idAfiliatePortada) {
-    $sql = "SELECT *
-      FROM afiliate_portada
-      WHERE id = ?";
+/* pagina Afiliate */
 
-    $data = array($idAfiliatePortada);
+function form_afiliate_portada ($idAfiliatePortada) {
+  $sql = "SELECT *
+    FROM afiliate_portada
+    WHERE id = ?";
 
-    $result = db_query($sql, $data, true);
+  $data = array($idAfiliatePortada);
 
-    if ( count($result) == 0 ){
-      echo "No existen pedidos para $idAfiliatePortada";
-    }else{
-      foreach ($result as $row) {
-        echo '<div class="formModal-container">
-        <form class="formModal-content" method="post" enctype="multipart/form-data">
-          <a class="btnCerrarFormModal" href="" >X</a>
-          <h3 class="form-titulo">Editar Contenido</h3>
-          <div class="inpText-container">
-            <div class="inpText-content">
-              <label class="labelText" for="tituloAfiliatePortada">Titulo</label>
-              <input type="hidden" class="inpText" name="idAfiliatePortada" value="'.$row['id'].'">
-              <input type="text" class="inpText" name="tituloAfiliatePortada" value="'.$row['titulo'].'" id="tituloAfiliatePortada" placeholder="Titulo">
-            </div>
-          </div>
-          <div class="inpText-container">
-            <div class="inpText-content">
-              <label class="labelText" for="subtituloAfiliatePortada">Subtitulo</label>
-              <input type="text" class="inpText" name="subtituloAfiliatePortada" value="'.$row['subtitulo'].'" id="subtituloAfiliatePortada" placeholder="Titulo">
-            </div>
-          </div>
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliatePortada";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Contenido</h3>
+        <div class="inpText-container">
           <div class="inpText-content">
-            <label class="labelText" for="imagenAfiliatePortada">Url Video</label>
-            <input type="file" class="inpText" name="imagenAfiliatePortada" value="'.$row['imagen'].'" id="imagenAfiliatePortada">
+            <label class="labelText" for="tituloAfiliatePortada">Titulo</label>
+            <input type="hidden" class="inpText" name="idAfiliatePortada" value="'.$row['id'].'">
+            <input type="text" class="inpText" name="tituloAfiliatePortada" value="'.$row['titulo'].'" id="tituloAfiliatePortada" placeholder="Titulo">
           </div>
-          <div class="inpText-container">
-            <div class="inpSubmit-content">
-              <input type="submit" class="inpSubmit" value="Guardar">
-            </div>
+        </div>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="subtituloAfiliatePortada">Subtitulo</label>
+            <input type="text" class="inpText" name="subtituloAfiliatePortada" value="'.$row['subtitulo'].'" id="subtituloAfiliatePortada" placeholder="Titulo">
           </div>
+        </div>
+        <div class="inpText-content">
+          <label class="labelText" for="imagenAfiliatePortada">Url Video</label>
+          <input type="file" class="inpText" name="imagenAfiliatePortada" value="'.$row['imagen'].'" id="imagenAfiliatePortada">
+        </div>
+        <div class="inpText-container">
+          <div class="inpSubmit-content">
+            <input type="submit" class="inpSubmit" value="Guardar">
+          </div>
+        </div>
 
-        </form>
-      </div>';
-      }
+      </form>
+    </div>';
     }
   }
+}
 
 if ( isset($_POST['id_afiliate_portada']) )  form_afiliate_portada($_POST['id_afiliate_portada']);
 
-  function form_afiliate_contenido ($idAfiliateContenido) {
-    $sql = "SELECT *
-      FROM afiliate_contenido
-      WHERE id = ?";
 
-    $data = array($idAfiliateContenido);
-    $result = db_query($sql, $data, true);
+function form_afiliate_contenido ($idAfiliateContenido) {
+  $sql = "SELECT *
+    FROM afiliate_contenido
+    WHERE id = ?";
 
-    if ( count($result) == 0 ){
-      echo "No existen pedidos para $idAfiliateContenido";
-    }else{
-      foreach ($result as $row) {
-        echo '<div class="formModal-container">
-          <form class="formModal-content" method="post" enctype="multipart/form-data">
-            <a class="btnCerrarFormModal" href="" >X</a>
-            <h3 class="form-titulo">Editar Contenido</h3>
-            <div class="inpText-container">
-              <div class="inpText-content">
-                <label class="labelText" for="tituloAfiliateContenido">Titulo</label>
-                <input type="hidden" class="inpText" name="idAfiliateContenido" value="'.$row['id'].'">
-                <input type="text" class="inpText" name="tituloAfiliateContenido" value="'.$row['titulo'].'" id="tituloAfiliateContenido" placeholder="Titulo">
-              </div>
-            </div>
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="contenidoAfiliateContenido">Contenido</label>
-              <textarea class="inpText" name="contenidoAfiliateContenido" id="contenidoAfiliateContenido" cols="30" rows="10" placeholder="Contenido...">'.$row['contenido'].'</textarea>
-            </div>
-            <div class="inpText-content">
-              <label class="labelText" for="videoAfiliateContenido">Url Video</label>
-              <input type="url" class="inpText" name="videoAfiliateContenido" value="'.$row['video'].'" id="videoAfiliateContenido" placeholder="url video">
-            </div>
-            <div class="inpText-container">
-              <div class="inpSubmit-content">
-                <input type="submit" class="inpSubmit" value="Guardar">
-              </div>
-            </div>
+  $data = array($idAfiliateContenido);
+  $result = db_query($sql, $data, true);
 
-          </form>
-        </div>';
-      }
-    }
-  }
-
-if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['id_afiliate_contenido']);
-
-  function form_afiliate_preguntas ($idAfiliatePreguntas) {
-    $sql = "SELECT *
-      FROM afiliate_preguntas
-      WHERE id = ?";
-    $sql2 = "SELECT *
-      FROM afiliate_preguntas_subtitulos";
-
-    $data = array($idAfiliatePreguntas);
-    $data2 = array();
-
-    $result = db_query($sql, $data, true);
-    $result2 = db_query($sql2, $data2, true);
-
-    if ( count($result) == 0 ){
-      echo "No existen pedidos para $idAfiliatePreguntas";
-    }else{
-      foreach ($result as $row) {
-        echo '<div class="formModal-container">
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliateContenido";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
         <form class="formModal-content" method="post" enctype="multipart/form-data">
           <a class="btnCerrarFormModal" href="" >X</a>
           <h3 class="form-titulo">Editar Contenido</h3>
           <div class="inpText-container">
             <div class="inpText-content">
-              <label class="labelText" for="tituloAfiliatePreguntas">Titulo</label>
-              <input type="hidden" class="inpText" name="idAfiliatePreguntas" value="'.$row['id'].'">
-              <input type="text" class="inpText" name="tituloAfiliatePreguntas" value="'.$row['titulo'].'" id="tituloAfiliatePreguntas" placeholder="Titulo">
+              <label class="labelText" for="tituloAfiliateContenido">Titulo</label>
+              <input type="hidden" class="inpText" name="idAfiliateContenido" value="'.$row['id'].'">
+              <input type="text" class="inpText" name="tituloAfiliateContenido" value="'.$row['titulo'].'" id="tituloAfiliateContenido" placeholder="Titulo">
             </div>
           </div>
-          <h3 class="form-titulo">Pasos</h3>
-          <div class="containerInputsPasos">';
-          foreach ($result2 as $row2){
-            echo '<div class="contentInputsPasos" style="display:flex">
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="subtituloAfiliatePreguntas">No.</label>
-              <input class="inpText" name="subtituloAfiliatePreguntas" id="subtituloAfiliatePreguntas" value="'.$row2['subtitulo'].'" rows="" placeholder="Subtitulo">
-            </div>
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="contenidoSubtituloAfiliatePreguntas">Contenido</label>
-              <textarea class="inpText" name="contenidoSubtituloAfiliatePreguntas" id="contenidoSubtituloAfiliatePreguntas" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
-            </div>
-          </div>';
-          }
-          echo '
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="contenidoAfiliateContenido">Contenido</label>
+            <textarea class="inpText" name="contenidoAfiliateContenido" id="contenidoAfiliateContenido" cols="30" rows="10" placeholder="Contenido...">'.$row['contenido'].'</textarea>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="videoAfiliateContenido">Url Video</label>
+            <input type="url" class="inpText" name="videoAfiliateContenido" value="'.$row['video'].'" id="videoAfiliateContenido" placeholder="url video">
           </div>
           <div class="inpText-container">
             <div class="inpSubmit-content">
@@ -1307,66 +1258,178 @@ if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['i
 
         </form>
       </div>';
-      }
     }
   }
+}
+
+if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['id_afiliate_contenido']);
+
+function form_afiliate_preguntas ($idAfiliatePreguntas) {
+  $sql = "SELECT *
+    FROM afiliate_preguntas
+    WHERE id = ?";
+  $sql2 = "SELECT *
+    FROM afiliate_preguntas_subtitulos";
+
+  $data = array($idAfiliatePreguntas);
+  $data2 = array();
+
+  $result = db_query($sql, $data, true);
+  $result2 = db_query($sql2, $data2, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliatePreguntas";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Contenido</h3>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="tituloAfiliatePreguntas">Titulo</label>
+            <input type="hidden" class="inpText" name="idAfiliatePreguntas" value="'.$row['id'].'">
+            <input type="text" class="inpText" name="tituloAfiliatePreguntas" value="'.$row['titulo'].'" id="tituloAfiliatePreguntas" placeholder="Titulo">
+          </div>
+        </div>
+        <h3 class="form-titulo">Preguntas</h3>
+        <div class="containerInputsPasos">
+          <div class="btnAgregar-content">
+            <button class="btnAgregar" style="width:50%">Nueva Pregunta</button>
+          </div>';
+        foreach ($result2 as $row2){
+          echo '<div class="contentInputsPasos" style="display:flex">
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="subtituloAfiliatePreguntas">Subtitulo</label>
+            <input class="inpText" name="subtituloAfiliatePreguntas" id="subtituloAfiliatePreguntas" value="'.$row2['subtitulo'].'" rows="" placeholder="Subtitulo">
+          </div>
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="contenidoSubtituloAfiliatePreguntas">Contenido</label>
+            <textarea class="inpText" name="contenidoSubtituloAfiliatePreguntas" id="contenidoSubtituloAfiliatePreguntas" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
+          </div>
+        </div>';
+        }
+        echo '
+        </div>
+        <div class="inpText-container">
+          <div class="inpSubmit-content">
+            <input type="submit" class="inpSubmit" value="Guardar">
+          </div>
+        </div>
+
+      </form>
+    </div>';
+    }
+  }
+}
 
 if ( isset($_POST['id_afiliate_preguntas']) )  form_afiliate_preguntas($_POST['id_afiliate_preguntas']);
 
-  function form_afiliate_beneficios ($idAfiliateBeneficios) {
-    $sql = "SELECT *
-      FROM afiliate_beneficios
-      WHERE id = ?";
-    $sql2 = "SELECT *
-      FROM afiliate_beneficios_subtitulos";
+function form_afiliate_beneficios ($idAfiliateBeneficios) {
+  $sql = "SELECT *
+    FROM afiliate_beneficios
+    WHERE id = ?";
+  $sql2 = "SELECT *
+    FROM afiliate_beneficios_subtitulos";
 
-    $data = array($idAfiliateBeneficios);
-    $data2 = array();
+  $data = array($idAfiliateBeneficios);
+  $data2 = array();
 
-    $result = db_query($sql, $data, true);
-    $result2 = db_query($sql2, $data2, true);
+  $result = db_query($sql, $data, true);
+  $result2 = db_query($sql2, $data2, true);
 
-    if ( count($result) == 0 ){
-      echo "No existen pedidos para $idAfiliateBeneficios";
-    }else{
-      foreach ($result as $row) {
-        echo '<div class="formModal-container">
-        <form class="formModal-content" method="post" enctype="multipart/form-data">
-          <a class="btnCerrarFormModal" href="" >X</a>
-          <h3 class="form-titulo">Editar Beneficios</h3>
-          <div class="inpText-container">
-            <div class="inpText-content">
-              <label class="labelText" for="tituloAfiliateBeneficios">Titulo</label>
-              <input type="hidden" class="inpText" name="idAfiliateBeneficios" value="'.$row['id'].'">
-              <input type="text" class="inpText" name="tituloAfiliateBeneficios" value="'.$row['titulo'].'" id="tituloAfiliateBeneficios" placeholder="Titulo">
-            </div>
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliateBeneficios";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Beneficios</h3>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="tituloAfiliateBeneficios">Titulo</label>
+            <input type="hidden" class="inpText" name="idAfiliateBeneficios" value="'.$row['id'].'">
+            <input type="text" class="inpText" name="tituloAfiliateBeneficios" value="'.$row['titulo'].'" id="tituloAfiliateBeneficios" placeholder="Titulo">
           </div>
-          <h3 class="form-titulo">Subtitulos</h3>
-          <div class="containerInputsPasos">';
-          foreach ($result2 as $row2){
-            echo '<div class="contentInputsPasos" style="display:flex">
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
-              <input class="inpText" name="numeroSubtituloAfiliateBeneficios" id="numeroSubtituloAfiliateBeneficios" value="'.$row2['subtitulo'].'" cols="1" rows="" placeholder="Subtitulo">
-            </div>
-            <div class="inpSelect-content" style="display:flex; flex-direction:column">
-              <label class="labelText" for="contenidoSubtituloAfiliateBeneficios">Contenido</label>
-              <textarea class="inpText" name="contenidoSubtituloAfiliateBeneficios" id="contenidoSubtituloAfiliateBeneficios" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
-            </div>
+        </div>
+        <h3 class="form-titulo">Beneficios</h3>
+        <div class="containerInputsPasos">
+          <div class="btnAgregar-content">
+            <button class="btnAgregar" style="width:50%">Nuevo Beneficio</button>
           </div>';
-          }
-          echo '
+        foreach ($result2 as $row2){
+          echo '<div class="contentInputsPasos" style="display:flex">
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="numeroSubtituloAfiliateBeneficios">Subtitulo</label>
+            <input class="inpText" name="numeroSubtituloAfiliateBeneficios" id="numeroSubtituloAfiliateBeneficios" value="'.$row2['subtitulo'].'" cols="1" rows="" placeholder="Subtitulo">
           </div>
-          <div class="inpText-container">
-            <div class="inpSubmit-content">
-              <input type="submit" class="inpSubmit" value="Guardar">
-            </div>
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="contenidoSubtituloAfiliateBeneficios">Contenido</label>
+            <textarea class="inpText" name="contenidoSubtituloAfiliateBeneficios" id="contenidoSubtituloAfiliateBeneficios" cols="30" rows="" placeholder="Contenido">'.$row2['contenido'].'</textarea>
           </div>
+        </div>';
+        }
+        echo '
+        </div>
+        <div class="inpText-container">
+          <div class="inpSubmit-content">
+            <input type="submit" class="inpSubmit" value="Guardar">
+          </div>
+        </div>
 
-        </form>
-      </div>';
-      }
+      </form>
+    </div>';
     }
   }
+}
 
 if ( isset($_POST['id_afiliate_beneficios']) )  form_afiliate_beneficios($_POST['id_afiliate_beneficios']);
+
+function update_form_afiliate_beneficios($titulo, $id) {
+  $sql = " UPDATE afiliate_beneficios
+  SET titulo = ?
+  WHERE id = $id ";
+
+  $sql2 = " UPDATE afiliate_beneficios_subtitulos
+  SET subtitulo = ?, contenido = ?
+  WHERE id = $id ";
+
+  $data = array(
+    $titulo
+  );
+  $data2 = array(
+    $subtitulo,
+    $contenido
+  );
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito.'
+    );
+
+    //$registro = existe_registro($email);
+    //enviar_email($registro);
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  //echo json_encode($res);
+}
+
+if ( isset($_POST['idAfiliateBeneficios']) )
+  update_form_afiliate_beneficios(
+    $_POST['tituloAfiliateBeneficios'],
+    $_POST['numeroSubtituloAfiliateBeneficios'],
+    $_POST['contenidoSubtituloAfiliateBeneficios'],
+    $_POST['idAfiliateBeneficios']
+  );
+
+
+/* fin pagina afiliate */
