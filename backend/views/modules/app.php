@@ -820,7 +820,7 @@ function update_form_afiliados($celular, $nombre, $ciudad, $barrio, $direccion, 
     );
   }
   //header( 'Content-type: application/json' );
-  //echo json_encode($res);
+  echo json_encode($res);
 }
 
 if ( isset($_POST['idAfiliado']) )
@@ -994,7 +994,7 @@ function update_form_clientes($celular, $nombre, $apellidos, $ciudad, $barrio, $
     );
   }
   //header( 'Content-type: application/json' );
-  //echo json_encode($res);
+  echo json_encode($res);
 }
 
 if ( isset($_POST['idCliente']) )
