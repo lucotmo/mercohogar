@@ -142,10 +142,6 @@ function formEventoSubmit(resp){
         method: 'post'
       })
         .then(res => {
-          /* console.log(res)
-          return (res.ok)
-            ? res.json()
-            : Promise.reject({ status: res.status, statusText: res.statusText }) */
           if(res.ok) {
             return res.json()
           } else {
@@ -154,14 +150,11 @@ function formEventoSubmit(resp){
 
         })
         .then(res => {
-          //console.log(res)
-          //let mensaje
 
           if (res.err) {
             mensaje_error(res.msg)
           } else {
-            //mensaje = console.log(res)
-            //mensaje_ok(res.msg)
+
             location.reload()
           }
         })
@@ -598,53 +591,3 @@ console.log('probando con lucho')
 
 
 /* fin como pedir */
-
-
-
-
-/* $(document).on('change', '.imagenAfiliatePortada', function() {
-  imagen = this.files[0];
-  console.log('cargando')
-
-  //Validar tamaño de la imagen
-  imagenSize = imagen.size;
-  if(Number(imagenSize) > 2000000){
-    $("#infoTamañoImagen").before('<div class="">El archivo excede el peso permitido, 200kb</div>')
-  }else{
-    $(".alerta").remove();
-  }
-
-  // Validar tipo de la imagen
-  imagenType = imagen.type;
-  if(imagenType == "image/jpeg" || imagenType == "image/png"){
-    $(".alerta").remove();
-  }
-  else{
-    $("#infoTamañoImagen").before('<div class="">El archivo debe ser formato JPG o PNG</div>')
-  }
-
-  //=============================================
-  //Mostrar imagen con AJAX
-  //=============================================
-  if(Number(imagenSize) < 2000000 && imagenType == "image/jpeg" || imagenType == "image/png"){
-    var datos = new FormData();
-    datos.append("imagen", imagen);
-    $.ajax({
-      url:"views/modules/app.php",
-      method: "POST",
-      data: datos,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function(respuesta){
-        console.log(respuesta)
-        $("#status").remove();
-        if(respuesta == 0){
-          $("#infoTamañoImagen").before('<div class="">La imagen es inferior a 188px * 188px</div>')
-        }else{
-          $("#arrastrarImagenProducto").html('<img src="'+respuesta.slice(6)+'" class="img-thumbnail" style="width:48px; heigth: 48px"><i class="fa fa-camera icon-camera"></i>');
-        }
-      }
-    })
-  }
-}) */
