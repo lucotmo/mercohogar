@@ -142,20 +142,19 @@ function formEventoSubmit(resp){
         method: 'post'
       })
         .then(res => {
-          console.log(res)
-          return (res.ok)
-            ? res.json()
-            : Promise.reject({ status: res.status, statusText: res.statusText })
+          if(res.ok) {
+            return res.json()
+          } else {
+              throw "Error en la llamada Ajax";
+          }
+
         })
         .then(res => {
-          //console.log(res)
-          //let mensaje
 
           if (res.err) {
             mensaje_error(res.msg)
           } else {
-            //mensaje = console.log(res)
-            //mensaje_ok(res.msg)
+
             location.reload()
           }
         })
@@ -585,11 +584,10 @@ if ( respuestaFormEditarComoPedir ){
 
 //console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
-console.log('lubbccfjfjfj')
+console.log('probando con lucho')
 
 
 /* como PEDIR */
 
 
 /* fin como pedir */
-

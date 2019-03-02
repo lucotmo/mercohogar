@@ -577,7 +577,7 @@ if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 /* afiliado */
 
 function ver_afiliado ($idAfiliado) {
-  $sql = "SELECT *, 
+  $sql = "SELECT *,
 	a.nombre as nombre_afiliado,
     ci.nombre as nombre_ciudad,
     tp.nombre_tipo,
@@ -1219,99 +1219,12 @@ if ( isset($_POST['id_editComoPedir']) )  form_como_pedir($_POST['id_editComoPed
 
 /* pagina Afiliate */
 
-function form_afiliate_portada ($idAfiliatePortada) {
-  $sql = "SELECT *
-    FROM afiliate_portada
-    WHERE id = ?";
-
-  $data = array($idAfiliatePortada);
-
-  $result = db_query($sql, $data, true);
-
-  if ( count($result) == 0 ){
-    echo "No existen pedidos para $idAfiliatePortada";
-  }else{
-    foreach ($result as $row) {
-      echo '<div class="formModal-container">
-      <form class="formModal-content" method="post" enctype="multipart/form-data">
-        <a class="btnCerrarFormModal" href="" >X</a>
-        <h3 class="form-titulo">Editar Contenido</h3>
-        <div class="inpText-container">
-          <div class="inpText-content">
-            <label class="labelText" for="tituloAfiliatePortada">Titulo</label>
-            <input type="hidden" class="inpText" name="idAfiliatePortada" value="'.$row['id'].'">
-            <input type="text" class="inpText" name="tituloAfiliatePortada" value="'.$row['titulo'].'" id="tituloAfiliatePortada" placeholder="Titulo">
-          </div>
-        </div>
-        <div class="inpText-container">
-          <div class="inpText-content">
-            <label class="labelText" for="subtituloAfiliatePortada">Subtitulo</label>
-            <input type="text" class="inpText" name="subtituloAfiliatePortada" value="'.$row['subtitulo'].'" id="subtituloAfiliatePortada" placeholder="Titulo">
-          </div>
-        </div>
-        <div class="inpText-content">
-          <label class="labelText" for="imagenAfiliatePortada">Url Video</label>
-          <input type="file" class="inpText" name="imagenAfiliatePortada" value="'.$row['imagen'].'" id="imagenAfiliatePortada">
-        </div>
-        <div class="inpText-container">
-          <div class="inpSubmit-content">
-            <input type="submit" class="inpSubmit" value="Guardar">
-          </div>
-        </div>
-
-      </form>
-    </div>';
-    }
-  }
-}
-
-if ( isset($_POST['id_afiliate_portada']) )  form_afiliate_portada($_POST['id_afiliate_portada']);
 
 
-function form_afiliate_contenido ($idAfiliateContenido) {
-  $sql = "SELECT *
-    FROM afiliate_contenido
-    WHERE id = ?";
 
-  $data = array($idAfiliateContenido);
-  $result = db_query($sql, $data, true);
 
-  if ( count($result) == 0 ){
-    echo "No existen pedidos para $idAfiliateContenido";
-  }else{
-    foreach ($result as $row) {
-      echo '<div class="formModal-container">
-        <form class="formModal-content" method="post" enctype="multipart/form-data">
-          <a class="btnCerrarFormModal" href="" >X</a>
-          <h3 class="form-titulo">Editar Contenido</h3>
-          <div class="inpText-container">
-            <div class="inpText-content">
-              <label class="labelText" for="tituloAfiliateContenido">Titulo</label>
-              <input type="hidden" class="inpText" name="idAfiliateContenido" value="'.$row['id'].'">
-              <input type="text" class="inpText" name="tituloAfiliateContenido" value="'.$row['titulo'].'" id="tituloAfiliateContenido" placeholder="Titulo">
-            </div>
-          </div>
-          <div class="inpSelect-content" style="display:flex; flex-direction:column">
-            <label class="labelText" for="contenidoAfiliateContenido">Contenido</label>
-            <textarea class="inpText" name="contenidoAfiliateContenido" id="contenidoAfiliateContenido" cols="30" rows="10" placeholder="Contenido...">'.$row['contenido'].'</textarea>
-          </div>
-          <div class="inpText-content">
-            <label class="labelText" for="videoAfiliateContenido">Url Video</label>
-            <input type="url" class="inpText" name="videoAfiliateContenido" value="'.$row['video'].'" id="videoAfiliateContenido" placeholder="url video">
-          </div>
-          <div class="inpText-container">
-            <div class="inpSubmit-content">
-              <input type="submit" class="inpSubmit" value="Guardar">
-            </div>
-          </div>
 
-        </form>
-      </div>';
-    }
-  }
-}
 
-if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['id_afiliate_contenido']);
 
 function form_afiliate_preguntas ($idAfiliatePreguntas) {
   $sql = "SELECT *
@@ -1819,3 +1732,233 @@ if ( isset($_POST['id_eliminar_beneficio']) ) {
 /* Fin Afiliate Beneficios */
 
 /* fin pagina afiliate */
+
+
+
+function form_afiliate_portada ($idAfiliatePortada) {
+  $sql = "SELECT *
+    FROM afiliate_portada
+    WHERE id = ?";
+
+  $data = array($idAfiliatePortada);
+
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliatePortada";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Editar Contenido</h3>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="tituloAfiliatePortada">Titulo</label>
+            <input type="hidden" class="inpText" name="idAfiliatePortada" value="'.$row['id'].'">
+            <input type="text" class="inpText" name="tituloAfiliatePortada" value="'.$row['titulo'].'" id="tituloAfiliatePortada" placeholder="Titulo">
+          </div>
+        </div>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="subtituloAfiliatePortada">Subtitulo</label>
+            <input type="text" class="inpText" name="subtituloAfiliatePortada" value="'.$row['subtitulo'].'" id="subtituloAfiliatePortada" placeholder="Titulo">
+          </div>
+        </div>
+        <div class="inpText-content">
+          <label class="labelText" for="imagenAfiliatePortada" id="arrastrarImagenProducto">Url Video</label>
+          <input type="hidden" name="cargarImagenAfiliatePortada" value="'.$row['imagen'].'">
+          <input class="imagenAfiliatePortada" type="file" class="inpText" name="imagenAfiliatePortada" id="imagenAfiliatePortada">
+        </div>
+        <div id="infoTamañoImagen"></div>
+        <div class="inpText-container">
+          <div class="inpSubmit-content">
+            <input type="submit" class="inpSubmit" value="Guardar">
+          </div>
+        </div>
+
+      </form>
+    </div>';
+    }
+  }
+}
+
+if ( isset($_POST['id_afiliate_portada']) )  form_afiliate_portada($_POST['id_afiliate_portada']);
+
+
+function editar_form_portada ( $titulo, $subtitulo, $imagen, $id){
+  $sql= "UPDATE afiliate_portada
+	SET  titulo = ?, subtitulo = ?
+  WHERE id = $id";
+  if( !is_null($imagen) ) {
+		$sql= "UPDATE afiliate_portada
+		SET  titulo = ?, subtitulo = ?, imagen = ?
+		WHERE id = $id";
+  }
+  $data =  array();
+  $data[] = $titulo;
+  $data[] = $subtitulo;
+	if(!is_null(    $imagen )) {
+		$data[] = $imagen;
+	}
+
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito'
+    );
+  } else{
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+
+/*if (file_exists("../../views/imagenes/afiliate/presentacion405.jpg")) {
+  echo "The file  exists";
+} else {
+  echo "The file  does not exist";
+}*/
+
+if ( isset($_POST['idAfiliatePortada'])) {
+  /* echo "<pre>";
+  print_r($_FILES);
+  echo "</pre>";
+  exit; */
+  if ( isset($_POST['tituloAfiliatePortada']) ){
+
+    $ruta = null;
+    //echo 'probando';
+    if ( !empty($_FILES["imagenAfiliatePortada"]["tmp_name"]) ){
+      $imagen = $_FILES["imagenAfiliatePortada"]["tmp_name"];
+
+      /* echo "<pre>";
+      print_r($imagen);
+      echo "</pre>";
+      exit; */
+      $imagedetails = getimagesize($_FILES['imagenAfiliatePortada']['tmp_name']);
+
+      $width = $imagedetails[0];
+      $height = $imagedetails[1];
+      $name = $_FILES["imagenAfiliatePortada"]["name"];
+
+      $resultname = explode('.',$name);
+
+      $aleatorio = mt_rand(100, 999);
+
+      $rutaInicial = dirname(dirname(__FILE__)) ."/imagenes/afiliate/".$resultname[0]."".$aleatorio.".jpg";
+
+      if ( strpos($rutaInicial, 'backend\\' ) !== false) {
+      	$ruta = explode("backend\\",$rutaInicial);
+      } else {
+      	$ruta = explode("backend/",$rutaInicial);
+      }
+
+      $ruta = $ruta[count($ruta)-1];
+
+
+      $origen = imagecreatefrompng($imagen);
+      $destino = imagecrop($origen, ["x"=>($width - 1600) / 2, "y"=>($height - 375) / 2, "width"=>1600, "height"=>375]);
+
+      imagejpeg($destino, $rutaInicial);
+
+      unlink("../../" . $_POST['cargarImagenAfiliatePortada']);
+    }
+    editar_form_portada(
+      //$_POST['imagenAfiliatePortada']
+      $_POST['tituloAfiliatePortada'],
+      $_POST['subtituloAfiliatePortada'],
+      $ruta,
+      $_POST['idAfiliatePortada']
+    );
+  }
+}
+
+
+
+function form_afiliate_contenido ($idAfiliateContenido) {
+  $sql = "SELECT *
+    FROM afiliate_contenido
+    WHERE id = ?";
+
+  $data = array($idAfiliateContenido);
+  $result = db_query($sql, $data, true);
+
+  if ( count($result) == 0 ){
+    echo "No existen pedidos para $idAfiliateContenido";
+  }else{
+    foreach ($result as $row) {
+      echo '<div class="formModal-container">
+        <form class="formModal-content" method="post" enctype="multipart/form-data">
+          <a class="btnCerrarFormModal" href="" >X</a>
+          <h3 class="form-titulo">Editar Contenido</h3>
+          <div class="inpText-container">
+            <div class="inpText-content">
+              <label class="labelText" for="tituloAfiliateContenido">Titulo</label>
+              <input type="hidden" class="inpText" name="idAfiliateContenido" value="'.$row['id'].'">
+              <input type="text" class="inpText" name="tituloAfiliateContenido" value="'.$row['titulo'].'" id="tituloAfiliateContenido" placeholder="Titulo">
+            </div>
+          </div>
+          <div class="inpSelect-content" style="display:flex; flex-direction:column">
+            <label class="labelText" for="contenidoAfiliateContenido">Contenido</label>
+            <textarea class="inpText" name="contenidoAfiliateContenido" id="contenidoAfiliateContenido" cols="30" rows="10" placeholder="Contenido...">'.$row['contenido'].'</textarea>
+          </div>
+          <div class="inpText-content">
+            <label class="labelText" for="videoAfiliateContenido">Url Video</label>
+            <input type="url" class="inpText" name="videoAfiliateContenido" value="'.$row['video'].'" id="videoAfiliateContenido" placeholder="url video">
+          </div>
+          <div class="inpText-container">
+            <div class="inpSubmit-content">
+              <input type="submit" class="inpSubmit" value="Guardar">
+            </div>
+          </div>
+
+        </form>
+      </div>';
+    }
+  }
+}
+
+if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['id_afiliate_contenido']);
+
+
+function editar_form_afiliate_contenido( $titulo, $contenido , $video , $id ){
+  $sql = "UPDATE afiliate_contenido
+    SET titulo = ?, contenido = ?, video = ?
+    WHERE id = $id";
+  $data = array(
+    $titulo,
+    $contenido,
+    $video
+  );
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito'
+    );
+  } else{
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error'
+    );
+  }
+  echo json_encode($res);
+}
+if ( isset($_POST['tituloAfiliateContenido']) ){
+  editar_form_afiliate_contenido(
+    $_POST['tituloAfiliateContenido'],
+    $_POST['contenidoAfiliateContenido'],
+    $_POST['videoAfiliateContenido'],
+    $_POST['idAfiliateContenido']
+  );
+}
