@@ -1504,6 +1504,12 @@ if ( isset($_POST['idAfiliateBeneficios']) ){
 function crear_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoPedir,
   $numeroNuevoPasosComoPedir, $contenidoNuevoPasosComoPedir) {
     //$db = Conexion::conectar();
+    
+  /*echo "<pre>".print_r($tituloNuevoPasosComoPedir,1)."</pre>";
+  echo "<pre>".print_r($videoNuevoPasosComoPedir,1)."</pre>";
+  echo "<pre>".print_r($numeroNuevoPasosComoPedir,1)."</pre>";
+  echo "<pre>".print_r($contenidoNuevoPasosComoPedir,1)."</pre>";*/
+  //exit;
 
   $sql = "INSERT INTO como_pedir (titulo , video)
     VALUES ( ?, ? )";
@@ -1516,8 +1522,6 @@ function crear_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoP
   $db = Conexion::conectar();
   $mysql = $db->prepare( $sql );
   $mysql->execute( $data );
-
-
   $result = $mysql;
 
   $respuesta = false;
@@ -1532,7 +1536,8 @@ function crear_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoP
       $contenidoNuevoPasosComoPedir[$i]
     );
     $result2 = db_query($sql2, $data2);
-
+    
+    //echo "<pre>".print_r($result2,1)."</pre>";
     if( $result2){
       $respuesta = true;
     }
@@ -1856,8 +1861,11 @@ if ( isset($_POST['idAfiliatePortada'])) {
       $destino = imagecrop($origen, ["x"=>($width - 1600) / 2, "y"=>($height - 375) / 2, "width"=>1600, "height"=>375]);
 
       imagejpeg($destino, $rutaInicial);
-
-      unlink("../../" . $_POST['cargarImagenAfiliatePortada']);
+	
+      
+      if (file_exists("../../" . $_POST['cargarImagenAfiliatePortada'])) {
+      	unlink("../../" . $_POST['cargarImagenAfiliatePortada']);
+      }
     }
     editar_form_portada(
       $_POST['tituloAfiliatePortada'],

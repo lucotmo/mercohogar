@@ -155,8 +155,8 @@ function formEventoSubmit(resp){
           if (res.err) {
             mensaje_error(res.msg)
           } else {
-
-            location.reload()
+        	window.location.reload(true);
+            //location.reload()
           }
         })
         .catch(err => {
@@ -268,7 +268,8 @@ if ( contentFormEditarNuestroCliente ){
             : Promise.reject({ status: res.status, statusText: res.statusText })
         })
         .then(res => {
-          location.reload()
+          window.location.reload(true);
+          //location.reload()
         })
         .catch(err =>{
           let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
@@ -318,7 +319,8 @@ if ( contentFormEditarComoPedir ){
         })
         .then(res => {
           //respuestaFormEditarComoPedir.innerHTML = `${res}`
-          location.reload()
+          window.location.reload(true);	
+          //location.reload()
         })
         .catch(err =>{
           let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
@@ -377,7 +379,8 @@ if ( contentFormEditarAfiliateContenido ){
             : Promise.reject({ status: res.status, statusText: res.statusText })
         })
         .then(res => {
-          location.reload()
+          window.location.reload(true);
+          //location.reload()
         })
         .catch(err =>{
           let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
