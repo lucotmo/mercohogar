@@ -8,7 +8,6 @@ class Afiliate{
       echo '
       <div class="containerAccionesPaginaAfiliate">
         <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliatePortada"></a>
-        <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <img src="'.$item['imagen'].'" alt="" class="afilitate__img">
       <div class="presentacion-content">
@@ -48,7 +47,6 @@ class Afiliate{
       echo '
       <div class="containerAccionesPaginaAfiliate">
         <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliatePreguntas"></a>
-        <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <h5>'.$item['titulo'].'</h5>';
       foreach ($respuesta2 as $row => $item2){
@@ -69,7 +67,6 @@ class Afiliate{
       echo '
       <div class="containerAccionesPaginaAfiliate">
         <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliateBeneficios"></a>
-        <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
       </div>
       <h5>'.$item['titulo'].'</h5>';
       foreach ($respuesta2 as $row => $item2){
