@@ -109,8 +109,10 @@
 
 .pedir-container{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  flex-basis: 100%;
   .pedir-content{
     position: relative;
     display: flex;
@@ -119,6 +121,8 @@
     box-shadow: 2px 5px 15px #ccc;
     border-radius: 5px;
     padding: .5em;
+    margin: .5em;
+    width: 100%;
   }
   .pedir__video-container{
     flex-basis: 25%;
@@ -134,7 +138,7 @@
     color: #aaa;
   }
   .pedir__pasos-content{
-
+    flex-basis: 50%;
   }
   .pedir__pasos__title-content{
 
@@ -145,6 +149,8 @@
   }
   .pedir__pasos__parrafo-container{
     flex-basis: 50%;
+    justify-content: center;
+    align-items: center;
 
   }
   .pedir__pasos__parrafo-content{
@@ -160,3 +166,4 @@
     color: #666;
   }
 }
+
