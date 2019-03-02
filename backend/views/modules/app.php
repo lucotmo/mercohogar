@@ -1170,7 +1170,7 @@ function form_como_pedir ($idComoPedir) {
         <div class="inpText-container">
           <div class="inpText-content">
             <label class="labelText" for="tituloComoPedir">Titulo</label>
-            <input type="hidden" class="inpText" name="idComoPedir" value="'.$row['id'].'">
+            <input type="hidden" class="inpText" name="idEditarComoPedir" value="'.$row['id'].'">
             <input type="text" class="inpText" name="tituloComoPedir" value="'.$row['titulo'].'" id="tituloComoPedir" placeholder="Titulo">
           </div>
         </div>
@@ -1179,11 +1179,17 @@ function form_como_pedir ($idComoPedir) {
           <input type="url" class="inpText" name="videoComoPedir" value="'.$row['video'].'" id="videoComoPedir" placeholder="url video">
         </div>
         <h3 class="form-titulo">Pasos</h3>
-        <div class="containerInputsPasos">';
+        <div class="containerInputsPasos ListaDePasos">
+          <div class="btnAgregar-content">
+            <button class="btnAgregar btnAgregarNuevoEditarPaso" style="width:50%">Nuevo Paso</button>
+          </div>';
         foreach ($result2 as $row2){
           echo '<div class="contentInputsPasos" style="display:flex">
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso" data-id="'.$row2['id_pasos'].'"></a>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="numeroPasosComoPedir">No.</label>
+            <input type="hidden" name="idPasosComoPedir[]"  value="'.$row2['id_pasos'].'" >
+            <input type="hidden" name="idComoPedirPasosComoPedir[]" id="idComoPedirPasosComoPedir"  value="'.$row2['id_como_pedir'].'" >
             <input class="inpText" name="numeroPasosComoPedir[]" id="numeroPasosComoPedir" value="'.$row2['numero_paso'].'" cols="1" rows="" placeholder="No." style="width:20%">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
@@ -1581,6 +1587,88 @@ if ( isset($_POST['idAfiliateBeneficios']) ){
     $_POST['idSubtituloAfiliateBeneficios']
   );
 }
+
+
+function update_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoPedir,
+  $numeroNuevoPasosComoPedir, $contenidoNuevoPasosComoPedir, $idEditarComoPedir, $idPasosComoPedir, $idComoPedirPasosComoPedir) {
+
+  $sql = "UPDATE como_pedir
+    SET titulo = ?, video = ?
+    WHERE id = $idEditarComoPedir ";
+
+  $data = array(
+    $tituloNuevoPasosComoPedir,
+    $videoNuevoPasosComoPedir
+  );
+
+  $respuesta = false;
+  for($i=0;  $i<count($idPasosComoPedir); $i++ ) {
+    if(!empty($idPasosComoPedir[$i] )){
+      $sql2 = " UPDATE pasos
+      SET id_como_pedir = ?, numero_paso = ?, contenido_paso = ?
+      WHERE id_pasos = $idPasosComoPedir[$i] ";
+
+      $data2 = array(
+        $idComoPedirPasosComoPedir[$i],
+        $numeroNuevoPasosComoPedir[$i],
+        $contenidoNuevoPasosComoPedir[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+    }  else {
+      $sql2 = "INSERT INTO pasos ( id_como_pedir, numero_paso, contenido_paso )
+      VALUE ( ?, ?, ? )";
+      //echo "inserto los neuvos"
+      $data2 = array(
+        $idComoPedirPasosComoPedir[$i],
+        $numeroNuevoPasosComoPedir[$i],
+        $contenidoNuevoPasosComoPedir[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+
+    }
+  }
+
+  $result = db_query($sql, $data);
+
+  if ($result && $respuesta) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito.'
+    );
+
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['idEditarComoPedir']) ){
+  update_form_como_pedir(
+    $_POST['tituloComoPedir'],
+    $_POST['videoComoPedir'],
+    $_POST['numeroPasosComoPedir'],
+    $_POST['contenidoPasosComoPedir'],
+    $_POST['idEditarComoPedir'],
+    $_POST['idPasosComoPedir'],
+    $_POST['idComoPedirPasosComoPedir']
+  );
+}
+
+
+
+
 
 
 function id_eliminar_pregunta($id_eliminar_pregunta){
