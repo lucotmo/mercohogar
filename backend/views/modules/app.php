@@ -1581,6 +1581,69 @@ if ( isset($_POST['idAfiliateBeneficios']) ){
   );
 }
 
+function crear_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoPedir,
+  $numeroNuevoPasosComoPedir, $contenidoNuevoPasosComoPedir) {
+    //$db = Conexion::conectar();
+
+  $sql = "INSERT INTO como_pedir (titulo , video)
+    VALUES ( ?, ? )";
+
+  $data = array(
+    $tituloNuevoPasosComoPedir,
+    $videoNuevoPasosComoPedir
+  );
+
+  $db = Conexion::conectar();
+  $mysql = $db->prepare( $sql );
+  $mysql->execute( $data );
+
+
+  $result = $mysql;
+
+  $respuesta = false;
+  $idComoPedirPasosComoPedir = $db->lastInsertId();
+  for($i=0;  $i<count($numeroNuevoPasosComoPedir); $i++ ) {
+    $sql2 = "INSERT INTO pasos ( id_como_pedir, numero_paso, contenido_paso )
+      VALUE ( ?, ?, ? )";
+    //echo "inserto los neuvos"
+    $data2 = array(
+      $idComoPedirPasosComoPedir,
+      $numeroNuevoPasosComoPedir[$i],
+      $contenidoNuevoPasosComoPedir[$i]
+    );
+    $result2 = db_query($sql2, $data2);
+
+    if( $result2){
+      $respuesta = true;
+    }
+  }
+
+
+
+  if ($result && $respuesta) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito.'
+    );
+
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['tituloNuevoPasosComoPedir']) ){
+  crear_form_como_pedir(
+    $_POST['tituloNuevoPasosComoPedir'],
+    $_POST['videoNuevoPasosComoPedir'],
+    $_POST['numeroNuevoPasosComoPedir'],
+    $_POST['contenidoNuevoPasosComoPedir']
+  );
+}
 
 function update_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoPedir,
   $numeroNuevoPasosComoPedir, $contenidoNuevoPasosComoPedir, $idEditarComoPedir, $idPasosComoPedir, $idComoPedirPasosComoPedir) {
@@ -1661,8 +1724,33 @@ if ( isset($_POST['idEditarComoPedir']) ){
 
 
 
+function id_eliminar_paso($id_eliminar_paso){
+  $sql = "DELETE FROM pasos WHERE id_pasos = $id_eliminar_paso";
 
+  $data = array( $id_eliminar_paso );
 
+  $respuesta = db_query($sql, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_paso']) ) {
+  id_eliminar_paso( $_POST['id_eliminar_paso'] );
+}
 
 function id_eliminar_pregunta($id_eliminar_pregunta){
   $sql = "DELETE FROM afiliate_preguntas_subtitulos WHERE id = $id_eliminar_pregunta";
