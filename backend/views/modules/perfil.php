@@ -167,6 +167,10 @@ require "views/modules/navegacionEnd.php";
         <span class="perfilDatos__Contraseña">Contraseña: <p>*******</p></span>
       </div>
     </div>
+
+    <?php
+    if ( $_SESSION['rol'] == 0 ) {
+    ?>
     <div class="perfiles-container">
       <button href="" class="btnRegistrarMiembros" id="btnRegistrarNuevoMiembro">Registrar nuevo miembro</button>
       <div class="perfiles-content">
@@ -188,7 +192,13 @@ require "views/modules/navegacionEnd.php";
 
       </div>
     </div>
+    <?php
+      }
+    ?>
   </div>
+  <?php
+  if ( $_SESSION['rol'] == 0 ) {
+  ?>
   <div class="title-content">
     <h1 class="title__titulo">Afiliados</h1>
   </div>
@@ -238,6 +248,9 @@ require "views/modules/navegacionEnd.php";
       </div>
     </div>
   </div>
+  <?php
+      }
+    ?>
 </div>
 
 <div class="respuestaAfiliados"></div>
