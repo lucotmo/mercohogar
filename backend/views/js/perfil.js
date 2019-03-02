@@ -465,9 +465,13 @@ if ( btnAgregarNuevoContenidoComoPedir ){
           <input type="url" class="inpText" name="videoNuevoPasosComoPedir" value="" id="videoNuevoPasosComoPedir" placeholder="url video">
         </div>
         <h3 class="form-titulo">Pasos</h3>
+        <div class="btnAgregar-content">
+          <button class="btnAgregar btnAgregarNuevoPaso" style="width:50%">Nuevo sss
+          .</button>
+        </div>
         <div class="containerInputsPasos ListaDePasos">
-          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso" ></a>
           <div class="contentInputsPasos" style="display:flex">
+            <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso"></a>
             <div class="inpSelect-content" style="display:flex; flex-direction:column">
               <label class="labelText" for="numeroNuevoPasosComoPedir">No.</label>
               <input class="inpText" name="numeroNuevoPasosComoPedir[]" id="numeroNuevoPasosComoPedir" value="" cols="1" rows="" placeholder="No." style="width:20%">
@@ -488,9 +492,112 @@ if ( btnAgregarNuevoContenidoComoPedir ){
       </div>
     `
 
+
   })
 }
 
+if ( respuestaFormEditarComoPedir ) {
+  respuestaFormEditarComoPedir.addEventListener('click', function(e){
+    if ( e.target.className === 'btnAgregar btnAgregarNuevoPaso' ){
+      e.preventDefault()
+      //console.log(e.target)
+      let ListaDePasos = document.querySelector('.ListaDePasos'),
+      templatePasos = `<div class="contentInputsPasos" style="display:flex">
+        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso"></a>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="numeroNuevoPasosComoPedir">No.</label>
+          <input class="inpText" name="numeroNuevoPasosComoPedir[]" id="numeroNuevoPasosComoPedir" value="" cols="1" rows="" placeholder="No." style="width:20%">
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidosNuevoPasosComoPedir">Contenido</label>
+          <textarea class="inpText" name="contenidoNuevoPasosComoPedir[]" id="contenidoNuevoPasosComoPedir" cols="30" rows="" placeholder="Contenido"></textarea>
+        </div>
+      </div>`
+      ListaDePasos.insertAdjacentHTML( 'beforeend', templatePasos)
+    }
+    if ( e.target.className === 'btnAgregar btnAgregarNuevoEditarPaso' ){
+      e.preventDefault()
+      //console.log(e.target.parentElement.nextElementSibling.querySelector('#idComoPedirPasosComoPedir').value)
+      let idComoPedir = e.target.parentElement.nextElementSibling.querySelector('#idComoPedirPasosComoPedir').value
+      let ListaDePasos = document.querySelector('.ListaDePasos'),
+      /* templatePasos = `<div class="contentInputsPasos" style="display:flex">
+        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso"></a>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="numeroNuevoPasosComoPedir">No.</label>
+          <input type="hidden" name="idComoPedirPasosComoPedir[]" value="${idComoPedir}">
+          <input class="inpText" name="numeroNuevoPasosComoPedir[]" id="numeroNuevoPasosComoPedir" value="" cols="1" rows="" placeholder="No." style="width:20%">
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidosNuevoPasosComoPedir">Contenido</label>
+          <textarea class="inpText" name="contenidoNuevoPasosComoPedir[]" id="contenidoNuevoPasosComoPedir" cols="30" rows="" placeholder="Contenido"></textarea>
+        </div>
+      </div>` */
+
+      templatePasos = `<div class="contentInputsPasos" style="display:flex">
+      <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso" ></a>
+      <div class="inpSelect-content" style="display:flex; flex-direction:column">
+        <label class="labelText" for="numeroPasosComoPedir">No.</label>
+        <input type="hidden" name="idPasosComoPedir[]"  value="" >
+        <input type="hidden" name="idComoPedirPasosComoPedir[]" id="idComoPedirPasosComoPedir"  value="${idComoPedir}" >
+        <input class="inpText" name="numeroPasosComoPedir[]" id="numeroPasosComoPedir" value="" cols="1" rows="" placeholder="No." style="width:20%">
+      </div>
+      <div class="inpSelect-content" style="display:flex; flex-direction:column">
+        <label class="labelText" for="contenidoPasosComoPedir">Contenido</label>
+        <textarea class="inpText" name="contenidoPasosComoPedir[]" id="contenidoPasosComoPedir" cols="30" rows="" placeholder="Contenido"></textarea>
+      </div>
+    </div>`
+      ListaDePasos.insertAdjacentHTML( 'beforeend', templatePasos)
+    }
+
+    if ( e.target.className === 'fa fa-trash btnEliminarProducto btnEliminarPaso' ){
+      if(e.target.dataset.id != undefined) {
+        let seElimina = confirm(`¿Estás seguro de eliminar ${e.target.dataset.id}?`)
+        if (seElimina) {
+          let data = new FormData()
+          data.append('id_eliminar_Paso', e.target.dataset.id )
+
+          fetch('views/modules/app.php', {
+            body: data,
+            method: 'post'
+          })
+            .then(res => {
+              if(res.ok) {
+                return res.json()
+              } else {
+                  throw "Error en la llamada Ajax";
+              }
+
+            })
+            .then(res => {
+              console.log(res)
+              if (res.err) {
+                console.log('ya casi')
+              } else {
+                e.target.parentElement.remove()
+              }
+
+            })
+            .catch(err => {
+              let mensaje = `Parece que hay un problema. Error ${err.status}: ${err.statusText}`
+              console.log(mensaje)
+            })
+        } else {
+          return false
+        }
+
+      } else {
+        e.target.parentElement.remove()
+      }
+    }
+  })
+}
+
+if ( respuestaFormEditarComoPedir ){
+  formEventoSubmit(respuestaFormEditarComoPedir)
+}
+
+
+//console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
 console.log('lubbccfjfjfj')
 
