@@ -466,8 +466,7 @@ if ( btnAgregarNuevoContenidoComoPedir ){
         </div>
         <h3 class="form-titulo">Pasos</h3>
         <div class="btnAgregar-content">
-          <button class="btnAgregar btnAgregarNuevoPaso" style="width:50%">Nuevo sss
-          .</button>
+          <button class="btnAgregar btnAgregarNuevoPaso" style="width:50%">Nuevo Paso</button>
         </div>
         <div class="containerInputsPasos ListaDePasos">
           <div class="contentInputsPasos" style="display:flex">
@@ -517,22 +516,8 @@ if ( respuestaFormEditarComoPedir ) {
     }
     if ( e.target.className === 'btnAgregar btnAgregarNuevoEditarPaso' ){
       e.preventDefault()
-      //console.log(e.target.parentElement.nextElementSibling.querySelector('#idComoPedirPasosComoPedir').value)
       let idComoPedir = e.target.parentElement.nextElementSibling.querySelector('#idComoPedirPasosComoPedir').value
       let ListaDePasos = document.querySelector('.ListaDePasos'),
-      /* templatePasos = `<div class="contentInputsPasos" style="display:flex">
-        <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso"></a>
-        <div class="inpSelect-content" style="display:flex; flex-direction:column">
-          <label class="labelText" for="numeroNuevoPasosComoPedir">No.</label>
-          <input type="hidden" name="idComoPedirPasosComoPedir[]" value="${idComoPedir}">
-          <input class="inpText" name="numeroNuevoPasosComoPedir[]" id="numeroNuevoPasosComoPedir" value="" cols="1" rows="" placeholder="No." style="width:20%">
-        </div>
-        <div class="inpSelect-content" style="display:flex; flex-direction:column">
-          <label class="labelText" for="contenidosNuevoPasosComoPedir">Contenido</label>
-          <textarea class="inpText" name="contenidoNuevoPasosComoPedir[]" id="contenidoNuevoPasosComoPedir" cols="30" rows="" placeholder="Contenido"></textarea>
-        </div>
-      </div>` */
-
       templatePasos = `<div class="contentInputsPasos" style="display:flex">
       <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso" ></a>
       <div class="inpSelect-content" style="display:flex; flex-direction:column">
@@ -551,10 +536,11 @@ if ( respuestaFormEditarComoPedir ) {
 
     if ( e.target.className === 'fa fa-trash btnEliminarProducto btnEliminarPaso' ){
       if(e.target.dataset.id != undefined) {
+        e.preventDefault()
         let seElimina = confirm(`¿Estás seguro de eliminar ${e.target.dataset.id}?`)
         if (seElimina) {
           let data = new FormData()
-          data.append('id_eliminar_Paso', e.target.dataset.id )
+          data.append('id_eliminar_paso', e.target.dataset.id )
 
           fetch('views/modules/app.php', {
             body: data,
@@ -600,4 +586,10 @@ if ( respuestaFormEditarComoPedir ){
 //console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
 console.log('lubbccfjfjfj')
+
+
+/* como PEDIR */
+
+
+/* fin como pedir */
 

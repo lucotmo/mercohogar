@@ -99,7 +99,7 @@ require "views/modules/navegacionEnd.php";
     </div>
   </div> -->
 
-  <div class="pedir-container">
+  <div class="pedir-container" style="flex-direccion:column">
     <?php
 
     $comoPedir = new ComoPedir();
