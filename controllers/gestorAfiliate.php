@@ -19,13 +19,15 @@ class Afiliate{
     //$respuesta2 = ComoPedirModels::seleccionarDosComoPedirModel("como_pedir", "pasos");
 		foreach ($respuesta as $row => $item){
       echo '
-      <div class="afilitate-info__content">
-        <h1 class="afilitate-title">'.$item['titulo'].'</h1>
-        <p class="afilitate-info__parrafo">'.$item['contenido'].'</p>
-      </div>
-      <div class="afiliate__info-video">
-        <div class="video-responsive">
-          <iframe src="'.$item['video'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+      <div class="afiliate-info__container">
+        <div class="afilitate-info__content">
+          <h1 class="afilitate-title">'.$item['titulo'].'</h1>
+          <p class="afilitate-info__parrafo">'.$item['contenido'].'</p>
+        </div>
+        <div class="afiliate__info-video">
+          <div class="video-responsive">
+            <iframe src="'.$item['video'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+          </div>
         </div>
       </div>';
     }

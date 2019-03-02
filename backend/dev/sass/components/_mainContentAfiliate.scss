@@ -113,15 +113,20 @@
   }
 }
 .containerContenidoAfiliate{
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: .5em;
-  border-radius: 5px;
-  box-shadow: 2px 5px 15px #ccc;
-  .afilitate-info__content{
 
+  .contentContenidoAfiliate{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5em;
+    margin-bottom: .5em;
+    border-radius: 5px;
+    box-shadow: 2px 5px 15px #ccc;
+    width: 100%;
+  }
+  .afilitate-info__content{
+    flex-basis: 50%;
   }
   .afilitate-title{
     color: #aaaaaa;
@@ -130,7 +135,7 @@
     color: #aaaaaa;
   }
   .afiliate__info-video{
-
+    flex-basis: 50%;
   }
   .video-responsive{
 
