@@ -52,27 +52,39 @@
 
 .afilitate-info{
   display: flex;
+  flex-direction: column;
+  /* display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
-  margin: 1em;
+  margin: 1em; */
 }
-.afilitate-info__content{
-  flex-basis: 50%;
+
+.afiliate-info__container{
   display: flex;
+  flex-direction: column-reverse;
+  padding: .5em;
+  //flex-direction: column;
+}
+
+.afilitate-info__content{
+  // flex-basis: 50%;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // margin: 1em;
+  // padding: 0 1.5em;
+  flex-basis: 100%;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1em;
-  padding: 0 1.5em;
+
 }
 .afilitate-info__parrafo{
-  right: 2em;
-  width: 75%;
+  padding: .5em;
+  width: 100%;
   font-size: 1.2em;
   color: #aaaaaa;
   font-weight: 600;
-
 }
 .afiliate-info__coment{
   width: 100%;
@@ -83,10 +95,10 @@
   font-weight: 900;
 }
 .afilitate-info__parrafo{
-  text-align: end;
+  text-align: start;
 }
 .afiliate__info-video{
-  flex-basis: 50%;
+  /* flex-basis: 100%;
   position: relative;
   border-radius: 5px;
   border: 2px solid #aaaaaa;
@@ -104,7 +116,10 @@
     &:hover{
       color: rgba(255,255,255,1);
     }
-  }
+  } */
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .benefPreguntas{
@@ -141,8 +156,20 @@
 }
 
 @include mq(m){
-  .afilitate-info{
+  .afiliate-info__container{
     flex-direction: row;
+    &:nth-child(even){
+      flex-direction: row-reverse;
+    }
+  }
+  .afilitate-info__content{
+    padding: .5em 1em .5em .5em;
+    .afilitate-info__parrafo{
+      text-align: end;
+    }
+  }
+  .afilitate-info{
+    //flex-direction: row;
   }
   .benefPreguntas{
     flex-direction: row;
@@ -156,7 +183,9 @@
     display: block;
   }
 }
-
+/* body{
+  background: red;
+} */
 
 /*=============================================
 =            copia            =

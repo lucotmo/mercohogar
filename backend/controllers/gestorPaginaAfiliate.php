@@ -22,18 +22,20 @@ class Afiliate{
     //$respuesta2 = ComoPedirModels::seleccionarDosComoPedirModel("como_pedir", "pasos");
 		foreach ($respuesta as $row => $item){
       echo '
-      <div class="containerAccionesPaginaAfiliate">
-        <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliateContenido"></a>
-        <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
-      </div>
-      <div class="afiliate__info-video">
-        <div class="video-responsive">
-          <iframe src="'.$item['video'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+      <div class="contentContenidoAfiliate">
+        <div class="containerAccionesPaginaAfiliate">
+          <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliateContenido"></a>
+          <a href="#" class="fa fa-trash btnEliminarProducto" data-id="'.$item["id"].'" id="btnEliminarAfiliateContenido"></a>
         </div>
-      </div>
-      <div class="afilitate-info__content">
-        <h1 class="afilitate-title">'.$item['titulo'].'</h1>
-        <p class="afilitate-info__parrafo">'.$item['contenido'].'</p>
+        <div class="afiliate__info-video">
+          <div class="video-responsive">
+            <iframe src="'.$item['video'].'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+          </div>
+        </div>
+        <div class="afilitate-info__content">
+          <h1 class="afilitate-title">'.$item['titulo'].'</h1>
+          <p class="afilitate-info__parrafo">'.$item['contenido'].'</p>
+        </div>
       </div>
       ';
     }
@@ -44,8 +46,7 @@ class Afiliate{
     $respuesta2 = AfiliateModels::mostrarPreguntasSubtitulosAfiliateModel("afiliate_preguntas_subtitulos");
     //$respuesta2 = ComoPedirModels::seleccionarDosComoPedirModel("como_pedir", "pasos");
 		foreach ($respuesta as $row => $item){
-      echo '
-      <div class="containerAccionesPaginaAfiliate">
+      echo '<div class="containerAccionesPaginaAfiliate">
         <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarAfiliatePreguntas"></a>
       </div>
       <h5>'.$item['titulo'].'</h5>';

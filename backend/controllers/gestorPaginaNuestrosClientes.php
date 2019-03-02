@@ -8,7 +8,7 @@ class NuestrosClientes{
       <div class="containerPaginaCliente">
         <div class="containerAccionesPaginaCliente">
           <a class="fa fa-edit btnEditarProducto" data-id="'.$item["id"].'" id="btnEditarNuestrosClientes"></a>
-          <a href="#" class="fa fa-trash btnEliminarProducto" id="btnEliminarProducto"></a>
+          <a href="#" class="fa fa-trash btnEliminarProducto" data-id="'.$item["id"].'" id="btnEliminarNuestrosClientes"></a>
         </div>
         <div class="videoPaginaCliente-content">
           <div class="video-responsive">

@@ -34,7 +34,7 @@ require "views/modules/navegacionEnd.php";
     <h1 class="title__titulo">Contenido</h1>
   </div>
   <div class="btnAgregar-content">
-    <button class="btnAgregar">Nuevo contenido</button>
+    <button class="btnAgregar btnAgregarNuevoAfiliateContenido">Nuevo contenido</button>
   </div>
   <div class="containerContenidoAfiliate">
     <?php
