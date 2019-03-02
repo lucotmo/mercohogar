@@ -1929,7 +1929,36 @@ function form_afiliate_contenido ($idAfiliateContenido) {
 if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['id_afiliate_contenido']);
 
 
-function editar_form_afiliate_portada(){
+function editar_form_afiliate_contenido( $titulo, $contenido , $video , $id ){
   $sql = "UPDATE afiliate_contenido
-    SET titulo = ?, contenido = ?, imagen = ?";
+    SET titulo = ?, contenido = ?, video = ?
+    WHERE id = $id";
+  $data = array(
+    $titulo,
+    $contenido,
+    $video
+  );
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito'
+    );
+  } else{
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error'
+    );
+  }
+  echo json_encode($res);
+}
+if ( isset($_POST['tituloAfiliateContenido']) ){
+  editar_form_afiliate_contenido(
+    $_POST['tituloAfiliateContenido'],
+    $_POST['contenidoAfiliateContenido'],
+    $_POST['videoAfiliateContenido'],
+    $_POST['idAfiliateContenido']
+  );
 }
