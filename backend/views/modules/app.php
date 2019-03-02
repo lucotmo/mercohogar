@@ -577,16 +577,17 @@ if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 /* afiliado */
 
 function ver_afiliado ($idAfiliado) {
-  $sql = "SELECT *, a.nombre as nombre_afiliado,
+  $sql = "SELECT *, 
+	a.nombre as nombre_afiliado,
     ci.nombre as nombre_ciudad,
     tp.nombre_tipo,
     b.nombre_banco,
     tc.nombre_tipo_cuenta
     FROM afiliado as a
     LEFT JOIN ciudades as ci ON a.ciudad = ci.ciudad_id
-    LEFT JOIN tipo_doc as tp ON a.tipo_doc = tp.nombre_tipo
+    LEFT JOIN tipo_doc as tp ON a.tipo_doc = tp.tipo_doc_id
     LEFT JOIN banco as b ON a.banco = b.banco_id
-    LEFT JOIN tipo_cuenta as tc ON a.tipo_cuenta = tc.nombre_tipo_cuenta
+    LEFT JOIN tipo_cuenta as tc ON a.tipo_cuenta = tc.tipo_id
     WHERE a.id = ?";
 
   $data = array($idAfiliado);
@@ -689,6 +690,10 @@ function form_afiliado ($idAfiliado) {
               <label class="labelText" for="nombre">Nombre</label>
               <input type="text" class="inpText" name="nombreAfiliado" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
             </div>
+			<div class="inpText-content">
+              <label class="labelText" for="nombre">Nombre</label>
+              <input type="text" class="inpText" name="apellidosAfiliado" value="'.$row['apellidos'].'" id="nombre" placeholder="Nombre">
+            </div>
           </div>
           <div class="inpText-container">
             <div class="inpSelect-content">
@@ -785,13 +790,14 @@ function form_afiliado ($idAfiliado) {
 
 if ( isset($_POST['id_editAfiliado']) )  form_afiliado($_POST['id_editAfiliado']);
 
-function update_form_afiliados($celular, $nombre, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
+function update_form_afiliados($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
   $sql = "UPDATE afiliado
-  SET celular = ?, nombre = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
+  SET celular = ?, nombre = ?, apellidos = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
   WHERE id = $id";
   $data = array(
     $celular,
     $nombre,
+  	$apellidos,
     $ciudad,
     $barrio,
     $direccion,
@@ -827,6 +833,7 @@ if ( isset($_POST['idAfiliado']) )
   update_form_afiliados(
     $_POST['celularAfiliado'],
     $_POST['nombreAfiliado'],
+  	$_POST['apellidosAfiliado'],
     $_POST['ciudadAfiliado'],
     $_POST['barrioAfiliado'],
     $_POST['direccionAfiliado'],
@@ -847,7 +854,7 @@ function ver_cliente ($idCliente) {
   $sql = "SELECT *, c.nombre as nombre_cliente,
     ci.nombre as nombre_ciudad
     FROM cliente as c
-    LEFT JOIN ciudades as ci ON c.id_ciudad = ci.nombre
+    LEFT JOIN ciudades as ci ON c.id_ciudad = ci.ciudad_id
     WHERE id_cliente = ?";
 
   $data = array($idCliente);

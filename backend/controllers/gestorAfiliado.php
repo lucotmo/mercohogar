@@ -47,6 +47,7 @@ class GestorAfiliados{
 	#------------------------------------------------------------
 	public function verAfiliadoController(){
 		$respuesta = GestorAfiliadosModel::verAfiliadosModel("afiliado");
+// 		echo "<pre>".print_r($respuesta,1)."</pre>";
 		foreach($respuesta as $row => $item){
 			
 			$pagado = GestorAfiliadosModel::getPagado($item["celular"]);
@@ -66,8 +67,15 @@ class GestorAfiliados{
 			$n_explode = explode(',',$n_total_id);
 			$n_result = array_unique($n_explode);
 			$n_implode  = implode(",",$n_result);
-			
-			$disabled= (empty($n_implode)) ? 'pointer-events:none;background-color:gray' : '';
+			$display = true;
+			if( !empty($item['tipo_doc']) &&
+					!empty($item['documento']) &&
+					!empty($item['cuenta_bancaria']) &&
+					!empty($item['banco']) &&
+					!empty($item['tipo_cuenta'])) {
+						$display= false;
+					}
+			$disabled= ( empty($n_implode)  || $display) ? 'pointer-events:none;background-color:gray' : '';
 			
       echo '
         <tr>
