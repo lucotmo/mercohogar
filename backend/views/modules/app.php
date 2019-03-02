@@ -577,16 +577,17 @@ if ( isset($_POST['id_cambio']) )  cambiar_estado_pedido($_POST['id_cambio']);
 /* afiliado */
 
 function ver_afiliado ($idAfiliado) {
-  $sql = "SELECT *, a.nombre as nombre_afiliado,
+  $sql = "SELECT *, 
+	a.nombre as nombre_afiliado,
     ci.nombre as nombre_ciudad,
     tp.nombre_tipo,
     b.nombre_banco,
     tc.nombre_tipo_cuenta
     FROM afiliado as a
     LEFT JOIN ciudades as ci ON a.ciudad = ci.ciudad_id
-    LEFT JOIN tipo_doc as tp ON a.tipo_doc = tp.nombre_tipo
+    LEFT JOIN tipo_doc as tp ON a.tipo_doc = tp.tipo_doc_id
     LEFT JOIN banco as b ON a.banco = b.banco_id
-    LEFT JOIN tipo_cuenta as tc ON a.tipo_cuenta = tc.nombre_tipo_cuenta
+    LEFT JOIN tipo_cuenta as tc ON a.tipo_cuenta = tc.tipo_id
     WHERE a.id = ?";
 
   $data = array($idAfiliado);
@@ -689,6 +690,10 @@ function form_afiliado ($idAfiliado) {
               <label class="labelText" for="nombre">Nombre</label>
               <input type="text" class="inpText" name="nombreAfiliado" value="'.$row['nombre'].'" id="nombre" placeholder="Nombre">
             </div>
+			<div class="inpText-content">
+              <label class="labelText" for="nombre">Nombre</label>
+              <input type="text" class="inpText" name="apellidosAfiliado" value="'.$row['apellidos'].'" id="nombre" placeholder="Nombre">
+            </div>
           </div>
           <div class="inpText-container">
             <div class="inpSelect-content">
@@ -785,13 +790,14 @@ function form_afiliado ($idAfiliado) {
 
 if ( isset($_POST['id_editAfiliado']) )  form_afiliado($_POST['id_editAfiliado']);
 
-function update_form_afiliados($celular, $nombre, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
+function update_form_afiliados($celular, $nombre, $apellidos, $ciudad, $barrio, $direccion, $tipoDoc, $documento, $cuentaBancaria, $banco, $tipoCuenta, $correo, $id) {
   $sql = "UPDATE afiliado
-  SET celular = ?, nombre = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
+  SET celular = ?, nombre = ?, apellidos = ?, ciudad = ?, barrio = ?, direccion = ?, tipo_doc = ?, documento = ?, cuenta_bancaria = ?, banco = ?, tipo_cuenta = ?, correo = ?
   WHERE id = $id";
   $data = array(
     $celular,
     $nombre,
+  	$apellidos,
     $ciudad,
     $barrio,
     $direccion,
@@ -827,6 +833,7 @@ if ( isset($_POST['idAfiliado']) )
   update_form_afiliados(
     $_POST['celularAfiliado'],
     $_POST['nombreAfiliado'],
+  	$_POST['apellidosAfiliado'],
     $_POST['ciudadAfiliado'],
     $_POST['barrioAfiliado'],
     $_POST['direccionAfiliado'],
@@ -847,7 +854,7 @@ function ver_cliente ($idCliente) {
   $sql = "SELECT *, c.nombre as nombre_cliente,
     ci.nombre as nombre_ciudad
     FROM cliente as c
-    LEFT JOIN ciudades as ci ON c.id_ciudad = ci.nombre
+    LEFT JOIN ciudades as ci ON c.id_ciudad = ci.ciudad_id
     WHERE id_cliente = ?";
 
   $data = array($idCliente);
@@ -1163,7 +1170,7 @@ function form_como_pedir ($idComoPedir) {
         <div class="inpText-container">
           <div class="inpText-content">
             <label class="labelText" for="tituloComoPedir">Titulo</label>
-            <input type="hidden" class="inpText" name="idComoPedir" value="'.$row['id'].'">
+            <input type="hidden" class="inpText" name="idEditarComoPedir" value="'.$row['id'].'">
             <input type="text" class="inpText" name="tituloComoPedir" value="'.$row['titulo'].'" id="tituloComoPedir" placeholder="Titulo">
           </div>
         </div>
@@ -1172,11 +1179,17 @@ function form_como_pedir ($idComoPedir) {
           <input type="url" class="inpText" name="videoComoPedir" value="'.$row['video'].'" id="videoComoPedir" placeholder="url video">
         </div>
         <h3 class="form-titulo">Pasos</h3>
-        <div class="containerInputsPasos">';
+        <div class="containerInputsPasos ListaDePasos">
+          <div class="btnAgregar-content">
+            <button class="btnAgregar btnAgregarNuevoEditarPaso" style="width:50%">Nuevo Paso</button>
+          </div>';
         foreach ($result2 as $row2){
           echo '<div class="contentInputsPasos" style="display:flex">
+          <a href="#" class="fa fa-trash btnEliminarProducto btnEliminarPaso" data-id="'.$row2['id_pasos'].'"></a>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
             <label class="labelText" for="numeroPasosComoPedir">No.</label>
+            <input type="hidden" name="idPasosComoPedir[]"  value="'.$row2['id_pasos'].'" >
+            <input type="hidden" name="idComoPedirPasosComoPedir[]" id="idComoPedirPasosComoPedir"  value="'.$row2['id_como_pedir'].'" >
             <input class="inpText" name="numeroPasosComoPedir[]" id="numeroPasosComoPedir" value="'.$row2['numero_paso'].'" cols="1" rows="" placeholder="No." style="width:20%">
           </div>
           <div class="inpSelect-content" style="display:flex; flex-direction:column">
@@ -1575,6 +1588,176 @@ if ( isset($_POST['idAfiliateBeneficios']) ){
   );
 }
 
+function crear_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoPedir,
+  $numeroNuevoPasosComoPedir, $contenidoNuevoPasosComoPedir) {
+    //$db = Conexion::conectar();
+
+  $sql = "INSERT INTO como_pedir (titulo , video)
+    VALUES ( ?, ? )";
+
+  $data = array(
+    $tituloNuevoPasosComoPedir,
+    $videoNuevoPasosComoPedir
+  );
+
+  $db = Conexion::conectar();
+  $mysql = $db->prepare( $sql );
+  $mysql->execute( $data );
+
+
+  $result = $mysql;
+
+  $respuesta = false;
+  $idComoPedirPasosComoPedir = $db->lastInsertId();
+  for($i=0;  $i<count($numeroNuevoPasosComoPedir); $i++ ) {
+    $sql2 = "INSERT INTO pasos ( id_como_pedir, numero_paso, contenido_paso )
+      VALUE ( ?, ?, ? )";
+    //echo "inserto los neuvos"
+    $data2 = array(
+      $idComoPedirPasosComoPedir,
+      $numeroNuevoPasosComoPedir[$i],
+      $contenidoNuevoPasosComoPedir[$i]
+    );
+    $result2 = db_query($sql2, $data2);
+
+    if( $result2){
+      $respuesta = true;
+    }
+  }
+
+
+
+  if ($result && $respuesta) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito.'
+    );
+
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['tituloNuevoPasosComoPedir']) ){
+  crear_form_como_pedir(
+    $_POST['tituloNuevoPasosComoPedir'],
+    $_POST['videoNuevoPasosComoPedir'],
+    $_POST['numeroNuevoPasosComoPedir'],
+    $_POST['contenidoNuevoPasosComoPedir']
+  );
+}
+
+function update_form_como_pedir($tituloNuevoPasosComoPedir, $videoNuevoPasosComoPedir,
+  $numeroNuevoPasosComoPedir, $contenidoNuevoPasosComoPedir, $idEditarComoPedir, $idPasosComoPedir, $idComoPedirPasosComoPedir) {
+
+  $sql = "UPDATE como_pedir
+    SET titulo = ?, video = ?
+    WHERE id = $idEditarComoPedir ";
+
+  $data = array(
+    $tituloNuevoPasosComoPedir,
+    $videoNuevoPasosComoPedir
+  );
+
+  $respuesta = false;
+  for($i=0;  $i<count($idPasosComoPedir); $i++ ) {
+    if(!empty($idPasosComoPedir[$i] )){
+      $sql2 = " UPDATE pasos
+      SET id_como_pedir = ?, numero_paso = ?, contenido_paso = ?
+      WHERE id_pasos = $idPasosComoPedir[$i] ";
+
+      $data2 = array(
+        $idComoPedirPasosComoPedir[$i],
+        $numeroNuevoPasosComoPedir[$i],
+        $contenidoNuevoPasosComoPedir[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+    }  else {
+      $sql2 = "INSERT INTO pasos ( id_como_pedir, numero_paso, contenido_paso )
+      VALUE ( ?, ?, ? )";
+      //echo "inserto los neuvos"
+      $data2 = array(
+        $idComoPedirPasosComoPedir[$i],
+        $numeroNuevoPasosComoPedir[$i],
+        $contenidoNuevoPasosComoPedir[$i]
+      );
+      $result2 = db_query($sql2, $data2);
+
+      if( $result2){
+        $respuesta = true;
+      }
+
+    }
+  }
+
+  $result = db_query($sql, $data);
+
+  if ($result && $respuesta) {
+    $res = array(
+      'err' => false,
+      'msg' => 'Tu registro se efectuó con éxito.'
+    );
+
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error con el registro. Intenta nuevamente.'
+    );
+  }
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['idEditarComoPedir']) ){
+  update_form_como_pedir(
+    $_POST['tituloComoPedir'],
+    $_POST['videoComoPedir'],
+    $_POST['numeroPasosComoPedir'],
+    $_POST['contenidoPasosComoPedir'],
+    $_POST['idEditarComoPedir'],
+    $_POST['idPasosComoPedir'],
+    $_POST['idComoPedirPasosComoPedir']
+  );
+}
+
+
+
+function id_eliminar_paso($id_eliminar_paso){
+  $sql = "DELETE FROM pasos WHERE id_pasos = $id_eliminar_paso";
+
+  $data = array( $id_eliminar_paso );
+
+  $respuesta = db_query($sql, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_paso']) ) {
+  id_eliminar_paso( $_POST['id_eliminar_paso'] );
+}
 
 function id_eliminar_pregunta($id_eliminar_pregunta){
   $sql = "DELETE FROM afiliate_preguntas_subtitulos WHERE id = $id_eliminar_pregunta";

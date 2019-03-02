@@ -29,7 +29,7 @@ class GestorAfiliadosModel{
 	#VISUALIZAR PERFILES
 	#------------------------------------------------------
 	public function verAfiliadosModel($tabla){
-		$stmt = Conexion::conectar()->prepare("SELECT id, celular, nombre, apellidos FROM $tabla");
+		$stmt = Conexion::conectar()->prepare("SELECT id, celular, nombre, apellidos, tipo_doc, documento, cuenta_bancaria, banco, tipo_cuenta FROM $tabla");
 		$stmt -> execute();
 		return $stmt -> fetchAll();
 		$stmt -> close();
