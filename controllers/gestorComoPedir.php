@@ -3,7 +3,7 @@
 class ComoPedir{
 	public function seleccionarComoPedirController(){
     $respuesta = ComoPedirModels::seleccionarComoPedirModel("como_pedir", "pasos");
-    $respuesta2 = ComoPedirModels::seleccionarDosComoPedirModel("como_pedir", "pasos");
+
 
 		foreach ($respuesta as $row => $item){
       echo '
@@ -23,6 +23,7 @@ class ComoPedir{
           <h6 class="pedir__pasos__title">Pasos</h6>
         </div>
       <div class="pedir__pasos__parrafo-container">';
+      $respuesta2 = ComoPedirModels::seleccionarDosComoPedirModel("como_pedir", "pasos", $item['id']);
       foreach ( $respuesta2 as $row => $item2 ){
         echo '<div class="pedir__pasos__parrafo-content">
           <h6 class="pedir__pasos__number">'.$item2['numero_paso'].'</h6>

@@ -15,11 +15,12 @@ class ComoPedirModels{
 
 		$stmt->close();
   }
-  public function seleccionarDosComoPedirModel($tabla, $tabla2){
+  public function seleccionarDosComoPedirModel($tabla, $tabla2, $id){
     $sql = "SELECT cp.id, cp.titulo, cp.video,
     p.id_pasos, p.numero_paso, p.contenido_paso
     FROM $tabla as cp
-    LEFT JOIN $tabla2 as p ON cp.id = p.id_como_pedir";
+    LEFT JOIN $tabla2 as p ON cp.id = p.id_como_pedir
+    WHERE p.id_como_pedir = $id";
 
     $stmt = Conexion::conectar()->prepare($sql);
 

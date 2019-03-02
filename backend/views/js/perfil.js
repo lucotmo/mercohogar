@@ -105,6 +105,7 @@ const mensaje_ok = msg => `
 =============================================*/
 function tableVer(btn, idDato, respuesta){
   btn.addEventListener('click', function(e){
+    console.log(e.target)
     e.preventDefault()
     let data = new FormData(),
       id = e.target.dataset.id
@@ -247,6 +248,36 @@ if ( formGuardarNuestrosClientes ){
   formEventoSubmit(formGuardarNuestrosClientes)
 }
 
+
+if ( contentFormEditarNuestroCliente ){
+  let btnVerform = contentFormEditarNuestroCliente.querySelectorAll("#btnEliminarNuestrosClientes")
+  btnVerform.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      let data = new FormData(),
+        id = e.target.dataset.id
+      data.append('id_eliminar_nuestros_clientes', id)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res =>{
+          return(res.ok)
+            ? res.text()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          location.reload()
+        })
+        .catch(err =>{
+          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+          console.log(mensaje)
+        })
+    })
+  })
+}
+
 //console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
 /*=====  End of Nuestros clientes  ======*/
@@ -257,7 +288,7 @@ if ( formGuardarNuestrosClientes ){
 =            Como pedir            =
 =============================================*/
 
-const contentFormEditarComoPedir = document.querySelector('.pedir-content')
+const contentFormEditarComoPedir = document.querySelector('.pedir-container')
 const respuestaFormEditarComoPedir = document.querySelector('.containerFormComoPedir')
 
 if ( contentFormEditarComoPedir ){
@@ -267,9 +298,36 @@ if ( contentFormEditarComoPedir ){
   })
 }
 
-/* if ( respuestaFormEditarNuestroCliente ){
-  formEventoSubmit(respuestaFormEditarNuestroCliente)
-} */
+if ( contentFormEditarComoPedir ){
+  let btnVerform = contentFormEditarComoPedir.querySelectorAll("#btnEliminarComoPedir")
+  btnVerform.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      let data = new FormData(),
+        id = e.target.dataset.id
+      data.append('id_eliminar_como_pedir', id)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res =>{
+          return(res.ok)
+            ? res.text()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          //respuestaFormEditarComoPedir.innerHTML = `${res}`
+          location.reload()
+        })
+        .catch(err =>{
+          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+          console.log(mensaje)
+        })
+    })
+  })
+}
+
 
 /*=====  End of Como pedir  ======*/
 
@@ -296,6 +354,36 @@ if ( contentFormEditarAfiliateContenido ){
   let btnVerform = contentFormEditarAfiliateContenido.querySelectorAll("#btnEditarAfiliateContenido")
   btnVerform.forEach(function(btn){
     tableVer(btn, 'id_afiliate_contenido', respuestaFormFormulariosAfiliate)
+  })
+}
+
+
+if ( contentFormEditarAfiliateContenido ){
+  let btnVerform = contentFormEditarAfiliateContenido.querySelectorAll("#btnEliminarAfiliateContenido")
+  btnVerform.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault()
+      let data = new FormData(),
+        id = e.target.dataset.id
+      data.append('id_eliminar_afiliate_content', id)
+
+      fetch('views/modules/app.php', {
+        body: data,
+        method: 'post'
+      })
+        .then(res =>{
+          return(res.ok)
+            ? res.text()
+            : Promise.reject({ status: res.status, statusText: res.statusText })
+        })
+        .then(res => {
+          location.reload()
+        })
+        .catch(err =>{
+          let mensaje = mensaje_error(`Parece que hay un problema. Error ${err.status}: ${err.statusText}`)
+          console.log(mensaje)
+        })
+    })
   })
 }
 
@@ -584,10 +672,50 @@ if ( respuestaFormEditarComoPedir ){
 
 //console.log(document.querySelector('.formGuardarNuestrosClientes'))
 
-console.log('probando con lucho')
+
 
 
 /* como PEDIR */
 
 
 /* fin como pedir */
+
+const btnAgregarNuevoAfiliateContenido = document.querySelector('.btnAgregarNuevoAfiliateContenido')
+
+if ( btnAgregarNuevoAfiliateContenido ){
+  btnAgregarNuevoAfiliateContenido.addEventListener('click', function(e){
+    console.log(e.target)
+    respuestaFormFormulariosAfiliate.innerHTML = `
+    <div class="formModal-container">
+      <form class="formModal-content" method="post" enctype="multipart/form-data">
+        <a class="btnCerrarFormModal" href="" >X</a>
+        <h3 class="form-titulo">Nuevo Contenido</h3>
+        <div class="inpText-container">
+          <div class="inpText-content">
+            <label class="labelText" for="tituloAfiliateContenido">Titulo</label>
+            <input type="hidden" class="inpText" name="idNuevoAfiliateContenido" value="">
+            <input type="text" class="inpText" name="tituloNuevoAfiliateContenido" value="" id="tituloAfiliateContenido" placeholder="Titulo">
+          </div>
+        </div>
+        <div class="inpSelect-content" style="display:flex; flex-direction:column">
+          <label class="labelText" for="contenidoAfiliateContenido">Contenido</label>
+          <textarea class="inpText" name="contenidoNuevoAfiliateContenido" id="contenidoAfiliateContenido" cols="30" rows="10" placeholder="Contenido..."></textarea>
+        </div>
+        <div class="inpText-content">
+          <label class="labelText" for="videoAfiliateContenido">Url Video</label>
+          <input type="url" class="inpText" name="videoNuevoAfiliateContenido" value="" id="videoAfiliateContenido" placeholder="url video">
+        </div>
+        <div class="inpText-container">
+          <div class="inpSubmit-content">
+            <input type="submit" class="inpSubmit" value="Guardar">
+          </div>
+        </div>
+
+      </form>
+    </div>
+    `
+  })
+}
+
+
+console.log('probandoooooo con lucho')

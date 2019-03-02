@@ -1766,7 +1766,7 @@ function form_afiliate_portada ($idAfiliatePortada) {
           </div>
         </div>
         <div class="inpText-content">
-          <label class="labelText" for="imagenAfiliatePortada" id="arrastrarImagenProducto">Url Video</label>
+          <label class="labelText" for="imagenAfiliatePortada" id="arrastrarImagenProducto">Imagen</label>
           <input type="hidden" name="cargarImagenAfiliatePortada" value="'.$row['imagen'].'">
           <input class="imagenAfiliatePortada" type="file" class="inpText" name="imagenAfiliatePortada" id="imagenAfiliatePortada">
         </div>
@@ -1821,28 +1821,16 @@ function editar_form_portada ( $titulo, $subtitulo, $imagen, $id){
 }
 
 
-/*if (file_exists("../../views/imagenes/afiliate/presentacion405.jpg")) {
-  echo "The file  exists";
-} else {
-  echo "The file  does not exist";
-}*/
+
 
 if ( isset($_POST['idAfiliatePortada'])) {
-  /* echo "<pre>";
-  print_r($_FILES);
-  echo "</pre>";
-  exit; */
+
   if ( isset($_POST['tituloAfiliatePortada']) ){
 
     $ruta = null;
-    //echo 'probando';
     if ( !empty($_FILES["imagenAfiliatePortada"]["tmp_name"]) ){
       $imagen = $_FILES["imagenAfiliatePortada"]["tmp_name"];
 
-      /* echo "<pre>";
-      print_r($imagen);
-      echo "</pre>";
-      exit; */
       $imagedetails = getimagesize($_FILES['imagenAfiliatePortada']['tmp_name']);
 
       $width = $imagedetails[0];
@@ -1872,7 +1860,6 @@ if ( isset($_POST['idAfiliatePortada'])) {
       unlink("../../" . $_POST['cargarImagenAfiliatePortada']);
     }
     editar_form_portada(
-      //$_POST['imagenAfiliatePortada']
       $_POST['tituloAfiliatePortada'],
       $_POST['subtituloAfiliatePortada'],
       $ruta,
@@ -1880,8 +1867,6 @@ if ( isset($_POST['idAfiliatePortada'])) {
     );
   }
 }
-
-
 
 function form_afiliate_contenido ($idAfiliateContenido) {
   $sql = "SELECT *
@@ -1928,7 +1913,6 @@ function form_afiliate_contenido ($idAfiliateContenido) {
 
 if ( isset($_POST['id_afiliate_contenido']) )  form_afiliate_contenido($_POST['id_afiliate_contenido']);
 
-
 function editar_form_afiliate_contenido( $titulo, $contenido , $video , $id ){
   $sql = "UPDATE afiliate_contenido
     SET titulo = ?, contenido = ?, video = ?
@@ -1961,4 +1945,131 @@ if ( isset($_POST['tituloAfiliateContenido']) ){
     $_POST['videoAfiliateContenido'],
     $_POST['idAfiliateContenido']
   );
+}
+
+function crear_afiliate_contenido($titulo, $contenido, $video) {
+  $sql = "INSERT INTO afiliate_contenido
+  (titulo, contenido, video)
+  VALUES( ?, ?, ? )";
+
+  $data = array(
+    $titulo,
+    $contenido,
+    $video);
+
+
+  $result = db_query($sql, $data);
+
+  if ($result) {
+    $res = array(
+      'err' => false,
+      'msg' => 'el envio fue correcto'
+    );
+  } else {
+    $res = array(
+      'err' => true,
+      'msg' => 'Ocurrió un error al crear el producto.'
+    );
+  }
+
+  //header( 'Content-type: application/json' );
+  echo json_encode($res);
+}
+
+if ( isset($_POST['tituloNuevoAfiliateContenido']) ){
+  crear_afiliate_contenido(
+    $_POST['tituloNuevoAfiliateContenido'],
+    $_POST['contenidoNuevoAfiliateContenido'],
+    $_POST['videoNuevoAfiliateContenido']
+  );
+}
+
+
+function id_eliminar_como_pedir($id_eliminar_como_pedir){
+  $sql = "DELETE FROM como_pedir WHERE id = $id_eliminar_como_pedir";
+  $sql2 = "DELETE FROM pasos WHERE id_como_pedir = $id_eliminar_como_pedir";
+
+  $data = array( $id_eliminar_como_pedir );
+
+  $respuesta = db_query($sql, $data);
+  $respuesta2 = db_query($sql2, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_como_pedir']) ) {
+  id_eliminar_como_pedir( $_POST['id_eliminar_como_pedir'] );
+}
+
+
+
+
+
+function id_eliminar_nuestros_clientes($id_eliminar_nuestros_clientes){
+  $sql = "DELETE FROM nuestros_clientes WHERE id = $id_eliminar_nuestros_clientes";
+  $data = array( $id_eliminar_nuestros_clientes );
+  $respuesta = db_query($sql, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_nuestros_clientes']) ) {
+  id_eliminar_nuestros_clientes( $_POST['id_eliminar_nuestros_clientes'] );
+}
+
+
+
+
+function id_eliminar_afiliate_content($id_eliminar_afiliate_content){
+  $sql = "DELETE FROM afiliate_contenido WHERE id = $id_eliminar_afiliate_content";
+  $data = array( $id_eliminar_afiliate_content );
+  $respuesta = db_query($sql, $data);
+
+  if ( $respuesta ){
+    $res = array(
+      'err' => false,
+      'statusText' => 'Tu Eliminacion se efectuó con éxito.',
+      'status' => 200
+    );
+  }else {
+    $res = array(
+      'err' => true,
+      'statusText' => 'Tu Eliminacion no se efectuó con éxito.',
+      'status' => 400
+    );
+  }
+
+  echo json_encode($res);
+}
+
+if ( isset($_POST['id_eliminar_afiliate_content']) ) {
+  id_eliminar_afiliate_content( $_POST['id_eliminar_afiliate_content'] );
 }
