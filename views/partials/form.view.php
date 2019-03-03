@@ -1,6 +1,6 @@
 <div class="formularioPedido">
+  <a class="close-envio" href="#">x</a>
   <form class="formulario" >
-    <a class="close-envio" href="#">x</a>
     <div class="contenidoDatosFormularioPedido">
       <div class="celCod">
         <div class="celular">

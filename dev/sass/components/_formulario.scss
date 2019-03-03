@@ -1,11 +1,11 @@
 .close-envio{
-  position: absolute;
+  position: fixed;
   width: 100%;
   font-weight: 600;
-  font-size: 1.5em;
+  font-size: 1.8em;
   color: white;
-  top: -1.5em;
-  left: 0;
+  top: .5em;
+  right: .5em;
   text-align: end;
   padding-right: .5em;
 }
@@ -33,9 +33,11 @@
   justify-content: flex-start;
   max-width: 500px;
   background-color: white;
-  padding: 3em;
+  padding: 2em;
   border-radius: 5px;
   color: var(--alternate-modal-color);
+  max-height: 80vh;
+  overflow: auto;
 }
 
 .h1{
@@ -47,6 +49,7 @@
 .celCod, .nomApell, .ciuBarr,.direccion{
   flex-basis: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   justify-items: flex-end;
   margin-bottom: .5em;
@@ -62,6 +65,7 @@
 .cel-inp, .codRef-inp, .nom-inp, .ape-inp, .bar-inp, .dir-inp, .ciu-inp{
   height: 2.5em;
   border-radius: 5px;
+  width: 100%;
   //border: 2px solid var(--alternate-modal-color);
   border: 2px solid rgb(179, 170, 170);
   padding-left: .5em;
@@ -187,9 +191,10 @@
     background: var(--alternate-color);
     color: white;
     text-align: center;
-    height: 2em;
+    //height: 2em;
     border-radius: 5px;
     right: 0;
+    margin-bottom: 1em;
   }
 }
 
@@ -238,6 +243,8 @@
   background: white;
   border-radius: 5px;
   padding: 2em;
+  max-height:80vh;
+  overflow: auto;
 }
 .respuestaEnvio__title,.respuestaEnvio__saludo ,.respuestaEnvio__contact ,.respuestaEnvio__info{
   text-align: center;
@@ -259,6 +266,9 @@
   font-weight: 600;
   line-height: 1.2em;
   padding: .5em;
+  span{
+    text-transform: capitalize;
+  }
 }
 .respuestaEnvio__contact{
   font-size: 1.5em;
@@ -274,12 +284,22 @@
 }
 
 .closeRespuestaEnvio{
-  top: -1.5em;
+  top: .5em;
   text-align: end;
   right: .5em;
-  position: absolute;
+  position: fixed;
   width: 100%;
   max-width: 30em;
   font-size: 1.5em;
   color: white;
+}
+
+@include mq(m){
+  .celCod, .nomApell, .ciuBarr{
+    flex-direction: row;
+    width: 100%;
+  }
+  .cel-inp, .codRef-inp, .nom-inp, .ape-inp, .bar-inp, .dir-inp, .ciu-inp{
+    width: 100%;
+  }
 }
